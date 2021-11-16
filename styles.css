@@ -1,13 +1,13 @@
 body > table{
-    width: 80%;
+    width: 100%;
 }
 
 table{
     border-collapse: collapse;
 }
-table.list{
+/* table.list{
     width:100%;
-}
+} */
 
 td, th {
     border: 1px solid #dddddd;
@@ -18,7 +18,7 @@ tr:nth-child(even),table.list thead>tr {
     background-color: #dddddd;
 }
 
-input[type=text], input[type=number] {
+input[type=text], input[type=number], select{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -30,18 +30,20 @@ input[type=text], input[type=number] {
 
 input[type=submit]{
     width: 30%;
-    background-color: #ddd;
-    color: #000;
+    background-color: #9bc0b4;
+    color: rgb(248, 245, 245);
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     cursor: pointer;
+
 }
 
-form div.form-action-buttons{
-    text-align: right;
-}
+/* form div.form-action-buttons{
+    text-align: left;
+
+} */
 
 a{
     cursor: pointer;
@@ -57,4 +59,66 @@ label.validation-error{
 
 .hide{
     display:none;
+}
+.title {
+    -webkit-text-size-adjust: 100%;
+    pointer-events: auto;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: rockwell;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    letter-spacing: 0em;
+    line-height: 1.2em;
+    /* text-transform: uppercase; */
+    color: #9bc0b4;
+    /* margin-top: 15px; */
+    white-space: pre-wrap;
+}
+h2 {
+    color: #9bc0b4;
+}
+label {
+    color:teal;
+    font-weight:500;
+}
+
+#informe {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#informe td, #informe th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#informe tr:nth-child(even){background-color: #f2f2f2;}
+
+#informe tr:hover {background-color: #ddd;}
+
+#informe th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+#informe caption {
+
+    font-family: rockwell;
+    /* font-weight: bold; */
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem 0;
+    color: #9bc0b4;;
+}
+
+.content {
+    margin-top:auto;
+    margin-bottom:auto;
+    text-align:center;
 }

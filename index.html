@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        Html CRUD with Pure JavaScript
+        Lider en Salud Ocupacional
     </title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,48 +11,101 @@
 <body>
     <table>
         <tr>
-            <td>
-                <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="off">
-                    <div>
-                        <label>Full Name*</label><label class="validation-error hide" id="fullNameValidationError">This field is required.</label>
-                        <input type="text" name="fullName" id="fullName">
-                    </div>
-                    <div>
-                        <label>EMP Code</label>
-                        <input type="text" name="empCode" id="empCode">
-                    </div>
-                    <div>
-                        <label>Salary</label>
-                        <input type="text" name="salary" id="salary">
-                    </div>
-                    <div>
-                        <label>City</label>
-                        <input type="text" name="city" id="city">
-                    </div>
-                    <div  class="form-action-buttons">
-                        <input type="submit" value="Submit">
-                    </div>
-                </form>
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="assets/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
+                alt="SER SALUD" 
+                style="width:100px;height:100px;">
             </td>
-            <td>
-                <table class="list" id="employeeList">
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>EMP Code</th>
-                            <th>Salary</th>
-                            <th>City</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+            <td style="text-align: left; vertical-align: middle; padding: 20px;">
+                <h2 class="title">Nomina de Backups</h2> 
             </td>
         </tr>
     </table>
+
+    <table>
+        <form onsubmit="event.preventDefault();onFormSubmit();" autocomplete="on">
+            <tr>
+                <td style="width:50%;">
+                    <div>
+                        <label>Nombre</label><label class="validation-error hide" id="nombreValidationError">This field is required.</label>
+                        <input type="text" name="nombre" id="nombre">
+                    </div>
+                    <div>
+                        <label>Cedula</label>
+                        <input type="text" name="cedula" id="cedula">
+                    </div>
+                    <div>
+                        <label>Concepto</label>
+                        <select name="concepto" id="concepto">
+                            <option value="licencisMedica">Licencis Medica</option>
+                            <option value="permiso">Permiso</option>
+                            <option value="entrenamiento">Entrenamiento</option>
+                            <option value="feriado">Feriado</option>
+                            <option value="horasAdcionales">Horas Adcionales</option>
+                            <option value="jornada">Jornada</option>
+                            <option value="permisoDeMatrimonio">Mercedes</option>
+                            <option value="permisoDeDefuncion">Permiso De Defuncion</option>
+                            <option value="servicoPuntual">Servico Puntual</option>
+                            <option value="serviciosAdicionales">Servicios Adicionales</option>
+                            <option value="vacantes">vacantes</option>
+                        </select>
+                            
+                    </div>
+                    <div>
+                        <label>Localidad</label>
+                        <input type="text" name="localidad" id="localidad">
+                    </div>
+                    <div>
+                        <label>Nombre De la Persona Cubierta</label>
+                        <input type="text" name="personaCubierta" id="personaCubierta">
+                    </div>
+                </td>
+                <td style="width:50%;">
+                    <div>
+                        <label>Fecha</label>
+                        <input type="text" name="fecha" id="fecha">
+                    </div>
+                    <div>
+                        <label>Horas</label>
+                        <input type="text" name="horas" id="horas">
+                    </div>
+                    <div>
+                        <label>Evidencia</label>
+                        <input type="text" name="evidencia" id="evidencia">
+                    </div>
+                    <div>
+                        <label>Supervisora</label>
+                        <input type="text" name="supervisora" id="supervisora">
+                    </div>
+                    <div class="content">
+                        <input type="submit" value="Submit">
+                    </div>
+                </td>
+            </tr>
+        </form>
+    </table>
+    <br>
+    <table id="informe">
+        <caption>Solicitudes de Pagos</caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cedula</th>
+                <th>Concepto</th>
+                <th>Localidad</th>
+                <th>Persona Cubierta</th>
+                <th>Fecha</th>
+                <th>Horas</th>
+                <th>Evidencia</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
     <script src="script.js"></script>
+
 </body>
 
 </html>
