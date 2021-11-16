@@ -20,6 +20,11 @@ function readFormData() {
     formData["cedula"] = document.getElementById("cedula").value;
     formData["concepto"] = document.getElementById("concepto").value;
     formData["localidad"] = document.getElementById("localidad").value;
+    formData["personaCubierta"] = document.getElementById("personaCubierta").value;
+    formData["fecha"] = document.getElementById("fecha").value;
+    formData["horas"] = document.getElementById("horas").value;
+    formData["evidencia"] = document.getElementById("evidencia").value;
+    formData["supervisora"] = document.getElementById("supervisora").value; 
     return formData;
 }
 
@@ -55,6 +60,12 @@ function resetForm() {
     document.getElementById("cedula").value = "";
     document.getElementById("concepto").value = "";
     document.getElementById("localidad").value = "";
+    document.getElementById("personaCubierta").value = "";
+    document.getElementById("fecha").value = "";
+    document.getElementById("horas").value = "";
+    document.getElementById("evidencia").value = "";
+    document.getElementById("supervisora").value = "";
+
     selectedRow = null;
 }
 
@@ -64,12 +75,22 @@ function onEdit(td) {
     document.getElementById("cedula").value = selectedRow.cells[1].innerHTML;
     document.getElementById("concepto").value = selectedRow.cells[2].innerHTML;
     document.getElementById("localidad").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("personaCubierta").value = selectedRow.cells[4].innerHTML;
+    document.getElementById("fecha").value = selectedRow.cells[5].innerHTML;
+    document.getElementById("horas").value = selectedRow.cells[6].innerHTML;
+    document.getElementById("evidencia").value = selectedRow.cells[7].innerHTML;
+    document.getElementById("supervisora").value = selectedRow.cells[8].innerHTML;
 }
 function updateRecord(formData) {
     selectedRow.cells[0].innerHTML = formData.nombre;
     selectedRow.cells[1].innerHTML = formData.cedula;
     selectedRow.cells[2].innerHTML = formData.Concepto;
     selectedRow.cells[3].innerHTML = formData.Localidad;
+    selectedRow.cells[4].innerHTML = formData.nombre;
+    selectedRow.cells[5].innerHTML = formData.cedula;
+    selectedRow.cells[6].innerHTML = formData.Concepto;
+    selectedRow.cells[7].innerHTML = formData.Localidad;
+    selectedRow.cells[8].innerHTML = formData.Localidad;
 }
 
 function onDelete(td) {
