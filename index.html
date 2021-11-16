@@ -27,16 +27,17 @@
             <tr>
                 <td style="width:50%;">
                     <div>
-                        <label>Nombre</label><label class="validation-error hide" id="nombreValidationError">This field is required.</label>
+                        <label>Nombre</label><label class="validation-error hide" id="nombreValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="nombre" id="nombre">
                     </div>
                     <div>
-                        <label>Cedula</label>
+                        <label>Cedula</label><label class="validation-error hide" id="cedulaValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="cedula" id="cedula">
                     </div>
                     <div>
-                        <label>Concepto</label>
+                        <label>Concepto</label><label class="validation-error hide" id="conceptoValidationError">Este campo es obligatorio.</label>
                         <select name="concepto" id="concepto">
+                            <option disabled selected value> -- Seleccionar una opcion -- </option>
                             <option value="licencisMedica">Licencis Medica</option>
                             <option value="permiso">Permiso</option>
                             <option value="entrenamiento">Entrenamiento</option>
@@ -52,21 +53,21 @@
                             
                     </div>
                     <div>
-                        <label>Localidad</label>
+                        <label>Localidad</label><label class="validation-error hide" id="localidadValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="localidad" id="localidad">
                     </div>
                     <div>
-                        <label>Nombre De la Persona Cubierta</label>
+                        <label>Nombre De la Persona Cubierta</label><label class="validation-error hide" id="personaCubiertaValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="personaCubierta" id="personaCubierta">
                     </div>
                 </td>
                 <td style="width:50%;">
                     <div>
-                        <label>Fecha</label>
+                        <label>Fecha</label><label class="validation-error hide" id="fechaValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="fecha" id="fecha">
                     </div>
                     <div>
-                        <label>Horas</label>
+                        <label>Horas</label><label class="validation-error hide" id="horasValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="horas" id="horas">
                     </div>
                     <div>
@@ -74,7 +75,7 @@
                         <input type="text" name="evidencia" id="evidencia">
                     </div>
                     <div>
-                        <label>Supervisora</label>
+                        <label>Supervisora</label><label class="validation-error hide" id="supervisoraValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="supervisora" id="supervisora">
                     </div>
                     <div class="content">

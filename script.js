@@ -101,6 +101,10 @@ function onDelete(td) {
     }
 }
 function validate() {
+
+    // console.log(document.getElementById("concepto").value);
+    // return
+
     isValid = true;
     if (document.getElementById("nombre").value == "") {
         isValid = false;
@@ -117,6 +121,54 @@ function validate() {
         isValid = true;
         if (!document.getElementById("cedulaValidationError").classList.contains("hide"))
             document.getElementById("cedulaValidationError").classList.add("hide");
+    }
+    if (document.getElementById("concepto").value == "") {
+        isValid = false;
+        document.getElementById("conceptoValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("conceptoValidationError").classList.contains("hide"))
+            document.getElementById("conceptoValidationError").classList.add("hide");
+    }
+    if (document.getElementById("localidad").value == "") {
+        isValid = false;
+        document.getElementById("localidadValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("localidadValidationError").classList.contains("hide"))
+            document.getElementById("localidadValidationError").classList.add("hide");
+    }
+    if (document.getElementById("personaCubierta").value == "") {
+        isValid = false;
+        document.getElementById("personaCubiertaValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("personaCubiertaValidationError").classList.contains("hide"))
+            document.getElementById("personaCubiertaValidationError").classList.add("hide");
+    }
+    if (document.getElementById("fecha").value == "") {
+        isValid = false;
+        document.getElementById("fechaValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("fechaValidationError").classList.contains("hide"))
+            document.getElementById("fechaValidationError").classList.add("hide");
+    }
+    if (document.getElementById("horas").value == "") {
+        isValid = false;
+        document.getElementById("horasValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("horasValidationError").classList.contains("hide"))
+            document.getElementById("horasValidationError").classList.add("hide");
+    }
+    if (document.getElementById("supervisora").value == "") {
+        isValid = false;
+        document.getElementById("supervisoraValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("supervisoraValidationError").classList.contains("hide"))
+            document.getElementById("supervisoraValidationError").classList.add("hide");
     }
     return isValid;
 }
