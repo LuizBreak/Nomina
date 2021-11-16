@@ -4,7 +4,7 @@ Pure JavaScript CRUD Operations with Html using API calls to AWS lambda function
 Content discussed : 
 - Design HTML Form
 - HTML Form Validation
-- HTML Table CRUD Operations
+- AWS API CRUD Operations
 
 ## Get the Code
 
