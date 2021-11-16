@@ -6,8 +6,11 @@ function onFormSubmit() {
     if (validate()) {
         var formData = readFormData();
         if (selectedRow == null)
+        {
             fetchApiData2()
+            createForm();
             //insertNewRecord(formData);
+        }
         else
             updateRecord(formData);
         resetForm();
@@ -16,15 +19,15 @@ function onFormSubmit() {
 
 function readFormData() {
     var formData = {};
-    formData["nombre"] = document.getElementById("nombre").value;
+    formData["ddNombreBkp"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;
     formData["concepto"] = document.getElementById("concepto").value;
     formData["localidad"] = document.getElementById("localidad").value;
-    formData["personaCubierta"] = document.getElementById("personaCubierta").value;
+    formData["ddNombreCubierta"] = document.getElementById("ddNombreCubierta").value;
     formData["fecha"] = document.getElementById("fecha").value;
     formData["horas"] = document.getElementById("horas").value;
     formData["evidencia"] = document.getElementById("evidencia").value;
-    formData["supervisora"] = document.getElementById("supervisora").value; 
+    formData["ddSupervisor"] = document.getElementById("ddSupervisor").value; 
     return formData;
 }
 
@@ -57,31 +60,76 @@ function insertNewRecord(element) {
 
 }
 
+function createForm(){
+    // populate the dropdowns with API data
+
+    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/all';
+    
+    var selectNombreBkp = document.getElementById("ddNombreBkp");
+    var selectCubierta = document.getElementById("ddNombreCubierta");
+    var selectSupervisor = document.getElementById("ddSupervisor");
+
+    fetch(url)
+    .then((resp) => resp.json())
+    .then(function(data) {
+    let resources = data.Items;
+    return resources.map(function(resources) {
+
+        console.log(resources.nombre)
+        console.log(resources.cargo)
+        if (resources.cargo == 'Supervisor'|| resources.cargo == 'Supervisora') {
+
+            option = document.createElement('option');
+            option.setAttribute('value', resources.nombre);
+            option.appendChild(document.createTextNode(resources.nombre));
+            selectSupervisor.appendChild(option);
+    
+        } else if (resources.cargo == 'Medico' || resources.cargo == 'Enfermero' || resources.cargo == 'Enfermera') {
+
+            option = document.createElement('option');
+            option.setAttribute('value', resources.nombre);
+            option.appendChild(document.createTextNode(resources.nombre));
+            selectCubierta.appendChild(option);
+    
+        } else {
+            option = document.createElement('option');
+            option.setAttribute('value', resources.nombre);
+            option.appendChild(document.createTextNode(resources.nombre));
+            selectNombreBkp.appendChild(option); 
+        }
+
+
+        })
+    })
+    .catch(function(error) {
+    console.log(error);
+    });
+}
 function resetForm() {
-    document.getElementById("nombre").value = "";
+    document.getElementById("ddNombreBkp").value = "";
     document.getElementById("cedula").value = "";
     document.getElementById("concepto").value = "";
     document.getElementById("localidad").value = "";
-    document.getElementById("personaCubierta").value = "";
+    document.getElementById("ddNombreCubierta").value = "";
     document.getElementById("fecha").value = "";
     document.getElementById("horas").value = "";
     document.getElementById("evidencia").value = "";
-    document.getElementById("supervisora").value = "";
+    document.getElementById("ddSupervisor").value = "";
 
     selectedRow = null;
 }
 
 function onEdit(td) {
     selectedRow = td.parentElement.parentElement;
-    document.getElementById("nombre").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("ddNombreBkp").value = selectedRow.cells[0].innerHTML;
     document.getElementById("cedula").value = selectedRow.cells[1].innerHTML;
     document.getElementById("concepto").value = selectedRow.cells[2].innerHTML;
     document.getElementById("localidad").value = selectedRow.cells[3].innerHTML;
-    document.getElementById("personaCubierta").value = selectedRow.cells[4].innerHTML;
+    document.getElementById("ddNombreCubierta").value = selectedRow.cells[4].innerHTML;
     document.getElementById("fecha").value = selectedRow.cells[5].innerHTML;
     document.getElementById("horas").value = selectedRow.cells[6].innerHTML;
     document.getElementById("evidencia").value = selectedRow.cells[7].innerHTML;
-    document.getElementById("supervisora").value = selectedRow.cells[8].innerHTML;
+    document.getElementById("ddSupervisor").value = selectedRow.cells[8].innerHTML;
 }
 function updateRecord(formData) {
     selectedRow.cells[0].innerHTML = formData.nombre;
@@ -108,14 +156,14 @@ function validate() {
     // return
 
     isValid = true;
-    if (document.getElementById("nombre").value == "") {
-        isValid = false;
-        document.getElementById("nombreValidationError").classList.remove("hide");
-    } else {
-        isValid = true;
-        if (!document.getElementById("nombreValidationError").classList.contains("hide"))
-            document.getElementById("nombreValidationError").classList.add("hide");
-    }
+    // if (document.getElementById("ddNombreBkp").value == "") {
+    //     isValid = false;
+    //     document.getElementById("ddNombreBkpValidationError").classList.remove("hide");
+    // } else {
+    //     isValid = true;
+    //     if (!document.getElementById("ddNombreBkpValidationError").classList.contains("hide"))
+    //         document.getElementById("ddNombreBkpValidationError").classList.add("hide");
+    // }
     if (document.getElementById("cedula").value == "") {
         isValid = false;
         document.getElementById("cedulaValidationError").classList.remove("hide");
@@ -182,7 +230,7 @@ function fetchApiData2(){
     console.log("Pasamos por fetchApiData2")
     // const url = 'https://d51wibckd0.execute-api.us-east-1.amazonaws.com/dev/items'; CpnchApp
 
-    const url = 'https://9ueinn7zek.execute-api.us-east-1.amazonaws.com/nomina/all';
+    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/nomina/all';
     var done = false;
 
     fetch(url)
