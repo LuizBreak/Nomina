@@ -110,6 +110,14 @@ function validate() {
         if (!document.getElementById("nombreValidationError").classList.contains("hide"))
             document.getElementById("nombreValidationError").classList.add("hide");
     }
+    if (document.getElementById("cedula").value == "") {
+        isValid = false;
+        document.getElementById("cedulaValidationError").classList.remove("hide");
+    } else {
+        isValid = true;
+        if (!document.getElementById("cedulaValidationError").classList.contains("hide"))
+            document.getElementById("cedulaValidationError").classList.add("hide");
+    }
     return isValid;
 }
 
