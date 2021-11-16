@@ -11,3 +11,6 @@ Content discussed :
 ```
 $ git clone https://github.com/hcadmin/Nomina.git
 ```
+
+## Credits to https://github.com/CodAffection
+All creditis should go to CoAffection that provided me the based code as a starting point and inspirations. Thank You! @CodAffection
