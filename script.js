@@ -36,21 +36,23 @@ function insertNewRecord(element) {
         var newRow = table.insertRow(table.length);
 
         cell1 = newRow.insertCell(0);
-        cell1.innerHTML = element.fromUser;
+        cell1.innerHTML = element.nombre;
         cell2 = newRow.insertCell(1);
-        cell2.innerHTML = element.transactionDate;
+        cell2.innerHTML = element.cedula;
         cell3 = newRow.insertCell(2);
-        cell3.innerHTML = element.transactionType;
+        cell3.innerHTML = element.concepto;
         cell4 = newRow.insertCell(3);
-        cell4.innerHTML = element.locationName;
+        cell4.innerHTML = element.Localidad;
         cell4 = newRow.insertCell(4);
-        cell4.innerHTML = element.amount;
+        cell4.innerHTML = element.personaCubierta;
         cell5 = newRow.insertCell(5);
-        cell5.innerHTML = element.amount;
+        cell5.innerHTML = element.fecha;
         cell6 = newRow.insertCell(6);
-        cell6.innerHTML = element.amount;
+        cell6.innerHTML = element.hora;
         cell7 = newRow.insertCell(7);
-        cell7.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+        cell7.innerHTML = element.evidencia;
+        cell8 = newRow.insertCell(8);
+        cell8.innerHTML = `<a onClick="onEdit(this)">Edit</a>
                         <a onClick="onDelete(this)">Delete</a>`;
 
 }
@@ -177,7 +179,10 @@ function fetchApiData2(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 
-    const url = 'https://d51wibckd0.execute-api.us-east-1.amazonaws.com/dev/items';
+    console.log("Pasamos por fetchApiData2")
+    // const url = 'https://d51wibckd0.execute-api.us-east-1.amazonaws.com/dev/items'; CpnchApp
+
+    const url = 'https://9ueinn7zek.execute-api.us-east-1.amazonaws.com/nomina/all';
     var done = false;
 
     fetch(url)
@@ -200,6 +205,7 @@ function postApiData2(){
     // Article Reference: https://stackabuse.com/using-fetch-to-send-http-requests-in-javascript/
 
     const url = 'https://w2edkzxi8h.execute-api.us-east-1.amazonaws.com/common/api/v1/transactions';
+    
 
     let data = {
         "fromUser": "source-user-Z",
@@ -214,6 +220,7 @@ function postApiData2(){
         "longitude": 0,
         "latitude": 0
     }
+
 
     var request = new Request(url, {
         method: 'POST',
