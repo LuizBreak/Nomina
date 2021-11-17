@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <table>
+    <table style="width:40%; border:1px solid black;margin-left:auto;margin-right:auto;">
         <tr>
             <td style="text-align: center; vertical-align: middle;">
                 <img src="assets/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
@@ -26,12 +26,18 @@
         </tr>
     </table>
 
-    <table>
+    <table style="width:40%; border:1px solid black;margin-left:auto;margin-right:auto;">
         <form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="on">
             <tr>
-                <td style="width:50%;">
+                <td style="width:40%;">
                     <div>
-                        <label>Nombre</label><label class="validation-error hide" id="ddNombreBkpValidationError">Este campo es obligatorio.</label>
+                        <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">Este campo es obligatorio.</label>
+                        <select name="ddSupervisor" id="ddSupervisor">
+                            <option disabled selected value> -- Seleccionar una opcion -- </option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Nombre del backup</label><label class="validation-error hide" id="ddNombreBkpValidationError">Este campo es obligatorio.</label>
                         <select name="ddNombreBkp" id="ddNombreBkp">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                         </select>
@@ -63,13 +69,11 @@
                         <input type="text" name="localidad" id="localidad">
                     </div>
                     <div>
-                        <label>Nombre De la Persona Cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">Este campo es obligatorio.</label>
+                        <label>Nombre de la persona cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">Este campo es obligatorio.</label>
                         <select name="ddNombreCubierta" id="ddNombreCubierta">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                         </select>
                     </div>
-                </td>
-                <td style="width:50%;">
                     <div>
                         <label>Dias de cobertura</label><label class="validation-error hide" id="diasCoberturaValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="diasCobertura" id="diasCobertura">
@@ -78,6 +82,7 @@
                         <label>Mes de cobertura</label><label class="validation-error hide" id="mesCoberturaValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="mesCobertura" id="mesCobertura">
                     </div>
+                    
                     <div>
                         <label>Hora de entrada</label><label class="validation-error hide" id="horaEntradaValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="horaEntrada" id="horaEntrada">
@@ -91,22 +96,16 @@
                         <input type="text" name="horaAlmuerzo" id="horaAlmuerzo">
                     </div>
                     <div>
-                        <label>Montos Negociados</label><label class="validation-error hide" id="montosNegociadosValidationError">Este campo es obligatorio.</label>
+                        <label>Montos negociados</label><label class="validation-error hide" id="montosNegociadosValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="montosNegociados" id="montosNegociados">
                     </div>
                     <div>
-                        <label>Comentarios Adicionales</label><label class="validation-error hide" id="comentariosAdicionalesValidationError">Este campo es obligatorio.</label>
+                        <label>Comentarios adicionales</label><label class="validation-error hide" id="comentariosAdicionalesValidationError">Este campo es obligatorio.</label>
                         <input type="text" name="comentariosAdicionales" id="comentariosAdicionales">
                     </div>
                     <div>
                         <label>Evidencia</label>
                         <input type="text" name="evidencia" id="evidencia">
-                    </div>
-                    <div>
-                        <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">Este campo es obligatorio.</label>
-                        <select name="ddSupervisor" id="ddSupervisor">
-                            <option disabled selected value> -- Seleccionar una opcion -- </option>
-                        </select>
                     </div>
                     <div class="content">
                         <input type="submit" value="Submit">

@@ -49,15 +49,15 @@ function refreshNominaReport(element) {
         var newRow = table.insertRow(table.length);
 
         cell1 = newRow.insertCell(0);
-        cell1.innerHTML = element.ddNombreBkp;
+        cell1.innerHTML = element.nombre;
         cell2 = newRow.insertCell(1);
         cell2.innerHTML = element.cedula;
         cell3 = newRow.insertCell(2);
         cell3.innerHTML = element.concepto;
         cell4 = newRow.insertCell(3);
-        cell4.innerHTML = element.localidad;
+        cell4.innerHTML = element.Localidad;
         cell5 = newRow.insertCell(4);
-        cell5.innerHTML = element.ddNombreCubierta;
+        cell5.innerHTML = element.personaCubierta;
         cell6 = newRow.insertCell(5);
         cell6.innerHTML = element.diasCobertura;
         cell7 = newRow.insertCell(6);
@@ -75,7 +75,7 @@ function refreshNominaReport(element) {
         cell13 = newRow.insertCell(12);
         cell13.innerHTML = element.evidencia;
         cell14 = newRow.insertCell(13);
-        cell14.innerHTML = element.ddSupervisor;
+        cell14.innerHTML = element.supervisor;
         cell15 = newRow.insertCell(14);
         cell15.innerHTML = `<a onClick="onEdit(this)">Edit</a>
                             <a onClick="onDelete(this)">Delete</a>`;
@@ -247,7 +247,7 @@ function SetValidationError(FieldName, ErrorlabelName) {
     }
 }
 
-function fetchApiData2(){
+function fetchApiData(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 
