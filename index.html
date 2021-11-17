@@ -63,7 +63,7 @@
                         <input type="text" name="localidad" id="localidad">
                     </div>
                     <div>
-                        <label>Nombre De la Persona Cubierta</label><label class="validation-error hide" id="personaCubiertaValidationError">Este campo es obligatorio.</label>
+                        <label>Nombre De la Persona Cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">Este campo es obligatorio.</label>
                         <select name="ddNombreCubierta" id="ddNombreCubierta">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                         </select>
@@ -71,19 +71,39 @@
                 </td>
                 <td style="width:50%;">
                     <div>
-                        <label>Fecha</label><label class="validation-error hide" id="fechaValidationError">Este campo es obligatorio.</label>
-                        <input type="text" name="fecha" id="fecha">
+                        <label>Dias de cobertura</label><label class="validation-error hide" id="diasCoberturaValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="diasCobertura" id="diasCobertura">
                     </div>
                     <div>
-                        <label>Horas</label><label class="validation-error hide" id="horasValidationError">Este campo es obligatorio.</label>
-                        <input type="text" name="horas" id="horas">
+                        <label>Mes de cobertura</label><label class="validation-error hide" id="mesCoberturaValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="mesCobertura" id="mesCobertura">
+                    </div>
+                    <div>
+                        <label>Hora de entrada</label><label class="validation-error hide" id="horaEntradaValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="horaEntrada" id="horaEntrada">
+                    </div>
+                    <div>
+                        <label>Hora de salida</label><label class="validation-error hide" id="horaSalidaValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="horaSalida" id="horaSalida">
+                    </div>
+                    <div>
+                        <label>Mantener hora de almuerzo</label><label class="validation-error hide" id="horaAlmuerzoValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="horaAlmuerzo" id="horaAlmuerzo">
+                    </div>
+                    <div>
+                        <label>Montos Negociados</label><label class="validation-error hide" id="montosNegociadosValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="montosNegociados" id="montosNegociados">
+                    </div>
+                    <div>
+                        <label>Comentarios Adicionales</label><label class="validation-error hide" id="comentariosAdicionalesValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="comentariosAdicionales" id="comentariosAdicionales">
                     </div>
                     <div>
                         <label>Evidencia</label>
                         <input type="text" name="evidencia" id="evidencia">
                     </div>
                     <div>
-                        <label>Supervisora</label><label class="validation-error hide" id="supervisoraValidationError">Este campo es obligatorio.</label>
+                        <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">Este campo es obligatorio.</label>
                         <select name="ddSupervisor" id="ddSupervisor">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                         </select>
@@ -108,8 +128,13 @@
                 <th>Concepto</th>
                 <th>Localidad</th>
                 <th>Persona Cubierta</th>
-                <th>Fecha</th>
-                <th>Horas</th>
+                <th>Dias de cobertura</th>
+                <th>Mes de cobertura</th>
+                <th>Hora de entrada</th>
+                <th>Hora de salida</th>
+                <th>Mantener hora de almuerzo</th>
+                <th>Montos Negociados</th>
+                <th>Comentarios Adicionales</th>
                 <th>Evidencia</th>
                 <th>Supervisor</th>
                 <th>Action</th>
