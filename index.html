@@ -6,6 +6,10 @@
         Lider en Salud Ocupacional
     </title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script type="text/javascript">
+        window.onload = createForm;
+    </script>
 </head>
 
 <body>
@@ -60,7 +64,6 @@
                     </div>
                     <div>
                         <label>Nombre De la Persona Cubierta</label><label class="validation-error hide" id="personaCubiertaValidationError">Este campo es obligatorio.</label>
-                        <input type="text" name="personaCubierta" id="personaCubierta">
                         <select name="ddNombreCubierta" id="ddNombreCubierta">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                         </select>
@@ -81,21 +84,23 @@
                     </div>
                     <div>
                         <label>Supervisora</label><label class="validation-error hide" id="supervisoraValidationError">Este campo es obligatorio.</label>
-                        <input type="text" name="supervisora" id="supervisora">
                         <select name="ddSupervisor" id="ddSupervisor">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                         </select>
                     </div>
                     <div class="content">
                         <input type="submit" value="Submit">
+                        <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
             </tr>
         </form>
     </table>
     <br>
+
     <table id="informe">
         <caption>Solicitudes de Pagos</caption>
+
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -106,6 +111,10 @@
                 <th>Fecha</th>
                 <th>Horas</th>
                 <th>Evidencia</th>
+                <th>Supervisor</th>
+                <th>Action</th>
+                <th>Timestamp</th>
+
             </tr>
         </thead>
         <tbody>
@@ -113,7 +122,6 @@
         </tbody>
     </table>
 
-    <script src="script.js"></script>
 
 </body>
 
