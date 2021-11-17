@@ -1,15 +1,13 @@
 var selectedRow = null
 
-
 function onFormSubmit() {
 
     if (validate()) {
         var formData = readFormData();
         if (selectedRow == null)
         {
-            fetchApiData2()
-            createForm();
-            //insertNewRecord(formData);
+            addNominaEntry();
+            fetchApiData();
         }
         else
             updateRecord(formData);
@@ -18,8 +16,13 @@ function onFormSubmit() {
 }
 
 function readFormData() {
+
     var formData = {};
-    formData["ddNombreBkp"] = document.getElementById("ddNombreBkp").value;
+    
+    // primary key
+    formData["timestamp"] = document.getElementById("timestamp").value;
+
+    formData["NombreBkp"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;
     formData["concepto"] = document.getElementById("concepto").value;
     formData["localidad"] = document.getElementById("localidad").value;
@@ -31,12 +34,14 @@ function readFormData() {
     formData["horaAlmuerzo"] = document.getElementById("horaAlmuerzo").value;
     formData["montosNegociados"] = document.getElementById("montosNegociados").value;
     formData["comentariosAdicionales"] = document.getElementById("comentariosAdicionales").value;
+
     formData["evidencia"] = document.getElementById("evidencia").value;
-    formData["ddSupervisor"] = document.getElementById("ddSupervisor").value; 
+    formData["supervisor"] = document.getElementById("ddSupervisor").value;
+
     return formData;
 }
 
-function insertNewRecord(element) {
+function refreshNominaReport(element) {
     
     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
     
@@ -73,8 +78,10 @@ function insertNewRecord(element) {
         cell14.innerHTML = element.ddSupervisor;
         cell15 = newRow.insertCell(14);
         cell15.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-                        <a onClick="onDelete(this)">Delete</a>`;
+                            <a onClick="onDelete(this)">Delete</a>`;
 
+        cell10 = newRow.insertCell(10);
+        cell10.innerHTML = element.timestamp;
 }
 
 function createForm(){
@@ -92,8 +99,8 @@ function createForm(){
     let resources = data.Items;
     return resources.map(function(resources) {
 
-        console.log(resources.nombre)
-        console.log(resources.cargo)
+        // console.log(resources.nombre)
+        // console.log(resources.cargo)
         if (resources.cargo == 'Supervisor'|| resources.cargo == 'Supervisora') {
 
             option = document.createElement('option');
@@ -121,6 +128,8 @@ function createForm(){
     .catch(function(error) {
     console.log(error);
     });
+
+    fetchApiData();
 }
 function resetForm() {
     document.getElementById("ddNombreBkp").value = "";
@@ -137,17 +146,25 @@ function resetForm() {
     document.getElementById("comentariosAdicionales").value = "";
     document.getElementById("evidencia").value = "";
     document.getElementById("ddSupervisor").value = "";
+    document.getElementById("timestamp").value = "";
 
     selectedRow = null;
 }
 
 function onEdit(td) {
     selectedRow = td.parentElement.parentElement;
-    document.getElementById("ddNombreBkp").value = selectedRow.cells[0].innerHTML;
+
+    var objSelect = document.getElementById("ddNombreBkp");
+    setSelectedValue(objSelect, selectedRow.cells[0].innerHTML);
+    // document.getElementById("ddNombreBkp").value = selectedRow.cells[0].innerHTML;
+
     document.getElementById("cedula").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("concepto").value = selectedRow.cells[2].innerHTML;
+
+    var objSelect = document.getElementById("concepto");
+    setSelectedValue(objSelect, selectedRow.cells[2].innerHTML);
+    // document.getElementById("concepto").value = selectedRow.cells[2].innerHTML;
+
     document.getElementById("localidad").value = selectedRow.cells[3].innerHTML;
-    document.getElementById("ddNombreCubierta").value = selectedRow.cells[4].innerHTML;
     document.getElementById("diasCobertura").value = selectedRow.cells[5].innerHTML;
     document.getElementById("mesCobertura").value = selectedRow.cells[6].innerHTML;
     document.getElementById("horaEntrada").value = selectedRow.cells[7].innerHTML;
@@ -157,6 +174,16 @@ function onEdit(td) {
     document.getElementById("comentariosAdicionales").value = selectedRow.cells[11].innerHTML;
     document.getElementById("evidencia").value = selectedRow.cells[12].innerHTML;
     document.getElementById("ddSupervisor").value = selectedRow.cells[13].innerHTML;
+
+    var objSelect = document.getElementById("ddNombreCubierta");
+    setSelectedValue(objSelect, selectedRow.cells[4].innerHTML);
+    // document.getElementById("ddNombreCubierta").value = selectedRow.cells[4].innerHTML;
+        
+    var objSelect = document.getElementById("ddSupervisor");
+    setSelectedValue(objSelect, selectedRow.cells[8].innerHTML);
+    // document.getElementById("ddSupervisor").value = selectedRow.cells[8].innerHTML;
+    // [9] -> Action
+    document.getElementById("timestamp").value = selectedRow.cells[10].innerHTML;
 }
 function updateRecord(formData) {
     selectedRow.cells[0].innerHTML = formData.ddNombreBkp;
@@ -173,12 +200,14 @@ function updateRecord(formData) {
     selectedRow.cells[11].innerHTML = formData.comentariosAdicionales;
     selectedRow.cells[12].innerHTML = formData.evidencia;
     selectedRow.cells[13].innerHTML = formData.ddSupervisor;
+    // [14] -> Action 
+    selectedRow.cells[15].innerHTML = formData.timestamp;
 }
 
 function onDelete(td) {
     if (confirm('Are you sure to delete this record ?')) {
         row = td.parentElement.parentElement;
-        document.getElementById("employeeList").deleteRow(row.rowIndex);
+        document.getElementById("timestamp").deleteRow(row.rowIndex);
         resetForm();
     }
 }
@@ -217,23 +246,20 @@ function SetValidationError(FieldName, ErrorlabelName) {
             document.getElementById(ErrorlabelName).classList.add("hide");
     }
 }
+
 function fetchApiData2(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 
-    console.log("Pasamos por fetchApiData2")
-    // const url = 'https://d51wibckd0.execute-api.us-east-1.amazonaws.com/dev/items'; CpnchApp
-
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/nomina/all';
-    var done = false;
 
     fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
-    let authors = data.Items;
-    return authors.map(function(author) {
+    let nominaItems = data.Items;
+    return nominaItems.map(function(item) {
 
-        insertNewRecord(author);
+        refreshNominaReport(item);
 
         })
     })
@@ -242,26 +268,26 @@ function fetchApiData2(){
     });
 }
 
-function postApiData2(){
+function postApiData(){
 
     // Article Reference: https://stackabuse.com/using-fetch-to-send-http-requests-in-javascript/
 
-    const url = 'https://w2edkzxi8h.execute-api.us-east-1.amazonaws.com/common/api/v1/transactions';
+    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries';
     
 
     let data = {
-        "fromUser": "source-user-Z",
-        "toUser": "test-user",
-        "timestamp": 1733651606459,
-        "transactionDate": "2021-10-07 20:06:46.459",
-        "transactionType": "xPayment",
-        "userId": 1,
-        "locationName": "xPlaza de la Bandera",
-        "description": "xJardin Botanico",
-        "amount": 16.29,
-        "longitude": 0,
-        "latitude": 0
-    }
+        
+        "timestamp": formData.timestamp,
+        "nombre": formData.ddNombreBkp,
+        "Localidad": formData.Localidad,
+        "hora": formData.hora,
+        "personaCubierta": formData.ddNombreCubierta,
+        "evidencia": formData.evidencia,
+        "concepto": formData.Concepto,
+        "fecha": formData.fecha,
+        "cedula": formData.cedula,
+        "supervisor": formData.supervisor
+       }
 
 
     var request = new Request(url, {
@@ -278,4 +304,12 @@ function postApiData2(){
         console.log(json);
     });
 }
-
+    
+function setSelectedValue(selectObj, valueToSet) {
+    for (var i = 0; i < selectObj.options.length; i++) {
+        if (selectObj.options[i].text== valueToSet) {
+            selectObj.options[i].selected = true;
+            return;
+        }
+    }
+}

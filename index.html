@@ -6,6 +6,10 @@
         Lider en Salud Ocupacional
     </title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script type="text/javascript">
+        window.onload = createForm;
+    </script>
 </head>
 
 <body>
@@ -106,14 +110,17 @@
                     </div>
                     <div class="content">
                         <input type="submit" value="Submit">
+                        <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
             </tr>
         </form>
     </table>
     <br>
+
     <table id="informe">
         <caption>Solicitudes de Pagos</caption>
+
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -129,6 +136,10 @@
                 <th>Montos Negociados</th>
                 <th>Comentarios Adicionales</th>
                 <th>Evidencia</th>
+                <th>Supervisor</th>
+                <th>Action</th>
+                <th>Timestamp</th>
+
             </tr>
         </thead>
         <tbody>
@@ -136,7 +147,6 @@
         </tbody>
     </table>
 
-    <script src="script.js"></script>
 
 </body>
 
