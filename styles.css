@@ -18,8 +18,7 @@ td, th {
 tr:nth-child(even),table.list thead>tr {
     background-color: #dddddd;
 }
-
-input[type=text], input[type=number], select{
+input[type=text], input[type=email], input[type=number], select, fieldset{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -27,6 +26,10 @@ input[type=text], input[type=number], select{
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+input[type=radio] {
+     margin: 10px 10px;
 }
 
 input[type=submit]{
