@@ -43,6 +43,9 @@ function readFormData() {
 
 function refreshNominaReport(element) {
     
+    // Responsive Table (Browser and Mobile)
+    // Article Reference: https://www.youtube.com/watch?v=ZtopjfXhUZI
+
     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
     
 
@@ -50,38 +53,56 @@ function refreshNominaReport(element) {
 
         cell1 = newRow.insertCell(0);
         cell1.innerHTML = element.nombre;
+        cell1.setAttribute("data-label", "Nombre");
+
         cell2 = newRow.insertCell(1);
         cell2.innerHTML = element.cedula;
+        cell2.setAttribute("data-label", "Cedula");
         cell3 = newRow.insertCell(2);
         cell3.innerHTML = element.concepto;
+        cell3.setAttribute("data-label", "Concepto");
         cell4 = newRow.insertCell(3);
         cell4.innerHTML = element.Localidad;
+        cell4.setAttribute("data-label", "Localidad");
         cell5 = newRow.insertCell(4);
         cell5.innerHTML = element.personaCubierta;
+        cell5.setAttribute("data-label", "Persona Cubierta");
         cell6 = newRow.insertCell(5);
         cell6.innerHTML = element.diasCobertura;
+        cell6.setAttribute("data-label", "Dias de cobertura");
         cell7 = newRow.insertCell(6);
         cell7.innerHTML = element.mesCobertura;
+        cell7.setAttribute("data-label", "Mes de cobertura");
         cell8 = newRow.insertCell(7);
         cell8.innerHTML = element.horaEntrada;
+        cell8.setAttribute("data-label", "Hora de entrada");
         cell9 = newRow.insertCell(8);
         cell9.innerHTML = element.horaSalida;
+        cell9.setAttribute("data-label", "Hora de salida");
         cell10 = newRow.insertCell(9);
         cell10.innerHTML = element.horaAlmuerzo;
+        cell10.setAttribute("data-label", "Mantener hora de almuerzo");
         cell11 = newRow.insertCell(10);
         cell11.innerHTML = element.montosNegociados;
+        cell11.setAttribute("data-label", "Montos Negociados");
         cell12 = newRow.insertCell(11);
         cell12.innerHTML = element.comentariosAdicionales;
+        cell12.setAttribute("data-label", "Comentarios Adicionales");
         cell13 = newRow.insertCell(12);
         cell13.innerHTML = element.evidencia;
+        cell13.setAttribute("data-label", "Evidencia");
         cell14 = newRow.insertCell(13);
         cell14.innerHTML = element.supervisor;
+        cell14.setAttribute("data-label", "Supervisor");
         cell15 = newRow.insertCell(14);
         cell15.innerHTML = `<a onClick="onEdit(this)">Edit</a>
                             <a onClick="onDelete(this)">Delete</a>`;
 
+        cell15.setAttribute("data-label", "Action");
+        
         cell10 = newRow.insertCell(10);
         cell10.innerHTML = element.timestamp;
+        cell10.setAttribute("data-label", "Timestamp");
 }
 
 function createForm(){
@@ -89,9 +110,9 @@ function createForm(){
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/all';
     
-    var selectNombreBkp = document.getElementById("ddNombreBkp");
-    var selectCubierta = document.getElementById("ddNombreCubierta");
-    var selectSupervisor = document.getElementById("ddSupervisor");
+    var selectSupervisor = document.getElementById("ddSupervisor-List");
+    var selectNombreBkp = document.getElementById("ddNombreBkp-List");
+    var selectCubierta = document.getElementById("ddNombreCubierta-List");
 
     fetch(url)
     .then((resp) => resp.json())
@@ -99,8 +120,8 @@ function createForm(){
     let resources = data.Items;
     return resources.map(function(resources) {
 
-        // console.log(resources.nombre)
-        // console.log(resources.cargo)
+        console.log(resources.nombre)
+        console.log(resources.cargo)
         if (resources.cargo == 'Supervisor'|| resources.cargo == 'Supervisora') {
 
             option = document.createElement('option');
@@ -175,11 +196,11 @@ function onEdit(td) {
     document.getElementById("evidencia").value = selectedRow.cells[12].innerHTML;
     document.getElementById("ddSupervisor").value = selectedRow.cells[13].innerHTML;
 
-    var objSelect = document.getElementById("ddNombreCubierta");
+    var objSelect = document.getElementById("ddNombreCubierta-List");
     setSelectedValue(objSelect, selectedRow.cells[4].innerHTML);
     // document.getElementById("ddNombreCubierta").value = selectedRow.cells[4].innerHTML;
         
-    var objSelect = document.getElementById("ddSupervisor");
+    var objSelect = document.getElementById("ddSupervisor-List");
     setSelectedValue(objSelect, selectedRow.cells[8].innerHTML);
     // document.getElementById("ddSupervisor").value = selectedRow.cells[8].innerHTML;
     // [9] -> Action
@@ -205,9 +226,38 @@ function updateRecord(formData) {
 }
 
 function onDelete(td) {
-    if (confirm('Are you sure to delete this record ?')) {
-        row = td.parentElement.parentElement;
-        document.getElementById("timestamp").deleteRow(row.rowIndex);
+
+    row = td.parentElement.parentElement;
+    let timestamp = row.cells[10].innerHTML;
+
+    if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
+
+        
+        if (timestamp=="") alert("Unable to delete this record.")
+        
+        const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries/' + timestamp;
+            
+        let data = {
+                "pathParameters": {
+                    "timestamp": timestamp 
+                }
+            }
+
+        var request = new Request(url, {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
+
+        fetch(request)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        });
+
+        document.getElementById("informe").deleteRow(row.rowIndex);
         resetForm();
     }
 }

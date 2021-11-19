@@ -5,7 +5,9 @@
     <title>
         Lider en Salud Ocupacional
     </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="responsive.table.css">
     <script src="script.js"></script>
     <script type="text/javascript">
         window.onload = createForm;
@@ -13,7 +15,7 @@
 </head>
 
 <body>
-    <table style="width:40%; border:1px solid black;margin-left:auto;margin-right:auto;">
+    <table  style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
         <tr>
             <td style="text-align: center; vertical-align: middle;">
                 <img src="assets/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
@@ -26,21 +28,21 @@
         </tr>
     </table>
 
-    <table style="width:40%; border:1px solid black;margin-left:auto;margin-right:auto;">
+    <table style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
         <form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="on">
             <tr>
                 <td style="width:40%;">
                     <div>
                         <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">Este campo es obligatorio.</label>
-                        <select name="ddSupervisor" id="ddSupervisor">
-                            <option disabled selected value> -- Seleccionar una opcion -- </option>
-                        </select>
+                        <input list="ddSupervisor-List" type="text" name="ddSupervisor" id="ddSupervisor">
+                        <datalist id="ddSupervisor-List">
+                        </datalist>
                     </div>
                     <div>
                         <label>Nombre del backup</label><label class="validation-error hide" id="ddNombreBkpValidationError">Este campo es obligatorio.</label>
-                        <select name="ddNombreBkp" id="ddNombreBkp">
-                            <option disabled selected value> -- Seleccionar una opcion -- </option>
-                        </select>
+                        <input list="ddNombreBkp-List" type="text" name="ddNombreBkp" id="ddNombreBkp">
+                        <datalist id="ddNombreBkp-List">
+                        </datalist>
                     </div>
                     <div>
                         <label>Cedula</label><label class="validation-error hide" id="cedulaValidationError">Este campo es obligatorio.</label>
@@ -70,9 +72,9 @@
                     </div>
                     <div>
                         <label>Nombre de la persona cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">Este campo es obligatorio.</label>
-                        <select name="ddNombreCubierta" id="ddNombreCubierta">
-                            <option disabled selected value> -- Seleccionar una opcion -- </option>
-                        </select>
+                        <input list="ddNombreCubierta-List" type="text" name="ddNombreCubierta" id="ddNombreCubierta">
+                        <datalist id="ddNombreCubierta-List">
+                        </datalist>
                     </div>
                     <div>
                         <label>Dias de cobertura</label><label class="validation-error hide" id="diasCoberturaValidationError">Este campo es obligatorio.</label>
@@ -117,7 +119,7 @@
     </table>
     <br>
 
-    <table id="informe">
+    <table  class="table"  id="informe">
         <caption>Solicitudes de Pagos</caption>
 
         <thead>
