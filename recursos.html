@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Lider en Salud Ocupacional
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="responsive.table.css">
+    <script src="script.js"></script>
+    <script type="text/javascript">
+        window.onload = createForm;
+    </script>
+</head>
+
+<body>
+    <table  style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
+        <tr>
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="assets/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
+                alt="SER SALUD" 
+                style="width:100px;height:100px;">
+            </td>
+            <td style="text-align: left; vertical-align: middle; padding: 20px;">
+                <h2 class="title">Registro de Recursos</h2> 
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
+        <form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="on">
+            <tr>
+                <td style="width:40%;">
+                    <div>
+                        <label>Nombre</label>
+                        <!-- <label class="validation-error hide" id="nombreValidationError">Este campo es obligatorio.</label> -->
+                        <input list="nombre" type="text" name="nombre" id="nombre">
+                        <datalist id="nombre">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label>Apellido</label>
+                        <!-- <label class="validation-error hide" id="apellidoValidationError">Este campo es obligatorio.</label> -->
+                        <input list="apellido" type="text" name="apellido" id="apellido">
+                        <datalist id="apellido">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label>Cédula</label>
+                        <!-- <label class="validation-error hide" id="cedulaValidationError">Este campo es obligatorio.</label> -->
+                        <input type="text" name="cedula" id="cedula">
+                    </div>
+                    <div>
+                        <label>Dirección</label>
+                        <!-- <label class="validation-error hide" id="direccionValidationError">Este campo es obligatorio.</label> -->
+                        <input type="text" name="direccion" id="direccion">
+                    </div>
+                    <div>
+                        <label>Teléfono</label>
+                        <!-- <label class="validation-error hide" id="telefonoValidationError">Este campo es obligatorio.</label> -->
+                        <input type="text" name="telefono" id="telefono">
+                    </div>
+                    <div>
+                        <label>Correo</label>
+                        <!-- <label class="validation-error hide" id="emailValidationError">Este campo es obligatorio.</label> -->
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div>
+                        <label>Cargo</label>
+                        <!-- <label class="validation-error hide" id="ddCargoValidationError">Este campo es obligatorio.</label> -->
+                        <select name="ddCargo" id="ddCargo">
+                            <option disabled selected value> -- Seleccionar una opcion -- </option>
+                            <option value="medico">Medico</option>
+                            <option value="medicobkp">Medico bkp</option>
+                            <option value="enfermera">Enfermera</option>
+                            <option value="enfermerabkp">Enfermera bkp</option>
+                            <option value="enfermero">Enfermero</option>
+                            <option value="enfermerobkp">Enfermero bkp</option>
+                            <option value="supervisor">Supervisor</option>
+                        </select>
+                            
+                    </div>
+                    <div>
+                        <label>Banco</label>
+                        <!-- <label class="validation-error hide" id="bancoValidationError">Este campo es obligatorio.</label> -->
+                        <input type="text" name="banco" id="banco">
+                    </div>
+                    <div>
+                        <fieldset>
+
+                            <legend><label>Tipo de Cuenta</label></legend>
+
+                            <!-- <label class="validation-error hide" id="tipoCuentaValidationError">Este campo es obligatorio.</label> -->
+                            
+                            <input type="radio" name="tipoCuenta" id="Corriente" value="Corriente">
+                            <label for="Corriente">Corriente</label>
+
+                            <input type="radio" name="tipoCuenta" id="Ahorro" value="Ahorro">
+                            <label for="Ahorro">Ahorro</label>
+
+                        </fieldset>       
+                    </div>
+                    <div>
+                        <label>Nùmero de Cuenta</label><label class="validation-error hide" id="cuentaValidationError">Este campo es obligatorio.</label>
+                        <input type="text" name="cuenta" id="cuenta">
+                    </div>
+                    <div class="content">
+                        <input type="submit" value="Submit">
+                        <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
+                    </div>
+                </td>
+            </tr>
+        </form>
+    </table>
+    <br>
+
+    <table  class="table"  id="informe">
+        <caption>Solicitudes de Pagos</caption>
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Cargo</th>
+                <th>Banco</th>
+                <th>Tipo de Cuenta</th>
+                <th>Nùmero de Cuenta</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+</body>
+
+</html>
