@@ -18,7 +18,7 @@ td, th {
 tr:nth-child(even),table.list thead>tr {
     background-color: #dddddd;
 }
-input[type=text], input[type=email], input[type=number], select, fieldset{
+input[type=date],input[type=text], input[type=email], input[type=number], select, fieldset, textarea{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -101,7 +101,10 @@ label {
 
 #informe tr:nth-child(even){background-color: #f2f2f2;}
 
-#informe tr:hover {background-color: #ddd;}
+#informe tr:hover {
+    background-color: rgb(184, 226, 198);
+    border: 2px solid rgb(4, 128, 11);
+}
 
 #informe th {
   padding-top: 12px;

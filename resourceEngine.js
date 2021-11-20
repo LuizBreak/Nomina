@@ -38,7 +38,10 @@ function readFormData() {
     }
 
     formData["cuenta"] = document.getElementById("cuenta").value;
-
+    formData["tipoDePago"] = document.getElementById("tipoDePago").value;
+    formData["fechaDeInicio"] = document.getElementById("fechaDeInicio").value;
+    formData["exequatur"] = document.getElementById("exequatur").value;
+    formData["comentario"] = document.getElementById("comentario").value;
     return formData;
 }
 
@@ -93,20 +96,41 @@ function refresResourceReport(element) {
         cell10.setAttribute("data-label", "Numero de Cuenta");
 
         cell11 = newRow.insertCell(10);
-        cell11.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-                            <a onClick="onDelete(this)">Delete</a>`;
-        cell11.setAttribute("data-label", "Action");
+        cell11.innerHTML = element.tipoDePago;
+        cell11.setAttribute("data-label", "tipo De Pago");
+
+        console.log("fecha de inicio:" + element.fechaDeInicio);
         
         cell12 = newRow.insertCell(11);
-        cell12.innerHTML = element.timestamp;
-        cell12.setAttribute("data-label", "Timestamp");
+        cell12.innerHTML = element.fechaDeInicio;
+        cell12.setAttribute("data-label", "Fecha De Inicio");
+
+        cell13 = newRow.insertCell(12);
+        cell13.innerHTML = element.exequatur;
+        cell13.setAttribute("data-label", "Exequatur");
+
+        cell14 = newRow.insertCell(13);
+        cell14.innerHTML = element.comentario;
+        cell14.setAttribute("data-label", "Comentario");
+
+        cell15 = newRow.insertCell(14);
+        cell15.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+                            <a onClick="onDelete(this)">Delete</a>`;
+        cell15.setAttribute("data-label", "Action");
+        
+        cell16 = newRow.insertCell(15);
+        cell16.innerHTML = element.timestamp;
+        cell16.setAttribute("data-label", "Timestamp");
+
 }
 
 function createForm(){
 
     fetchApiData();
 }
+
 function resetForm() {
+
     document.getElementById("nombre").value = "";
     document.getElementById("apellido").value = "";
     document.getElementById("cedula").value = "";
@@ -115,8 +139,14 @@ function resetForm() {
     document.getElementById("email").value = "";
     document.getElementById("ddCargo").value = "";
     document.getElementById("banco").value = "";
-    document.getElementById("Corriente").value = true;
+    document.getElementById("Corriente").selected = true;
     document.getElementById("cuenta").value = "";
+
+    document.getElementById("tipoDePago").value = "";
+    document.getElementById("fechaDeInicio").value = "";
+    document.getElementById("exequatur").value = "";
+    document.getElementById("comentario").value = "";
+
     document.getElementById("timestamp").value = "";
     
     selectedRow = null;
@@ -132,37 +162,46 @@ function onEdit(td) {
     document.getElementById("telefono").value = selectedRow.cells[4].innerHTML;
     document.getElementById("email").value = selectedRow.cells[5].innerHTML;
     document.getElementById("banco").value = selectedRow.cells[7].innerHTML;
-    document.getElementById("cuenta").value = selectedRow.cells[9].innerHTML;
-    
-    if (selectedRow.cells[8].innerHTML=="corriente") {
-        document.getElementById("Corriente").value = true;
 
+    var tipoDeCuenta = selectedRow.cells[8].innerHTML;
+
+    if (tipoDeCuenta == "corriente") {
+        document.getElementById("Corriente").checked = true;
     } else {
-        document.getElementById("Ahorro").value = true;
+        document.getElementById("Ahorro").checked = true;
     }
         
     var objSelect = document.getElementById("ddCargo");
     setSelectedValue(objSelect, selectedRow.cells[6].innerHTML);
     
-    document.getElementById("timestamp").value = selectedRow.cells[11].innerHTML;
+    document.getElementById("cuenta").value = selectedRow.cells[9].innerHTML;
+    document.getElementById("tipoDePago").value = selectedRow.cells[10].innerHTML;
+    document.getElementById("fechaDeInicio").value = selectedRow.cells[11].innerHTML;
+    document.getElementById("exequatur").value = selectedRow.cells[12].innerHTML;
+    document.getElementById("comentario").value = selectedRow.cells[13].innerHTML;
+
+    document.getElementById("timestamp").value = selectedRow.cells[15].innerHTML;
 }
 function updateRecord(formData) {
-    selectedRow.cells[0].innerHTML = formData.ddNombreBkp;
-    selectedRow.cells[1].innerHTML = formData.cedula;
-    selectedRow.cells[2].innerHTML = formData.concepto;
-    selectedRow.cells[3].innerHTML = formData.localidad;
-    selectedRow.cells[4].innerHTML = formData.ddNombreCubierta;
-    selectedRow.cells[5].innerHTML = formData.diasCobertura;
+    selectedRow.cells[0].innerHTML = formData.nombre;
+    selectedRow.cells[1].innerHTML = formData.apellido;
+    selectedRow.cells[2].innerHTML = formData.cedula;
+    selectedRow.cells[3].innerHTML = formData.direccion;
+    selectedRow.cells[4].innerHTML = formData.email;
+    selectedRow.cells[5].innerHTML = formData.cargo;
     selectedRow.cells[6].innerHTML = formData.mesCobertura;
-    selectedRow.cells[7].innerHTML = formData.horaEntrada;
-    selectedRow.cells[8].innerHTML = formData.horaSalida;
-    selectedRow.cells[9].innerHTML = formData.horaAlmuerzo;
-    selectedRow.cells[10].innerHTML = formData.montosNegociados;
-    selectedRow.cells[11].innerHTML = formData.comentariosAdicionales;
-    selectedRow.cells[12].innerHTML = formData.evidencia;
-    selectedRow.cells[13].innerHTML = formData.ddSupervisor;
+    selectedRow.cells[7].innerHTML = formData.banco;
+    selectedRow.cells[8].innerHTML = formData.tipoDeCuenta;
+    selectedRow.cells[9].innerHTML = formData.cuenta;
+
+    selectedRow.cells[10].innerHTML = formData.tipoDePago;
+    selectedRow.cells[11].innerHTML = formData.fechaDeInicio;
+    selectedRow.cells[12].innerHTML = formData.exequatur;
+    selectedRow.cells[13].innerHTML = formData.comentario;
+
     // [14] -> Action 
     selectedRow.cells[15].innerHTML = formData.timestamp;
+    // selectedRow.cells[10].innerHTML = formData.timestemp;
 }
 
 function onDelete(td) {
@@ -203,29 +242,27 @@ function onDelete(td) {
 }
 function validate() {
 
-    // console.log(document.getElementById("concepto").value);
-    // return
-
     isValid = true;
 
-    SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
+    SetValidationError("nombre", "nombreValidationError");
+    // SetValidationError("apellido", "apellidoValidationError");
     SetValidationError("cedula", "cedulaValidationError");
-    SetValidationError("concepto", "conceptoValidationError");
-    SetValidationError("localidad", "localidadValidationError");
-    SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
-    SetValidationError("diasCobertura", "diasCoberturaValidationError");
-    SetValidationError("mesCobertura", "mesCoberturaValidationError");
-    SetValidationError("horaEntrada", "horaEntradaValidationError");
-    SetValidationError("horaSalida", "horaSalidaValidationError");
-    SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
-    SetValidationError("montosNegociados", "mesCoberturaValidationError");
-    SetValidationError("comentariosAdicionales", "comentariosAdicionalesValidationError");
-    SetValidationError("ddSupervisor", "ddSupervisorValidationError");
+    // SetValidationError("direccion", "localidadValidationError");
+    // SetValidationError("telefono", "telefonoValidationError");
+    // SetValidationError("correo", "diasCoberturaValidationError");
+    // SetValidationError("cargo", "cargoValidationError");
+    // SetValidationError("banco", "horaEntradaValidationError");
+    // SetValidationError("tipoDeCuenta", "horaSalidaValidationError");
+    // SetValidationError("cuenta", "horaAlmuerzoValidationError");
+    SetValidationError("fechaDeInicio", "fechaDeInicioValidationError");
+
 
     return isValid;
 }
 
 function SetValidationError(FieldName, ErrorlabelName) {
+
+        console.log(FieldName + " - " + document.getElementById(FieldName).value)
 
     if (document.getElementById(FieldName).value == "") {
         isValid = false;
@@ -255,7 +292,11 @@ function postApiData(){
         "concepto": formData.Concepto,
         "fecha": formData.fecha,
         "cedula": formData.cedula,
-        "supervisor": formData.supervisor
+        "supervisor": formData.supervisor,
+        "tipoDePago": formData.tipoDePago,
+        "fechaDeInicio": formData.fechaDeInicio,
+        "exequatur": formData.exequatur,
+        "comentario": formData.comentario
        }
 
 

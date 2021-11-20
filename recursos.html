@@ -34,21 +34,18 @@
                 <td style="width:40%;">
                     <div>
                         <label>Nombre</label>
-                        <!-- <label class="validation-error hide" id="nombreValidationError">Este campo es obligatorio.</label> -->
+                        <label class="validation-error hide" id="nombreValidationError">(*)</label>
                         <input list="nombre" type="text" name="nombre" id="nombre">
-                        <datalist id="nombre">
-                        </datalist>
+   
                     </div>
                     <div>
                         <label>Apellido</label>
                         <!-- <label class="validation-error hide" id="apellidoValidationError">Este campo es obligatorio.</label> -->
                         <input list="apellido" type="text" name="apellido" id="apellido">
-                        <datalist id="apellido">
-                        </datalist>
                     </div>
                     <div>
                         <label>Cédula</label>
-                        <!-- <label class="validation-error hide" id="cedulaValidationError">Este campo es obligatorio.</label> -->
+                        <label class="validation-error hide" id="cedulaValidationError">(*)</label>
                         <input type="text" name="cedula" id="cedula">
                     </div>
                     <div>
@@ -102,8 +99,30 @@
                         </fieldset>       
                     </div>
                     <div>
-                        <label>Nùmero de Cuenta</label><label class="validation-error hide" id="cuentaValidationError">Este campo es obligatorio.</label>
+                        <label>Nùmero de Cuenta</label><label class="validation-error hide" id="cuentaValidationError">(*))</label>
                         <input type="text" name="cuenta" id="cuenta">
+                    </div>
+                    <div>
+                        <label>Tipo de Pago</label>
+                        <select name="tipoDePago" id="tipoDePago">
+                            <option disabled selected value> -- Seleccionar una opcion -- </option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="PinPeso">PinPeso</option>
+                            <option value="Cheque">Cheque</option>
+                        </select>
+                            
+                    </div>
+                    <div>
+                        <label>Fecha de Inicio</label><label class="validation-error hide" id="fechaDeInicioValidationError">(*)</label>
+                        <input type="date" name="fechaDeInicio" id="fechaDeInicio">
+                    </div>
+                    <div>
+                        <label>Exequatur</label>
+                        <input type="text" name="exequatur" id="exequatur">
+                    </div>
+                    <div>
+                        <label>Comentario</label>
+                        <textarea name="textarea" name="comentario" id="comentario" style="height:50px;"></textarea>
                     </div>
                     <div class="content">
                         <input type="submit" value="Submit">
@@ -116,6 +135,7 @@
     <br>
 
     <table  class="table"  id="informe">
+
         <caption>Solicitudes de Pagos</caption>
 
         <thead>
@@ -130,6 +150,11 @@
                 <th>Banco</th>
                 <th>Tipo de Cuenta</th>
                 <th>Nùmero de Cuenta</th>
+                <th>Tipo de Pago</th>
+                <th>Fecha de Inicio</th>
+                <th>Exequatur</th>
+                <th>Comentarios</th>
+                <th>Action</th>
                 <th>Timestamp</th>
             </tr>
         </thead>

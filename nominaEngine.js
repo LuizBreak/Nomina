@@ -100,7 +100,7 @@ function refreshNominaReport(element) {
 
         cell15.setAttribute("data-label", "Action");
         
-        cell10 = newRow.insertCell(10);
+        cell10 = newRow.insertCell(15);
         cell10.innerHTML = element.timestamp;
         cell10.setAttribute("data-label", "Timestamp");
 }
@@ -173,19 +173,24 @@ function resetForm() {
 }
 
 function onEdit(td) {
+
     selectedRow = td.parentElement.parentElement;
 
-    var objSelect = document.getElementById("ddNombreBkp");
-    setSelectedValue(objSelect, selectedRow.cells[0].innerHTML);
-    // document.getElementById("ddNombreBkp").value = selectedRow.cells[0].innerHTML;
+    var objSelect = document.getElementById("ddNombreBkp-List");
+    let nombreValue = setSelectedValue(objSelect, selectedRow.cells[0].innerHTML);
+    document.getElementById("ddNombreBkp").value = nombreValue;
 
     document.getElementById("cedula").value = selectedRow.cells[1].innerHTML;
 
     var objSelect = document.getElementById("concepto");
     setSelectedValue(objSelect, selectedRow.cells[2].innerHTML);
-    // document.getElementById("concepto").value = selectedRow.cells[2].innerHTML;
 
     document.getElementById("localidad").value = selectedRow.cells[3].innerHTML;
+
+    var objSelect = document.getElementById("ddNombreCubierta-List");
+    let nombreCubiertavalue =  setSelectedValue(objSelect, selectedRow.cells[4].innerHTML);
+    document.getElementById("ddNombreCubierta").value = nombreCubiertavalue;
+
     document.getElementById("diasCobertura").value = selectedRow.cells[5].innerHTML;
     document.getElementById("mesCobertura").value = selectedRow.cells[6].innerHTML;
     document.getElementById("horaEntrada").value = selectedRow.cells[7].innerHTML;
@@ -194,17 +199,14 @@ function onEdit(td) {
     document.getElementById("montosNegociados").value = selectedRow.cells[10].innerHTML;
     document.getElementById("comentariosAdicionales").value = selectedRow.cells[11].innerHTML;
     document.getElementById("evidencia").value = selectedRow.cells[12].innerHTML;
-    document.getElementById("ddSupervisor").value = selectedRow.cells[13].innerHTML;
 
-    var objSelect = document.getElementById("ddNombreCubierta-List");
-    setSelectedValue(objSelect, selectedRow.cells[4].innerHTML);
-    // document.getElementById("ddNombreCubierta").value = selectedRow.cells[4].innerHTML;
-        
     var objSelect = document.getElementById("ddSupervisor-List");
-    setSelectedValue(objSelect, selectedRow.cells[8].innerHTML);
-    // document.getElementById("ddSupervisor").value = selectedRow.cells[8].innerHTML;
-    // [9] -> Action
-    document.getElementById("timestamp").value = selectedRow.cells[10].innerHTML;
+    let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[13].innerHTML);
+    document.getElementById("ddSupervisor").value = supervisorvalue;
+
+    // [14] -> Action
+
+    document.getElementById("timestamp").value = selectedRow.cells[15].innerHTML;
 }
 function updateRecord(formData) {
     selectedRow.cells[0].innerHTML = formData.ddNombreBkp;
@@ -336,7 +338,14 @@ function postApiData(){
         "concepto": formData.Concepto,
         "fecha": formData.fecha,
         "cedula": formData.cedula,
-        "supervisor": formData.supervisor
+        "supervisor": formData.supervisor,
+        "mesCobertura": formData.mesCobertura,
+        "horaEntrada": formData.horaEntrada,
+        "horaSalida": formData.horaSalida,
+        "horaAlmuerzo": formData.horaAlmuerzo,
+        "montosNegociados": formData.montosNegociados,
+        "comentariosAdicionales": formData.comentariosAdicionales
+
        }
 
 
@@ -359,7 +368,8 @@ function setSelectedValue(selectObj, valueToSet) {
     for (var i = 0; i < selectObj.options.length; i++) {
         if (selectObj.options[i].text== valueToSet) {
             selectObj.options[i].selected = true;
-            return;
+
+            return selectObj.options[i].value;
         }
     }
 }
