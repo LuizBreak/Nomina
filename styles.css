@@ -1,4 +1,4 @@
-body > table{
+body, table{
     width: 100%;
     table-layout: auto;
 }
