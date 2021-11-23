@@ -46,7 +46,7 @@
 
                     <div>
                         <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">(*)</label>
-                        <input list="ddSupervisor-List" type="text" name="ddSupervisor" id="ddSupervisor">
+                        <input list="ddSupervisor-List" type="text" onKeyUp="this.value = this.value.toUpperCase();"  name="ddSupervisor" id="ddSupervisor">
                         <datalist id="ddSupervisor-List">
                         </datalist>
                     </div>
@@ -57,7 +57,7 @@
                         alt="(+)" 
                         style="width:20px;height:20px;"></a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
-                        <input list="ddNombreBkp-List" type="text" name="ddNombreBkp" id="ddNombreBkp">
+                        <input list="ddNombreBkp-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" name="ddNombreBkp" id="ddNombreBkp">
                        
                         <datalist id="ddNombreBkp-List">
                         </datalist>
@@ -68,9 +68,9 @@
                     </div>
                     <div>
                         <label>Concepto</label><label class="validation-error hide" id="conceptoValidationError">(*)</label>
-                        <select name="concepto" id="concepto">
+                        <select name="concepto"  id="concepto">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
-                            <option value="licencisMedica">Licencis Medica</option>
+                            <option value="licenciaMedica">Licencia Medica</option>
                             <option value="permiso">Permiso</option>
                             <option value="entrenamiento">Entrenamiento</option>
                             <option value="feriado">Feriado</option>
@@ -86,11 +86,11 @@
                     </div>
                     <div>
                         <label>Localidad</label><label class="validation-error hide" id="localidadValidationError">(*)</label>
-                        <input type="text" name="localidad" id="localidad">
+                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="localidad" id="localidad">
                     </div>
                     <div>
                         <label>Nombre de la persona cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">(*)</label>
-                        <input list="ddNombreCubierta-List" type="text" name="ddNombreCubierta" id="ddNombreCubierta">
+                        <input list="ddNombreCubierta-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" name="ddNombreCubierta" id="ddNombreCubierta">
                         <datalist id="ddNombreCubierta-List">
                         </datalist>
                     </div>
@@ -100,7 +100,7 @@
                     </div>
                     <div>
                         <label>Mes de cobertura</label><label class="validation-error hide" id="mesCoberturaValidationError">(*)</label>
-                        <input type="text" name="mesCobertura" id="mesCobertura">
+                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="mesCobertura" id="mesCobertura">
                     </div>
                     
                     <div>
@@ -113,7 +113,7 @@
                     </div>
                     <div>
                         <label>Mantener hora de almuerzo</label><label class="validation-error hide" id="horaAlmuerzoValidationError">(*)</label>
-                        <input type="text" name="horaAlmuerzo" id="horaAlmuerzo">
+                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="horaAlmuerzo" id="horaAlmuerzo">
                     </div>
                     <div>
                         <label>Montos negociados</label><label class="validation-error hide" id="montosNegociadosValidationError">(*)</label>
@@ -121,7 +121,7 @@
                     </div>
                     <div>
                         <label>Comentarios adicionales</label><label class="validation-error hide" id="comentariosAdicionalesValidationError">(*)</label>
-                        <textarea name="textarea" name="comentariosAdicionales" id="comentariosAdicionales" style="height:50px;"></textarea>
+                        <textarea name="textarea" name="comentariosAdicionales" onKeyUp="this.value = this.value.toUpperCase();" id="comentariosAdicionales" style="height:50px;"></textarea>
                     </div>
                     <div>
                         <label>Evidencia</label>

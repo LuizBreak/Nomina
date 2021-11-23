@@ -81,7 +81,7 @@
                     <div>
                         <label>Banco</label>
                         <!-- <label class="validation-error hide" id="bancoValidationError">Este campo es obligatorio.</label> -->
-                        <input type="text" name="banco" id="banco">
+                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="banco" id="banco">
                     </div>
                     <div>
                         <fieldset>
