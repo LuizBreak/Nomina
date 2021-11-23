@@ -128,6 +128,7 @@ function refresResourceReport(element) {
 function createForm(){
 
     fetchApiData();
+    fetchPuestoData();
 }
 
 function resetForm() {
@@ -339,6 +340,32 @@ function fetchApiData(){
     return resourceItems.map(function(item) {
 
         refresResourceReport(item);
+
+        })
+    })
+    .catch(function(error) {
+    console.log(error);
+    });
+}
+
+function fetchPuestoData(){
+    
+    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/puestos/all';
+
+    var ddCargos = document.getElementById("ddCargo")
+
+    fetch(url)
+    .then((resp) => resp.json())
+    .then(function(data) {
+    let puestoItems = data.Items;
+    return puestoItems.map(function(item) {
+
+        option = document.createElement('option');
+        option.setAttribute('value', item.puesto);
+        option.appendChild(document.createTextNode(item.puesto));
+        ddCargos.appendChild(option);
+
+        // console.log(item);
 
         })
     })
