@@ -56,67 +56,68 @@ function refresResourceReport(element) {
         var newRow = table.insertRow(table.length);
 
         cell1 = newRow.insertCell(0);
-        cell1.innerHTML = element.nombre;
-        cell1.setAttribute("data-label", "Nombre");
+        cell1.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+                            <a onClick="onDelete(this)">Delete</a>`;
+        cell1.setAttribute("data-label", "Action");
 
         cell2 = newRow.insertCell(1);
-        cell2.innerHTML = element.apellido;
-        cell2.setAttribute("data-label", "Apellido");
+        cell2.innerHTML = element.nombre;
+        cell2.setAttribute("data-label", "Nombre");
 
         cell3 = newRow.insertCell(2);
-        cell3.innerHTML = element.cedula;
-        cell3.setAttribute("data-label", "Cedula");
+        cell3.innerHTML = element.apellido;
+        cell3.setAttribute("data-label", "Apellido");
 
         cell4 = newRow.insertCell(3);
-        cell4.innerHTML = element.direccion;
-        cell4.setAttribute("data-label", "Direccion");
+        cell4.innerHTML = element.cedula;
+        cell4.setAttribute("data-label", "Cedula");
 
         cell5 = newRow.insertCell(4);
-        cell5.innerHTML = element.telefono;
-        cell5.setAttribute("data-label", "Telefono");
+        cell5.innerHTML = element.direccion;
+        cell5.setAttribute("data-label", "Direccion");
 
         cell6 = newRow.insertCell(5);
-        cell6.innerHTML = element.correo;
-        cell6.setAttribute("data-label", "Correo");
+        cell6.innerHTML = element.telefono;
+        cell6.setAttribute("data-label", "Telefono");
 
         cell7 = newRow.insertCell(6);
-        cell7.innerHTML = element.cargo;
-        cell7.setAttribute("data-label", "Cargo");
+        cell7.innerHTML = element.correo;
+        cell7.setAttribute("data-label", "Correo");
 
         cell8 = newRow.insertCell(7);
-        cell8.innerHTML = element.banco;
-        cell8.setAttribute("data-label", "Banco");
+        cell8.innerHTML = element.cargo;
+        cell8.setAttribute("data-label", "Cargo");
 
         cell9 = newRow.insertCell(8);
-        cell9.innerHTML = element.tipoDeCuenta;
-        cell9.setAttribute("data-label", "Tipo de Cuenta");
-        
-        cell10 = newRow.insertCell(9);
-        cell10.innerHTML = element.cuenta;
-        cell10.setAttribute("data-label", "Numero de Cuenta");
+        cell9.innerHTML = element.banco;
+        cell9.setAttribute("data-label", "Banco");
 
+        cell10 = newRow.insertCell(9);
+        cell10.innerHTML = element.tipoDeCuenta;
+        cell10.setAttribute("data-label", "Tipo de Cuenta");
+        
         cell11 = newRow.insertCell(10);
-        cell11.innerHTML = element.tipoDePago;
-        cell11.setAttribute("data-label", "tipo De Pago");
+        cell11.innerHTML = element.cuenta;
+        cell11.setAttribute("data-label", "Numero de Cuenta");
+
+        cell12 = newRow.insertCell(11);
+        cell12.innerHTML = element.tipoDePago;
+        cell12.setAttribute("data-label", "tipo De Pago");
 
         console.log("fecha de inicio:" + element.fechaDeInicio);
         
-        cell12 = newRow.insertCell(11);
-        cell12.innerHTML = element.fechaDeInicio;
-        cell12.setAttribute("data-label", "Fecha De Inicio");
-
         cell13 = newRow.insertCell(12);
-        cell13.innerHTML = element.exequatur;
-        cell13.setAttribute("data-label", "Exequatur");
+        cell13.innerHTML = element.fechaDeInicio;
+        cell13.setAttribute("data-label", "Fecha De Inicio");
 
         cell14 = newRow.insertCell(13);
-        cell14.innerHTML = element.comentario;
-        cell14.setAttribute("data-label", "Comentario");
+        cell14.innerHTML = element.exequatur;
+        cell14.setAttribute("data-label", "Exequatur");
 
         cell15 = newRow.insertCell(14);
-        cell15.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-                            <a onClick="onDelete(this)">Delete</a>`;
-        cell15.setAttribute("data-label", "Action");
+        cell15.innerHTML = element.comentario;
+        cell15.setAttribute("data-label", "Comentario");
+
         
         cell16 = newRow.insertCell(15);
         cell16.innerHTML = element.timestamp;
@@ -154,16 +155,17 @@ function resetForm() {
 
 function onEdit(td) {
     selectedRow = td.parentElement.parentElement;
+    // [0] -> Action
 
-    document.getElementById("nombre").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("apellido").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("cedula").value = selectedRow.cells[2].innerHTML;
-    document.getElementById("direccion").value = selectedRow.cells[3].innerHTML;
-    document.getElementById("telefono").value = selectedRow.cells[4].innerHTML;
-    document.getElementById("email").value = selectedRow.cells[5].innerHTML;
-    document.getElementById("banco").value = selectedRow.cells[7].innerHTML;
+    document.getElementById("nombre").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("apellido").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("cedula").value = selectedRow.cells[3].innerHTML;
+    document.getElementById("direccion").value = selectedRow.cells[4].innerHTML;
+    document.getElementById("telefono").value = selectedRow.cells[5].innerHTML;
+    document.getElementById("email").value = selectedRow.cells[6].innerHTML;
+    document.getElementById("banco").value = selectedRow.cells[8].innerHTML;
 
-    var tipoDeCuenta = selectedRow.cells[8].innerHTML;
+    var tipoDeCuenta = selectedRow.cells[9].innerHTML;
 
     if (tipoDeCuenta == "corriente") {
         document.getElementById("Corriente").checked = true;
@@ -172,34 +174,35 @@ function onEdit(td) {
     }
         
     var objSelect = document.getElementById("ddCargo");
-    setSelectedValue(objSelect, selectedRow.cells[6].innerHTML);
+    setSelectedValue(objSelect, selectedRow.cells[7].innerHTML);
     
-    document.getElementById("cuenta").value = selectedRow.cells[9].innerHTML;
-    document.getElementById("tipoDePago").value = selectedRow.cells[10].innerHTML;
-    document.getElementById("fechaDeInicio").value = selectedRow.cells[11].innerHTML;
-    document.getElementById("exequatur").value = selectedRow.cells[12].innerHTML;
-    document.getElementById("comentario").value = selectedRow.cells[13].innerHTML;
+    document.getElementById("cuenta").value = selectedRow.cells[10].innerHTML;
+    document.getElementById("tipoDePago").value = selectedRow.cells[11].innerHTML;
+    document.getElementById("fechaDeInicio").value = selectedRow.cells[12].innerHTML;
+    document.getElementById("exequatur").value = selectedRow.cells[13].innerHTML;
+    document.getElementById("comentario").value = selectedRow.cells[14].innerHTML;
 
     document.getElementById("timestamp").value = selectedRow.cells[15].innerHTML;
 }
 function updateRecord(formData) {
-    selectedRow.cells[0].innerHTML = formData.nombre;
-    selectedRow.cells[1].innerHTML = formData.apellido;
-    selectedRow.cells[2].innerHTML = formData.cedula;
-    selectedRow.cells[3].innerHTML = formData.direccion;
-    selectedRow.cells[4].innerHTML = formData.email;
-    selectedRow.cells[5].innerHTML = formData.cargo;
-    selectedRow.cells[6].innerHTML = formData.mesCobertura;
-    selectedRow.cells[7].innerHTML = formData.banco;
-    selectedRow.cells[8].innerHTML = formData.tipoDeCuenta;
-    selectedRow.cells[9].innerHTML = formData.cuenta;
 
-    selectedRow.cells[10].innerHTML = formData.tipoDePago;
-    selectedRow.cells[11].innerHTML = formData.fechaDeInicio;
-    selectedRow.cells[12].innerHTML = formData.exequatur;
-    selectedRow.cells[13].innerHTML = formData.comentario;
+    // [0] -> Action 
+    selectedRow.cells[1].innerHTML = formData.nombre;
+    selectedRow.cells[2].innerHTML = formData.apellido;
+    selectedRow.cells[3].innerHTML = formData.cedula;
+    selectedRow.cells[4].innerHTML = formData.direccion;
+    selectedRow.cells[5].innerHTML = formData.email;
+    selectedRow.cells[6].innerHTML = formData.cargo;
+    selectedRow.cells[7].innerHTML = formData.mesCobertura;
+    selectedRow.cells[8].innerHTML = formData.banco;
+    selectedRow.cells[9].innerHTML = formData.tipoDeCuenta;
+    selectedRow.cells[10].innerHTML = formData.cuenta;
 
-    // [14] -> Action 
+    selectedRow.cells[11].innerHTML = formData.tipoDePago;
+    selectedRow.cells[12].innerHTML = formData.fechaDeInicio;
+    selectedRow.cells[13].innerHTML = formData.exequatur;
+    selectedRow.cells[14].innerHTML = formData.comentario;
+     
     selectedRow.cells[15].innerHTML = formData.timestamp;
     // selectedRow.cells[10].innerHTML = formData.timestemp;
 }
@@ -207,7 +210,7 @@ function updateRecord(formData) {
 function onDelete(td) {
 
     row = td.parentElement.parentElement;
-    let timestamp = row.cells[10].innerHTML;
+    let timestamp = row.cells[15].innerHTML;
 
     if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
 
