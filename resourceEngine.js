@@ -346,3 +346,30 @@ function fetchApiData(){
     console.log(error);
     });
 }
+// function PrintNames(nombre){
+
+//     //	document.write(nombreCompleto + "<br><br>") 
+    
+//         let nombres = nombre.split(" ")
+    
+    
+//          for (let i=0; i<nombres.length; i++){
+    
+//         	document.write(i + "->" + nombres[i] + "<br><br>")  
+           
+//            var encontre = false;
+           
+//             for (let j=0; j<informe.length; j++){
+                
+     
+//                 if(nombres[i] == informe[j][0]) {
+//                     encontre = true;
+//                    informe[j][1]++;
+                   
+//                    return;
+//                 }
+//             }
+//             if(encontre == false) informe.push([nombres[i],1]);
+//         }
+//     }
+    
