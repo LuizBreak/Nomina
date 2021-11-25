@@ -373,3 +373,4 @@ function fetchPuestoData(){
     console.log(error);
     });
 }
+
