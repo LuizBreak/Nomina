@@ -128,6 +128,7 @@ function refresResourceReport(element) {
 function createForm(){
 
     fetchApiData();
+    fetchPuestoData();
 }
 
 function resetForm() {
@@ -346,30 +347,30 @@ function fetchApiData(){
     console.log(error);
     });
 }
-// function PrintNames(nombre){
 
-//     //	document.write(nombreCompleto + "<br><br>") 
+function fetchPuestoData(){
     
-//         let nombres = nombre.split(" ")
-    
-    
-//          for (let i=0; i<nombres.length; i++){
-    
-//         	document.write(i + "->" + nombres[i] + "<br><br>")  
-           
-//            var encontre = false;
-           
-//             for (let j=0; j<informe.length; j++){
-                
-     
-//                 if(nombres[i] == informe[j][0]) {
-//                     encontre = true;
-//                    informe[j][1]++;
-                   
-//                    return;
-//                 }
-//             }
-//             if(encontre == false) informe.push([nombres[i],1]);
-//         }
-//     }
-    
+    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/puestos/all';
+
+    var ddCargos = document.getElementById("ddCargo")
+
+    fetch(url)
+    .then((resp) => resp.json())
+    .then(function(data) {
+    let puestoItems = data.Items;
+    return puestoItems.map(function(item) {
+
+        option = document.createElement('option');
+        option.setAttribute('value', item.puesto);
+        option.appendChild(document.createTextNode(item.puesto));
+        ddCargos.appendChild(option);
+
+        // console.log(item);
+
+        })
+    })
+    .catch(function(error) {
+    console.log(error);
+    });
+}
+

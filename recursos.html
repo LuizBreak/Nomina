@@ -68,20 +68,20 @@
                         <!-- <label class="validation-error hide" id="ddCargoValidationError">Este campo es obligatorio.</label> -->
                         <select name="ddCargo" id="ddCargo">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
-                            <option value="medico">Medico</option>
+                            <!-- <option value="medico">Medico</option>
                             <option value="medicobkp">Medico bkp</option>
                             <option value="enfermera">Enfermera</option>
                             <option value="enfermerabkp">Enfermera bkp</option>
                             <option value="enfermero">Enfermero</option>
                             <option value="enfermerobkp">Enfermero bkp</option>
-                            <option value="supervisor">Supervisor</option>
+                            <option value="supervisor">Supervisor</option> -->
                         </select>
                             
                     </div>
                     <div>
                         <label>Banco</label>
                         <!-- <label class="validation-error hide" id="bancoValidationError">Este campo es obligatorio.</label> -->
-                        <input type="text" name="banco" id="banco">
+                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="banco" id="banco">
                     </div>
                     <div>
                         <fieldset>
