@@ -4,8 +4,8 @@ function onFormSubmit() {
 
     if (validate()) {
         var formData = readFormData();
-        // updateRecord(formData);
-        fetchApiData();
+        postApiData();
+        updateRecord(formData);
         resetForm();
     }
 }
@@ -29,8 +29,8 @@ function readFormData() {
     formData["horaSalida"] = document.getElementById("horaSalida").value;
     formData["horaAlmuerzo"] = document.getElementById("horaAlmuerzo").value;
     formData["montosNegociados"] = document.getElementById("montosNegociados").value;
-    formData["comentariosAdicionales"] = document.getElementById("comentariosAdicionales").value;
-
+    formData["otrosPagos"] = document.getElementById("otrosPagos").value;
+    formData["comentarios"] = document.getElementById("comentarios").value;
     formData["evidencia"] = document.getElementById("evidencia").value;
     formData["supervisor"] = document.getElementById("ddSupervisor").value;
 
@@ -54,52 +54,55 @@ function refreshNominaReport(element) {
         cell1.setAttribute("data-label", "Action");
         
         cell2 = newRow.insertCell(1);
-        cell2.innerHTML = element.nombre;
+        cell2.innerHTML = FixUndefined(element.nombre);
         cell2.setAttribute("data-label", "Nombre");
 
         cell3 = newRow.insertCell(2);
-        cell3.innerHTML = element.cedula;
+        cell3.innerHTML = FixUndefined(element.cedula);
         cell3.setAttribute("data-label", "Cedula");
         cell4 = newRow.insertCell(3);
-        cell4.innerHTML = element.concepto;
+        cell4.innerHTML = FixUndefined (element.concepto);
         cell4.setAttribute("data-label", "Concepto");
         cell5 = newRow.insertCell(4);
-        cell5.innerHTML = element.Localidad;
+        cell5.innerHTML =  FixUndefined(element.Localidad);
         cell5.setAttribute("data-label", "Localidad");
         cell6 = newRow.insertCell(5);
-        cell6.innerHTML = element.personaCubierta;
+        cell6.innerHTML =  FixUndefined(element.personaCubierta);
         cell6.setAttribute("data-label", "Persona Cubierta");
         cell7 = newRow.insertCell(6);
-        cell7.innerHTML = element.diasCobertura;
+        cell7.innerHTML = FixUndefined(element.diasCobertura);
         cell7.setAttribute("data-label", "Dias de cobertura");
         cell8 = newRow.insertCell(7);
-        cell8.innerHTML = element.mesCobertura;
+        cell8.innerHTML = FixUndefined(element.mesCobertura);
         cell8.setAttribute("data-label", "Mes de cobertura");
         cell9 = newRow.insertCell(8);
-        cell9.innerHTML = element.horaEntrada;
+        cell9.innerHTML = FixUndefined(element.horaEntrada);
         cell9.setAttribute("data-label", "Hora de entrada");
         cell10 = newRow.insertCell(9);
-        cell10.innerHTML = element.horaSalida;
+        cell10.innerHTML = FixUndefined(element.horaSalida);
         cell10.setAttribute("data-label", "Hora de salida");
         cell11 = newRow.insertCell(10);
-        cell11.innerHTML = element.horaAlmuerzo;
+        cell11.innerHTML = FixUndefined(element.horaAlmuerzo);
         cell11.setAttribute("data-label", "Mantener hora de almuerzo");
         cell12 = newRow.insertCell(11);
-        cell12.innerHTML = element.montosNegociados;
+        cell12.innerHTML = FixUndefined(element.montosNegociados);
         cell12.setAttribute("data-label", "Montos Negociados");
         cell13 = newRow.insertCell(12);
-        cell13.innerHTML = element.comentariosAdicionales;
-        cell13.setAttribute("data-label", "Comentarios Adicionales");
+        cell13.innerHTML = FixUndefined(element.otrosPagos);
+        cell13.setAttribute("data-label", "Otros Pagos");
         cell14 = newRow.insertCell(13);
-        cell14.innerHTML = element.evidencia;
-        cell14.setAttribute("data-label", "Evidencia");
+        cell14.innerHTML = FixUndefined(element.comentarios);
+        cell14.setAttribute("data-label", "Comentarios");
         cell15 = newRow.insertCell(14);
-        cell15.innerHTML = element.supervisor;
-        cell15.setAttribute("data-label", "Supervisor");
-        
+        cell15.innerHTML = FixUndefined(element.evidencia);
+        cell15.setAttribute("data-label", "Evidencia");
         cell16 = newRow.insertCell(15);
-        cell16.innerHTML = element.timestamp;
-        cell16.setAttribute("data-label", "Timestamp");
+        cell16.innerHTML = FixUndefined(element.supervisor);
+        cell16.setAttribute("data-label", "Supervisor");
+        
+        cell17 = newRow.insertCell(16);
+        cell17.innerHTML = FixUndefined(element.timestamp);
+        cell17.setAttribute("data-label", "Timestamp");
 }
 
 function createForm(){
@@ -159,7 +162,8 @@ function resetForm() {
     document.getElementById("horaSalida").value = "";
     document.getElementById("horaAlmuerzo").value = "";
     document.getElementById("montosNegociados").value = "";
-    document.getElementById("comentariosAdicionales").value = "";
+    document.getElementById("otrosPagos").value = "";
+    document.getElementById("comentarios").value = "";
     document.getElementById("evidencia").value = "";
     document.getElementById("ddSupervisor").value = "";
     document.getElementById("timestamp").value = "";
@@ -194,14 +198,16 @@ function onEdit(td) {
     document.getElementById("horaSalida").value = selectedRow.cells[9].innerHTML;
     document.getElementById("horaAlmuerzo").value = selectedRow.cells[10].innerHTML;
     document.getElementById("montosNegociados").value = selectedRow.cells[11].innerHTML;
-    document.getElementById("comentariosAdicionales").value = selectedRow.cells[12].innerHTML;
-    document.getElementById("evidencia").value = selectedRow.cells[13].innerHTML;
+    document.getElementById("otrosPagos").value = selectedRow.cells[12].innerHTML;
+    document.getElementById("comentarios").value = selectedRow.cells[13].innerHTML;
+    document.getElementById("evidencia").value = selectedRow.cells[14].innerHTML;
 
     var objSelect = document.getElementById("ddSupervisor-List");
-    let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[14].innerHTML);
+    let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[15].innerHTML);
     document.getElementById("ddSupervisor").value = supervisorvalue;
 
-    document.getElementById("timestamp").value = selectedRow.cells[15].innerHTML;
+    document.getElementById("timestamp").value = selectedRow.cells[16].innerHTML;
+
 }
 
 function updateRecord(formData) {
@@ -217,16 +223,17 @@ function updateRecord(formData) {
     selectedRow.cells[9].innerHTML = formData.horaSalida;
     selectedRow.cells[10].innerHTML = formData.horaAlmuerzo;
     selectedRow.cells[11].innerHTML = formData.montosNegociados;
-    selectedRow.cells[12].innerHTML = formData.comentariosAdicionales;
-    selectedRow.cells[13].innerHTML = formData.evidencia;
-    selectedRow.cells[14].innerHTML = formData.ddSupervisor; 
-    selectedRow.cells[15].innerHTML = formData.timestamp;
+    selectedRow.cells[12].innerHTML = formData.otrosPagos;
+    selectedRow.cells[13].innerHTML = formData.comentarios;
+    selectedRow.cells[14].innerHTML = formData.evidencia;
+    selectedRow.cells[15].innerHTML = formData.ddSupervisor; 
+    selectedRow.cells[16].innerHTML = formData.timestamp;
 }
 
 function onDelete(td) {
 
     row = td.parentElement.parentElement;
-    let timestamp = row.cells[15].innerHTML;
+    let timestamp = row.cells[16].innerHTML;
 
     if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
 
@@ -273,8 +280,7 @@ function validate() {
     SetValidationError("horaEntrada", "horaEntradaValidationError");
     SetValidationError("horaSalida", "horaSalidaValidationError");
     SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
-    SetValidationError("montosNegociados", "mesCoberturaValidationError");
-    SetValidationError("comentariosAdicionales", "comentariosAdicionalesValidationError");
+    SetValidationError("montosNegociados", "montosNegociadosValidationError");
     SetValidationError("ddSupervisor", "ddSupervisorValidationError");
 
     return isValid;
@@ -337,7 +343,8 @@ function postApiData(){
         "horaSalida": formData.horaSalida,
         "horaAlmuerzo": formData.horaAlmuerzo,
         "montosNegociados": formData.montosNegociados,
-        "comentariosAdicionales": formData.comentariosAdicionales
+        "otrosPagos": formData.otrosPagos,
+        "comentarios": formData.comentarios
 
        }
 
@@ -367,3 +374,11 @@ function setSelectedValue(selectObj, valueToSet) {
     }
 }
 
+function FixUndefined (item){
+
+    if ( typeof item  == 'undefined'){
+        return "";
+    } else {
+        return item;
+    }
+}

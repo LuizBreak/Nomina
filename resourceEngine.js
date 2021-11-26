@@ -358,6 +358,7 @@ function fetchApiData(){
     });
 }
 
+
 function fetchPuestoData(){
     
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/puestos/all';
@@ -383,3 +384,4 @@ function fetchPuestoData(){
     console.log(error);
     });
 }
+
