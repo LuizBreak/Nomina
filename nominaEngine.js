@@ -6,7 +6,7 @@ function onFormSubmit() {
         var formData = readFormData();
         if (selectedRow == null)
         {
-            addNominaEntry();
+          //  addNominaEntry();
             fetchApiData();
         }
         else
@@ -289,8 +289,6 @@ function validate() {
     SetValidationError("horaSalida", "horaSalidaValidationError");
     SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
     SetValidationError("montosNegociados", "montosNegociadosValidationError");
-    SetValidationError("otrosPagos", "otrosPagosValidationError");
-    SetValidationError("comentarios", "comentariosValidationError");
     SetValidationError("ddSupervisor", "ddSupervisorValidationError");
 
     return isValid;

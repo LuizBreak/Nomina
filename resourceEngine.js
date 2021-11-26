@@ -61,7 +61,7 @@ function refresResourceReport(element) {
         cell1.setAttribute("data-label", "Action");
 
         cell2 = newRow.insertCell(1);
-        cell2.innerHTML = element.nombre;
+        cell2.innerHTML = PrintNames(element.nombre);
         cell2.setAttribute("data-label", "Nombre");
 
         cell3 = newRow.insertCell(2);
@@ -347,6 +347,7 @@ function fetchApiData(){
     console.log(error);
     });
 }
+
 
 function fetchPuestoData(){
     
