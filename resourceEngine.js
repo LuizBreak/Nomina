@@ -61,7 +61,7 @@ function refresResourceReport(element) {
         cell1.setAttribute("data-label", "Action");
 
         cell2 = newRow.insertCell(1);
-        cell2.innerHTML = element.nombre;
+        cell2.innerHTML = PrintNames(element.nombre);
         cell2.setAttribute("data-label", "Nombre");
 
         cell3 = newRow.insertCell(2);
@@ -346,30 +346,35 @@ function fetchApiData(){
     console.log(error);
     });
 }
-// function PrintNames(nombre){
+function PrintNames(nombre){
+    var informe = [];
+    
+        let nombres = nombre.split(" ")
+    
+    
+         for (let i=0; i<nombres.length; i++){
+    
+        	let nombre = i + "->" + nombres[i]
 
-//     //	document.write(nombreCompleto + "<br><br>") 
-    
-//         let nombres = nombre.split(" ")
-    
-    
-//          for (let i=0; i<nombres.length; i++){
-    
-//         	document.write(i + "->" + nombres[i] + "<br><br>")  
+            console.log(nombre)
            
-//            var encontre = false;
+        //    var encontre = false;
            
-//             for (let j=0; j<informe.length; j++){
+           for (let j=0; j<informe.length; j++){
+
+
                 
      
-//                 if(nombres[i] == informe[j][0]) {
-//                     encontre = true;
-//                    informe[j][1]++;
+        //         if(nombres[i] == informe[j][0]) {
+        //             encontre = true;
+        //            informe[j][1]++;
                    
-//                    return;
-//                 }
-//             }
-//             if(encontre == false) informe.push([nombres[i],1]);
-//         }
-//     }
+        //            return;
+        //         }
+            }
+        //     if(encontre == false) informe.push([nombres[i],1]);
+        }
+    }
+
+
     
