@@ -4,13 +4,8 @@ function onFormSubmit() {
 
     if (validate()) {
         var formData = readFormData();
-        if (selectedRow == null)
-        {
-            addNominaEntry();
-            fetchApiData();
-        }
-        else
-            updateRecord(formData);
+        // updateRecord(formData);
+        fetchApiData();
         resetForm();
     }
 }
@@ -21,6 +16,7 @@ function readFormData() {
     
     // primary key
     formData["timestamp"] = document.getElementById("timestamp").value;
+    if (formData["timestamp"] = "") formData["timestamp"] = Date.now(); 
 
     formData["NombreBkp"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;
@@ -121,30 +117,28 @@ function createForm(){
     let resources = data.Items;
     return resources.map(function(resources) {
 
-        console.log(resources.nombre)
-        console.log(resources.cargo)
-        if (resources.cargo == 'Supervisor'|| resources.cargo == 'Supervisora') {
+            console.log(resources.nombre)
+            console.log(resources.cargo)
+            if (resources.cargo == 'Supervisor'|| resources.cargo == 'Supervisora') {
 
-            option = document.createElement('option');
-            option.setAttribute('value', resources.nombre);
-            option.appendChild(document.createTextNode(resources.nombre));
-            selectSupervisor.appendChild(option);
-    
-        } else if (resources.cargo == 'Medico' || resources.cargo == 'Enfermero' || resources.cargo == 'Enfermera') {
+                option = document.createElement('option');
+                option.setAttribute('value', resources.nombre);
+                option.appendChild(document.createTextNode(resources.nombre));
+                selectSupervisor.appendChild(option);
+        
+            } else if (resources.cargo == 'Medico' || resources.cargo == 'Enfermero' || resources.cargo == 'Enfermera') {
 
-            option = document.createElement('option');
-            option.setAttribute('value', resources.nombre);
-            option.appendChild(document.createTextNode(resources.nombre));
-            selectCubierta.appendChild(option);
-    
-        } else {
-            option = document.createElement('option');
-            option.setAttribute('value', resources.nombre);
-            option.appendChild(document.createTextNode(resources.nombre));
-            selectNombreBkp.appendChild(option); 
-        }
-
-
+                option = document.createElement('option');
+                option.setAttribute('value', resources.nombre);
+                option.appendChild(document.createTextNode(resources.nombre));
+                selectCubierta.appendChild(option);
+        
+            } else {
+                option = document.createElement('option');
+                option.setAttribute('value', resources.nombre);
+                option.appendChild(document.createTextNode(resources.nombre));
+                selectNombreBkp.appendChild(option); 
+            }
         })
     })
     .catch(function(error) {
@@ -207,9 +201,9 @@ function onEdit(td) {
     let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[14].innerHTML);
     document.getElementById("ddSupervisor").value = supervisorvalue;
 
-
     document.getElementById("timestamp").value = selectedRow.cells[15].innerHTML;
 }
+
 function updateRecord(formData) {
     // [0] -> Action
     selectedRow.cells[1].innerHTML = formData.ddNombreBkp;
@@ -266,9 +260,6 @@ function onDelete(td) {
     }
 }
 function validate() {
-
-    // console.log(document.getElementById("concepto").value);
-    // return
 
     isValid = true;
 
