@@ -4,9 +4,19 @@ function onFormSubmit() {
 
     if (validate()) {
         var formData = readFormData();
+        // updateRecord(formData);
+        fetchApiData();
+        resetForm();
+    }
+}
+function onFormSubmit_bkp() {
+
+    if (validate()) {
+        var formData = readFormData();
         if (selectedRow == null)
         {
-            // addNominaEntry();
+
+            addNominaEntry();
             fetchApiData();
         }
         else
@@ -14,13 +24,13 @@ function onFormSubmit() {
         resetForm();
     }
 }
-
 function readFormData() {
 
     var formData = {};
     
     // primary key
     formData["timestamp"] = document.getElementById("timestamp").value;
+    if (formData["timestamp"] = "") formData["timestamp"] = Date.now(); 
 
     formData["nombre"] = document.getElementById("nombre").value;
     formData["apellido"] = document.getElementById("apellido").value;
@@ -42,6 +52,7 @@ function readFormData() {
     formData["fechaDeInicio"] = document.getElementById("fechaDeInicio").value;
     formData["exequatur"] = document.getElementById("exequatur").value;
     formData["comentario"] = document.getElementById("comentario").value;
+
     return formData;
 }
 
@@ -53,75 +64,75 @@ function refresResourceReport(element) {
     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
     
 
-        var newRow = table.insertRow(table.length);
+    var newRow = table.insertRow(table.length);
 
-        cell1 = newRow.insertCell(0);
-        cell1.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-                            <a onClick="onDelete(this)">Delete</a>`;
-        cell1.setAttribute("data-label", "Action");
+    cell1 = newRow.insertCell(0);
+    cell1.innerHTML = `<a onClick="onEdit(this)">Edit</a>
+                        <a onClick="onDelete(this)">Delete</a>`;
+    cell1.setAttribute("data-label", "Action");
 
-        cell2 = newRow.insertCell(1);
-        cell2.innerHTML = PrintNames(element.nombre);
-        cell2.setAttribute("data-label", "Nombre");
+    cell2 = newRow.insertCell(1);
+    cell2.innerHTML = element.nombre;
+    cell2.setAttribute("data-label", "Nombre");
 
-        cell3 = newRow.insertCell(2);
-        cell3.innerHTML = element.apellido;
-        cell3.setAttribute("data-label", "Apellido");
+    cell3 = newRow.insertCell(2);
+    cell3.innerHTML = element.apellido;
+    cell3.setAttribute("data-label", "Apellido");
 
-        cell4 = newRow.insertCell(3);
-        cell4.innerHTML = element.cedula;
-        cell4.setAttribute("data-label", "Cedula");
+    cell4 = newRow.insertCell(3);
+    cell4.innerHTML = element.cedula;
+    cell4.setAttribute("data-label", "Cedula");
 
-        cell5 = newRow.insertCell(4);
-        cell5.innerHTML = element.direccion;
-        cell5.setAttribute("data-label", "Direccion");
+    cell5 = newRow.insertCell(4);
+    cell5.innerHTML = element.direccion;
+    cell5.setAttribute("data-label", "Direccion");
 
-        cell6 = newRow.insertCell(5);
-        cell6.innerHTML = element.telefono;
-        cell6.setAttribute("data-label", "Telefono");
+    cell6 = newRow.insertCell(5);
+    cell6.innerHTML = element.telefono;
+    cell6.setAttribute("data-label", "Telefono");
 
-        cell7 = newRow.insertCell(6);
-        cell7.innerHTML = element.correo;
-        cell7.setAttribute("data-label", "Correo");
+    cell7 = newRow.insertCell(6);
+    cell7.innerHTML = element.correo;
+    cell7.setAttribute("data-label", "Correo");
 
-        cell8 = newRow.insertCell(7);
-        cell8.innerHTML = element.cargo;
-        cell8.setAttribute("data-label", "Cargo");
+    cell8 = newRow.insertCell(7);
+    cell8.innerHTML = element.cargo;
+    cell8.setAttribute("data-label", "Cargo");
 
-        cell9 = newRow.insertCell(8);
-        cell9.innerHTML = element.banco;
-        cell9.setAttribute("data-label", "Banco");
+    cell9 = newRow.insertCell(8);
+    cell9.innerHTML = element.banco;
+    cell9.setAttribute("data-label", "Banco");
 
-        cell10 = newRow.insertCell(9);
-        cell10.innerHTML = element.tipoDeCuenta;
-        cell10.setAttribute("data-label", "Tipo de Cuenta");
-        
-        cell11 = newRow.insertCell(10);
-        cell11.innerHTML = element.cuenta;
-        cell11.setAttribute("data-label", "Numero de Cuenta");
+    cell10 = newRow.insertCell(9);
+    cell10.innerHTML = element.tipoDeCuenta;
+    cell10.setAttribute("data-label", "Tipo de Cuenta");
+    
+    cell11 = newRow.insertCell(10);
+    cell11.innerHTML = element.cuenta;
+    cell11.setAttribute("data-label", "Numero de Cuenta");
 
-        cell12 = newRow.insertCell(11);
-        cell12.innerHTML = element.tipoDePago;
-        cell12.setAttribute("data-label", "tipo De Pago");
+    cell12 = newRow.insertCell(11);
+    cell12.innerHTML = element.tipoDePago;
+    cell12.setAttribute("data-label", "tipo De Pago");
 
-        console.log("fecha de inicio:" + element.fechaDeInicio);
-        
-        cell13 = newRow.insertCell(12);
-        cell13.innerHTML = element.fechaDeInicio;
-        cell13.setAttribute("data-label", "Fecha De Inicio");
+    console.log("fecha de inicio:" + element.fechaDeInicio);
+    
+    cell13 = newRow.insertCell(12);
+    cell13.innerHTML = element.fechaDeInicio;
+    cell13.setAttribute("data-label", "Fecha De Inicio");
 
-        cell14 = newRow.insertCell(13);
-        cell14.innerHTML = element.exequatur;
-        cell14.setAttribute("data-label", "Exequatur");
+    cell14 = newRow.insertCell(13);
+    cell14.innerHTML = element.exequatur;
+    cell14.setAttribute("data-label", "Exequatur");
 
-        cell15 = newRow.insertCell(14);
-        cell15.innerHTML = element.comentario;
-        cell15.setAttribute("data-label", "Comentario");
+    cell15 = newRow.insertCell(14);
+    cell15.innerHTML = element.comentario;
+    cell15.setAttribute("data-label", "Comentario");
 
-        
-        cell16 = newRow.insertCell(15);
-        cell16.innerHTML = element.timestamp;
-        cell16.setAttribute("data-label", "Timestamp");
+    
+    cell16 = newRow.insertCell(15);
+    cell16.innerHTML = element.timestamp;
+    cell16.setAttribute("data-label", "Timestamp");
 
 }
 
@@ -155,6 +166,7 @@ function resetForm() {
 }
 
 function onEdit(td) {
+
     selectedRow = td.parentElement.parentElement;
     // [0] -> Action
 
@@ -205,7 +217,6 @@ function updateRecord(formData) {
     selectedRow.cells[14].innerHTML = formData.comentario;
      
     selectedRow.cells[15].innerHTML = formData.timestamp;
-    // selectedRow.cells[10].innerHTML = formData.timestemp;
 }
 
 function onDelete(td) {
@@ -260,13 +271,12 @@ function validate() {
     // SetValidationError("cuenta", "horaAlmuerzoValidationError");
     SetValidationError("fechaDeInicio", "fechaDeInicioValidationError");
 
-
     return isValid;
 }
 
 function SetValidationError(FieldName, ErrorlabelName) {
 
-        console.log(FieldName + " - " + document.getElementById(FieldName).value)
+    console.log(FieldName + " - " + document.getElementById(FieldName).value)
 
     if (document.getElementById(FieldName).value == "") {
         isValid = false;
