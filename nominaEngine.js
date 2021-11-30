@@ -7,7 +7,7 @@ function onFormSubmit() {
     if (validate()) {
         formData = readFormData();
         postApiData();
-        // updateRecord(formData);
+        refreshNominaReport();
         resetForm();
     }
 }
@@ -184,9 +184,11 @@ function onEdit(td) {
 
     // [0] -> Action
 
-    var objSelect = document.getElementById("ddNombreBkp-List");
-    let nombreValue = setSelectedValue(objSelect, selectedRow.cells[1].innerHTML);
-    document.getElementById("ddNombreBkp").value = nombreValue;
+    // var objSelect = document.getElementById("ddNombreBkp-List");
+    // let nombreValue = setSelectedValue(objSelect, selectedRow.cells[1].innerHTML);
+    // document.getElementById("ddNombreBkp").value = nombreValue;
+
+    document.getElementById("ddNombreBkp").value = selectedRow.cells[1].innerHTML;
 
 
     document.getElementById("cedula").value = selectedRow.cells[2].innerHTML;
@@ -196,9 +198,11 @@ function onEdit(td) {
 
     document.getElementById("localidad").value = selectedRow.cells[4].innerHTML;
 
-    var objSelect = document.getElementById("ddNombreCubierta-List");
-    let nombreCubiertavalue =  setSelectedValue(objSelect, selectedRow.cells[5].innerHTML);
-    document.getElementById("ddNombreCubierta").value = nombreCubiertavalue;
+    // var objSelect = document.getElementById("ddNombreCubierta-List");
+    // let nombreCubiertavalue =  setSelectedValue(objSelect, selectedRow.cells[5].innerHTML);
+    // document.getElementById("ddNombreCubierta").value = nombreCubiertavalue;
+
+    document.getElementById("ddNombreCubierta").value = selectedRow.cells[5].innerHTML;
 
     document.getElementById("diasCobertura").value = selectedRow.cells[6].innerHTML;
     document.getElementById("mesCobertura").value = selectedRow.cells[7].innerHTML;
@@ -210,10 +214,12 @@ function onEdit(td) {
     document.getElementById("comentarios").value = selectedRow.cells[13].innerHTML;
     document.getElementById("evidencia").value = selectedRow.cells[14].innerHTML;
 
-    var objSelect = document.getElementById("ddSupervisor-List");
-    let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[15].innerHTML);
-    document.getElementById("ddSupervisor").value = supervisorvalue;
+    // var objSelect = document.getElementById("ddSupervisor-List");
+    // let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[15].innerHTML);
+    // document.getElementById("ddSupervisor").value = supervisorvalue;
     document.getElementById("ddSupervisor").focus();
+
+    document.getElementById("ddSupervisor").value = selectedRow.cells[15].innerHTML;
 
     document.getElementById("timestamp").value = selectedRow.cells[16].innerHTML;
 }
@@ -333,7 +339,7 @@ function postApiData(){
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries';
     
-    // console.log("v1: " + formData.nombreCubierta);
+    console.log("v1: " + formData.nombreCubierta);
     // console.log("v2: " + formData.diasCobertura);
 
     let data = {
