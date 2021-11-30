@@ -54,9 +54,9 @@ function refresResourceReport(element) {
     var newRow = table.insertRow(table.length);
 
     cell1 = newRow.insertCell(0);
-    cell1.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-                        <a onClick="onDelete(this)">Delete</a>`;
-    cell1.setAttribute("data-label", "Action");
+    cell1.innerHTML = `<a onClick="onEdit(this)">Editar</a>
+                        <a onClick="onDelete(this)">Borrar</a>`;
+    cell1.setAttribute("data-label", "Acción");
 
     cell2 = newRow.insertCell(1);
     cell2.innerHTML = element.nombre;
@@ -157,7 +157,7 @@ function resetForm() {
 function onEdit(td) {
 
     selectedRow = td.parentElement.parentElement;
-    // [0] -> Action
+    // [0] -> Acción
 
     document.getElementById("nombre").value = selectedRow.cells[1].innerHTML;
     document.getElementById("apellido").value = selectedRow.cells[2].innerHTML;
@@ -191,7 +191,7 @@ function onEdit(td) {
 }
 function updateRecord(formData) {
 
-    // [0] -> Action 
+    // [0] -> Acción 
     selectedRow.cells[1].innerHTML = formData.nombre;
     selectedRow.cells[2].innerHTML = formData.apellido;
     selectedRow.cells[3].innerHTML = formData.cedula;
