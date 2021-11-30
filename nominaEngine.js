@@ -7,7 +7,7 @@ function onFormSubmit() {
     if (validate()) {
         formData = readFormData();
         postApiData();
-        refreshNominaReport();
+        fetchApiData();
         resetForm();
     }
 }
@@ -19,7 +19,7 @@ function readFormData() {
     // primary key
     formData["timestamp"] = document.getElementById("timestamp").value;
 
-    console.log("formData[timestamp] -> " + formData["timestamp"])
+    //console.log("formData[timestamp] -> " + formData["timestamp"])
     if (formData["timestamp"] == "") formData["timestamp"] = Date.now(); 
 
     formData["nombreBkp"] = document.getElementById("ddNombreBkp").value;
@@ -339,7 +339,7 @@ function postApiData(){
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries';
     
-    console.log("v1: " + formData.nombreCubierta);
+    // console.log("v1: " + formData.nombreCubierta);
     // console.log("v2: " + formData.diasCobertura);
 
     let data = {
@@ -383,12 +383,12 @@ function postApiData(){
 function setSelectedValue(selectObj, valueToSet) {
     for (var i = 0; i < selectObj.options.length; i++) {
 
-        console.log( selectObj.options[i].value  + "-" + valueToSet)
-        console.log("result: " + selectObj.options[i].value == valueToSet)
+        // console.log( selectObj.options[i].value  + "-" + valueToSet)
+        // console.log("result: " + selectObj.options[i].value == valueToSet)
         
         if (selectObj.options[i].value.includes(valueToSet)) {
             selectObj.options[i].selected = true;
-            console.log("Achei ->: " + selectObj.options[i].value)
+            // console.log("Found it ->: " + selectObj.options[i].value)
             return selectObj.options[i].value;
         }
     }
