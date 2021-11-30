@@ -40,7 +40,7 @@
                     </div>
                     <div>
                         <label>Apellido</label>
-                        <!-- <label class="validation-error hide" id="apellidoValidationError">Este campo es obligatorio.</label> -->
+                        <label class="validation-error hide" id="apellidoValidationError">(*)</label>
                         <input list="apellido" type="text" name="apellido" id="apellido">
                     </div>
                     <div>
@@ -55,7 +55,7 @@
                     </div>
                     <div>
                         <label>Teléfono</label>
-                        <!-- <label class="validation-error hide" id="telefonoValidationError">Este campo es obligatorio.</label> -->
+                        <label class="validation-error hide" id="telefonoValidationError">(*)</label>
                         <input type="text" name="telefono" id="telefono">
                     </div>
                     <div>
@@ -65,16 +65,9 @@
                     </div>
                     <div>
                         <label>Cargo</label>
-                        <!-- <label class="validation-error hide" id="ddCargoValidationError">Este campo es obligatorio.</label> -->
+                        <label class="validation-error hide" id="ddCargoValidationError">(*)</label>
                         <select name="ddCargo" id="ddCargo">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
-                            <!-- <option value="medico">Medico</option>
-                            <option value="medicobkp">Medico bkp</option>
-                            <option value="enfermera">Enfermera</option>
-                            <option value="enfermerabkp">Enfermera bkp</option>
-                            <option value="enfermero">Enfermero</option>
-                            <option value="enfermerobkp">Enfermero bkp</option>
-                            <option value="supervisor">Supervisor</option> -->
                         </select>
                             
                     </div>
@@ -99,11 +92,12 @@
                         </fieldset>       
                     </div>
                     <div>
-                        <label>Nùmero de Cuenta</label><label class="validation-error hide" id="cuentaValidationError">(*))</label>
+                        <label>Nùmero de Cuenta</label><label class="validation-error hide" id="cuentaValidationError">(*)</label>
                         <input type="text" name="cuenta" id="cuenta">
                     </div>
                     <div>
                         <label>Tipo de Pago</label>
+                        <label class="validation-error hide" id="tipoDePagoValidationError">(*)</label>
                         <select name="tipoDePago" id="tipoDePago">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
                             <option value="TRANSFERENCIA BANCARIA">Transferencia Bancaria</option>
@@ -113,7 +107,8 @@
                             
                     </div>
                     <div>
-                        <label>Fecha de Inicio</label><label class="validation-error hide" id="fechaDeInicioValidationError">(*)</label>
+                        <label>Fecha de Inicio</label>
+                        <label class="validation-error hide" id="fechaDeInicioValidationError">(*)</label>
                         <input type="date" name="fechaDeInicio" id="fechaDeInicio">
                     </div>
                     <div>
@@ -140,7 +135,7 @@
 
     <table  class="table"  id="informe">
 
-        <caption>Solicitudes de Pagos</caption>
+        <caption>Listado de Recursos</caption>
 
         <thead>
             <tr>

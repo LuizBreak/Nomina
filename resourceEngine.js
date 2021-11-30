@@ -1,26 +1,13 @@
 var selectedRow = null
+var isValid = true;
+var formData = {};
 
 function onFormSubmit() {
 
     if (validate()) {
-        var formData = readFormData();
-        // updateRecord(formData);
+        formData = readFormData();
+        postApiData();
         fetchApiData();
-        resetForm();
-    }
-}
-function onFormSubmit_bkp() {
-
-    if (validate()) {
-        var formData = readFormData();
-        if (selectedRow == null)
-        {
-
-            addNominaEntry();
-            fetchApiData();
-        }
-        else
-            updateRecord(formData);
         resetForm();
     }
 }
@@ -115,7 +102,7 @@ function refresResourceReport(element) {
     cell12.innerHTML = element.tipoDePago;
     cell12.setAttribute("data-label", "tipo De Pago");
 
-    console.log("fecha de inicio:" + element.fechaDeInicio);
+    // console.log("fecha de inicio:" + element.fechaDeInicio);
     
     cell13 = newRow.insertCell(12);
     cell13.innerHTML = element.fechaDeInicio;
@@ -265,12 +252,12 @@ function validate() {
     isValid = true;
 
     SetValidationError("nombre", "nombreValidationError");
-    // SetValidationError("apellido", "apellidoValidationError");
+    SetValidationError("apellido", "apellidoValidationError");
     SetValidationError("cedula", "cedulaValidationError");
     // SetValidationError("direccion", "localidadValidationError");
-    // SetValidationError("telefono", "telefonoValidationError");
+    SetValidationError("telefono", "telefonoValidationError");
     // SetValidationError("correo", "diasCoberturaValidationError");
-    // SetValidationError("cargo", "cargoValidationError");
+    SetValidationError("cargo", "cargoValidationError");
     // SetValidationError("banco", "horaEntradaValidationError");
     // SetValidationError("tipoDeCuenta", "horaSalidaValidationError");
     // SetValidationError("cuenta", "horaAlmuerzoValidationError");
@@ -297,21 +284,21 @@ function postApiData(){
 
     // Article Reference: https://stackabuse.com/using-fetch-to-send-http-requests-in-javascript/
 
-    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries';
+    const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources';
     
 
     let data = {
         
         "timestamp": formData.timestamp,
-        "nombre": formData.ddNombreBkp,
-        "Localidad": formData.Localidad,
-        "hora": formData.hora,
-        "personaCubierta": formData.ddNombreCubierta,
-        "evidencia": formData.evidencia,
-        "concepto": formData.Concepto,
-        "fecha": formData.fecha,
+        "apellido": formData.apellido,
         "cedula": formData.cedula,
-        "supervisor": formData.supervisor,
+        "direccion": formData.direccion,
+        "telefono": formData.telefono,
+        "email": formData.email,
+        "cargo": formData.cargo,
+        "banco": formData.banco,
+        "tipoCuenta": formData.tipoCuenta,
+        "cuenta": formData.supervisor,
         "tipoDePago": formData.tipoDePago,
         "fechaDeInicio": formData.fechaDeInicio,
         "exequatur": formData.exequatur,
@@ -320,7 +307,7 @@ function postApiData(){
 
 
     var request = new Request(url, {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
@@ -362,7 +349,6 @@ function fetchApiData(){
     console.log(error);
     });
 }
-
 
 function fetchPuestoData(){
     
