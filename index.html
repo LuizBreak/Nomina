@@ -71,17 +71,17 @@
                         <select name="concepto"  id="concepto">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
 
-                            <option value="licenciaMedica">Licencia Medica</option>
-                            <option value="permiso">Permiso</option>
-                            <option value="entrenamiento">Entrenamiento</option>
-                            <option value="feriado">Feriado</option>
-                            <option value="horasAdcionales">Horas Adicionales</option>
-                            <option value="jornada">Jornada</option>
-                            <option value="permisoDeMatrimonio">Permiso de Matrimonio</option>
-                            <option value="permisoDeDefuncion">Permiso De Defuncion</option>
-                            <option value="servicoPuntual">Servico Puntual</option>
-                            <option value="serviciosAdicionales">Servicios Adicionales</option>
-                            <option value="vacantes">Vacantes</option>
+                            <option value="LICENCIA MEDICA">Licencia Medica</option>
+                            <option value="PERMISO">Permiso</option>
+                            <option value="ENTRENAMIENTO">Entrenamiento</option>
+                            <option value="FERIADO">Feriado</option>
+                            <option value="HORAS ADICIONALES">Horas Adicionales</option>
+                            <option value="JORNADA">Jornada</option>
+                            <option value="PERMISO DE MATRIMONIO">Permiso de Matrimonio</option>
+                            <option value="PERMISO DE DEFUNCION">Permiso De Defuncion</option>
+                            <option value="SERVICIO PUNTUAL">Servico Puntual</option>
+                            <option value="SERVICIOS ADCIONALES">Servicios Adicionales</option>
+                            <option value="VACANTES">Vacantes</option>
                         </select>
                             
                     </div>
@@ -133,19 +133,13 @@
                         <label>Evidencia</label>
                         <input type="text" name="evidencia" id="evidencia">
                     </div>
-
-
-
                     <div>
                         <label class="validation-error">(*) Campos con asterisco son obligatorios.</label>
                         <br>
                     </div>
                     <div class="content">
-                        <input type="submit" value="Submit">
-                        <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
-                    </div>
-                    <div>
-
+                        <input type="submit" value="Submit" onclick="return onFormSubmit()">
+                        <input type="text" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
             </tr>
