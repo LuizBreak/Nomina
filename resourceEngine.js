@@ -160,6 +160,8 @@ function resetForm() {
     document.getElementById("exequatur").value = "";
     document.getElementById("comentario").value = "";
 
+    document.getElementById("nombre").focus();
+
     document.getElementById("timestamp").value = "";
     
     selectedRow = null;
@@ -196,6 +198,9 @@ function onEdit(td) {
     document.getElementById("comentario").value = selectedRow.cells[14].innerHTML;
 
     document.getElementById("timestamp").value = selectedRow.cells[15].innerHTML;
+
+    document.getElementById("nombre").focus();
+
 }
 function updateRecord(formData) {
 
@@ -229,7 +234,7 @@ function onDelete(td) {
         
         if (timestamp=="") alert("Unable to delete this record.")
         
-        const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries/' + timestamp;
+        const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/' + timestamp;
             
         let data = {
                 "pathParameters": {

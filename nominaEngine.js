@@ -1,11 +1,13 @@
 var selectedRow = null
+var isValid = true;
+var formData = {};
 
 function onFormSubmit() {
 
     if (validate()) {
-        var formData = readFormData();
+        formData = readFormData();
         postApiData();
-        updateRecord(formData);
+        refreshNominaReport();
         resetForm();
     }
 }
@@ -16,13 +18,15 @@ function readFormData() {
     
     // primary key
     formData["timestamp"] = document.getElementById("timestamp").value;
-    if (formData["timestamp"] = "") formData["timestamp"] = Date.now(); 
 
-    formData["NombreBkp"] = document.getElementById("ddNombreBkp").value;
+    console.log("formData[timestamp] -> " + formData["timestamp"])
+    if (formData["timestamp"] == "") formData["timestamp"] = Date.now(); 
+
+    formData["nombreBkp"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;
     formData["concepto"] = document.getElementById("concepto").value;
     formData["localidad"] = document.getElementById("localidad").value;
-    formData["ddNombreCubierta"] = document.getElementById("ddNombreCubierta").value;
+    formData["nombreCubierta"] = document.getElementById("ddNombreCubierta").value;
     formData["diasCobertura"] = document.getElementById("diasCobertura").value;
     formData["mesCobertura"] = document.getElementById("mesCobertura").value;
     formData["horaEntrada"] = document.getElementById("horaEntrada").value;
@@ -64,7 +68,7 @@ function refreshNominaReport(element) {
         cell4.innerHTML = FixUndefined (element.concepto);
         cell4.setAttribute("data-label", "Concepto");
         cell5 = newRow.insertCell(4);
-        cell5.innerHTML =  FixUndefined(element.Localidad);
+        cell5.innerHTML =  FixUndefined(element.localidad);
         cell5.setAttribute("data-label", "Localidad");
         cell6 = newRow.insertCell(5);
         cell6.innerHTML =  FixUndefined(element.personaCubierta);
@@ -120,27 +124,30 @@ function createForm(){
     let resources = data.Items;
     return resources.map(function(resources) {
 
-            console.log(resources.nombre)
-            console.log(resources.cargo)
-            if (resources.cargo == 'Supervisor'|| resources.cargo == 'Supervisora') {
+            // console.log(resources.nombre)
+            // console.log(resources.cargo)
+            if (resources.cargo == 'SUPERVISOR'|| resources.cargo == 'SUPERVISORA') {
 
                 option = document.createElement('option');
                 option.setAttribute('value', resources.nombre);
                 option.appendChild(document.createTextNode(resources.nombre));
                 selectSupervisor.appendChild(option);
         
-            } else if (resources.cargo == 'Medico' || resources.cargo == 'Enfermero' || resources.cargo == 'Enfermera') {
+            } else if (resources.cargo.includes("BKP")) {
+                // all personall backup
+                option = document.createElement('option');
+                option.setAttribute('value', resources.nombre);
+                option.appendChild(document.createTextNode(resources.nombre));
+                selectNombreBkp.appendChild(option); 
+        
+            } else {
+            // all employees like  'MEDICO' || 'ENFERMERO' || 'ENFERMERA') {
 
                 option = document.createElement('option');
                 option.setAttribute('value', resources.nombre);
                 option.appendChild(document.createTextNode(resources.nombre));
                 selectCubierta.appendChild(option);
         
-            } else {
-                option = document.createElement('option');
-                option.setAttribute('value', resources.nombre);
-                option.appendChild(document.createTextNode(resources.nombre));
-                selectNombreBkp.appendChild(option); 
             }
         })
     })
@@ -177,9 +184,12 @@ function onEdit(td) {
 
     // [0] -> Acción
 
-    var objSelect = document.getElementById("ddNombreBkp-List");
-    let nombreValue = setSelectedValue(objSelect, selectedRow.cells[1].innerHTML);
-    document.getElementById("ddNombreBkp").value = nombreValue;
+    // var objSelect = document.getElementById("ddNombreBkp-List");
+    // let nombreValue = setSelectedValue(objSelect, selectedRow.cells[1].innerHTML);
+    // document.getElementById("ddNombreBkp").value = nombreValue;
+
+    document.getElementById("ddNombreBkp").value = selectedRow.cells[1].innerHTML;
+
 
     document.getElementById("cedula").value = selectedRow.cells[2].innerHTML;
 
@@ -188,9 +198,11 @@ function onEdit(td) {
 
     document.getElementById("localidad").value = selectedRow.cells[4].innerHTML;
 
-    var objSelect = document.getElementById("ddNombreCubierta-List");
-    let nombreCubiertavalue =  setSelectedValue(objSelect, selectedRow.cells[5].innerHTML);
-    document.getElementById("ddNombreCubierta").value = nombreCubiertavalue;
+    // var objSelect = document.getElementById("ddNombreCubierta-List");
+    // let nombreCubiertavalue =  setSelectedValue(objSelect, selectedRow.cells[5].innerHTML);
+    // document.getElementById("ddNombreCubierta").value = nombreCubiertavalue;
+
+    document.getElementById("ddNombreCubierta").value = selectedRow.cells[5].innerHTML;
 
     document.getElementById("diasCobertura").value = selectedRow.cells[6].innerHTML;
     document.getElementById("mesCobertura").value = selectedRow.cells[7].innerHTML;
@@ -202,21 +214,25 @@ function onEdit(td) {
     document.getElementById("comentarios").value = selectedRow.cells[13].innerHTML;
     document.getElementById("evidencia").value = selectedRow.cells[14].innerHTML;
 
-    var objSelect = document.getElementById("ddSupervisor-List");
-    let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[15].innerHTML);
-    document.getElementById("ddSupervisor").value = supervisorvalue;
+    // var objSelect = document.getElementById("ddSupervisor-List");
+    // let supervisorvalue =  setSelectedValue(objSelect, selectedRow.cells[15].innerHTML);
+    // document.getElementById("ddSupervisor").value = supervisorvalue;
+    document.getElementById("ddSupervisor").focus();
+
+    document.getElementById("ddSupervisor").value = selectedRow.cells[15].innerHTML;
 
     document.getElementById("timestamp").value = selectedRow.cells[16].innerHTML;
-
 }
 
 function updateRecord(formData) {
+
     // [0] -> Acción
     selectedRow.cells[1].innerHTML = formData.ddNombreBkp;
+
     selectedRow.cells[2].innerHTML = formData.cedula;
     selectedRow.cells[3].innerHTML = formData.concepto;
     selectedRow.cells[4].innerHTML = formData.localidad;
-    selectedRow.cells[5].innerHTML = formData.ddNombreCubierta;
+    selectedRow.cells[5].innerHTML = formData.nombreCubierta;
     selectedRow.cells[6].innerHTML = formData.diasCobertura;
     selectedRow.cells[7].innerHTML = formData.mesCobertura;
     selectedRow.cells[8].innerHTML = formData.horaEntrada;
@@ -226,7 +242,7 @@ function updateRecord(formData) {
     selectedRow.cells[12].innerHTML = formData.otrosPagos;
     selectedRow.cells[13].innerHTML = formData.comentarios;
     selectedRow.cells[14].innerHTML = formData.evidencia;
-    selectedRow.cells[15].innerHTML = formData.ddSupervisor; 
+    selectedRow.cells[15].innerHTML = formData.Supervisor; 
     selectedRow.cells[16].innerHTML = formData.timestamp;
 }
 
@@ -325,19 +341,20 @@ function postApiData(){
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries';
     
+    console.log("v1: " + formData.nombreCubierta);
+    // console.log("v2: " + formData.diasCobertura);
 
     let data = {
         
-        "timestamp": formData.timestamp,
-        "nombre": formData.ddNombreBkp,
-        "Localidad": formData.Localidad,
-        "hora": formData.hora,
-        "personaCubierta": formData.ddNombreCubierta,
+        "timestamp": Number(formData.timestamp),
+        "nombre": formData.nombreBkp,
+        "localidad": formData.localidad,
+        "personaCubierta": formData.nombreCubierta,
         "evidencia": formData.evidencia,
-        "concepto": formData.Concepto,
-        "fecha": formData.fecha,
+        "concepto": formData.concepto,
         "cedula": formData.cedula,
         "supervisor": formData.supervisor,
+        "diasCobertura": formData.diasCobertura,
         "mesCobertura": formData.mesCobertura,
         "horaEntrada": formData.horaEntrada,
         "horaSalida": formData.horaSalida,
@@ -348,9 +365,10 @@ function postApiData(){
 
        }
 
+       console.log(data);
 
     var request = new Request(url, {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
@@ -366,9 +384,13 @@ function postApiData(){
     
 function setSelectedValue(selectObj, valueToSet) {
     for (var i = 0; i < selectObj.options.length; i++) {
-        if (selectObj.options[i].text== valueToSet) {
-            selectObj.options[i].selected = true;
 
+        console.log( selectObj.options[i].value  + "-" + valueToSet)
+        console.log("result: " + selectObj.options[i].value == valueToSet)
+        
+        if (selectObj.options[i].value.includes(valueToSet)) {
+            selectObj.options[i].selected = true;
+            console.log("Achei ->: " + selectObj.options[i].value)
             return selectObj.options[i].value;
         }
     }
