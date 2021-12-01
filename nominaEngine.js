@@ -18,10 +18,9 @@ function readFormData() {
     var formData = {};
     
     // primary key
-    formData["timestamp"] = document.getElementById("timestamp").value;
+    formData["timestamp"] = Number(document.getElementById("timestamp").value);
+    console.log("TS: " + formData["timestamp"]);
 
-    //console.log("formData[timestamp] -> " + formData["timestamp"])
-    if (formData["timestamp"] == "") formData["timestamp"] = Date.now(); 
 
     formData["nombre"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;

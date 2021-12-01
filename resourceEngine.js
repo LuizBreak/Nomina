@@ -15,12 +15,11 @@ function readFormData() {
 
     var formData = {};
 
-    console.log("TS: " + document.getElementById("timestamp").value);
+    console.log("TS1: " + document.getElementById("timestamp").value);
     
     // primary key
-    formData["timestamp"] = document.getElementById("timestamp").value;
-    if (formData["timestamp"] = "") formData["timestamp"] = Date.now(); 
-    console.log("TS2: " + document.getElementById("timestamp").value);
+    formData["timestamp"] = Number(document.getElementById("timestamp").value);
+    console.log("TS2: " + formData["timestamp"]);
 
     formData["nombre"] = document.getElementById("nombre").value;
     formData["apellido"] = document.getElementById("apellido").value;
@@ -297,7 +296,7 @@ function postApiData(){
 
     let data = {
         
-        "timestamp": formData.timestamp == "" ?  "" : Number(formData.timestamp),
+        "timestamp": Number(formData.timestamp),
         "nombre": formData.nombre,
         "apellido": formData.apellido,
         "cedula": formData.cedula,
