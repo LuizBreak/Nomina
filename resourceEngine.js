@@ -7,31 +7,36 @@ function onFormSubmit() {
     if (validate()) {
         formData = readFormData();
         postApiData();
-        fetchApiData();
         resetForm();
+        fetchApiData();
     }
 }
 function readFormData() {
 
     var formData = {};
+
+    console.log("TS: " + document.getElementById("timestamp").value);
     
     // primary key
     formData["timestamp"] = document.getElementById("timestamp").value;
     if (formData["timestamp"] = "") formData["timestamp"] = Date.now(); 
+    console.log("TS2: " + document.getElementById("timestamp").value);
 
     formData["nombre"] = document.getElementById("nombre").value;
     formData["apellido"] = document.getElementById("apellido").value;
     formData["cedula"] = document.getElementById("cedula").value;
     formData["direccion"] = document.getElementById("direccion").value;
     formData["telefono"] = document.getElementById("telefono").value;
-    formData["email"] = document.getElementById("email").value;
+    formData["correo"] = document.getElementById("correo").value;
     formData["cargo"] = document.getElementById("ddCargo").value;
     formData["banco"] = document.getElementById("banco").value;
 
-    if (document.getElementById("Corriente").value == true) {
-        formData["tipoCuenta"]  = "corriente"
+   
+
+    if (document.getElementById("Corriente").checked == true) {
+        formData["tipoDeCuenta"]  = "corriente"
     } else {
-        formData["tipoCuenta"]  = "ahorro"
+        formData["tipoDeCuenta"]  = "ahorro"
     }
 
     formData["cuenta"] = document.getElementById("cuenta").value;
@@ -50,7 +55,6 @@ function refresResourceReport(element) {
 
     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
     
-
     var newRow = table.insertRow(table.length);
 
     cell1 = newRow.insertCell(0);
@@ -136,7 +140,7 @@ function resetForm() {
     document.getElementById("cedula").value = "";
     document.getElementById("direccion").value = "";
     document.getElementById("telefono").value = "";
-    document.getElementById("email").value = "";
+    document.getElementById("correo").value = "";
     document.getElementById("ddCargo").value = "";
     document.getElementById("banco").value = "";
     document.getElementById("Corriente").selected = true;
@@ -151,6 +155,9 @@ function resetForm() {
 
     document.getElementById("timestamp").value = "";
     
+    var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
+    table.innerHTML = "";
+
     selectedRow = null;
 }
 
@@ -164,7 +171,7 @@ function onEdit(td) {
     document.getElementById("cedula").value = selectedRow.cells[3].innerHTML;
     document.getElementById("direccion").value = selectedRow.cells[4].innerHTML;
     document.getElementById("telefono").value = selectedRow.cells[5].innerHTML;
-    document.getElementById("email").value = selectedRow.cells[6].innerHTML;
+    document.getElementById("correo").value = selectedRow.cells[6].innerHTML;
     document.getElementById("banco").value = selectedRow.cells[8].innerHTML;
 
     var tipoDeCuenta = selectedRow.cells[9].innerHTML;
@@ -196,7 +203,7 @@ function updateRecord(formData) {
     selectedRow.cells[2].innerHTML = formData.apellido;
     selectedRow.cells[3].innerHTML = formData.cedula;
     selectedRow.cells[4].innerHTML = formData.direccion;
-    selectedRow.cells[5].innerHTML = formData.email;
+    selectedRow.cells[5].innerHTML = formData.correo;
     selectedRow.cells[6].innerHTML = formData.cargo;
     selectedRow.cells[7].innerHTML = formData.mesCobertura;
     selectedRow.cells[8].innerHTML = formData.banco;
@@ -257,7 +264,7 @@ function validate() {
     // SetValidationError("direccion", "localidadValidationError");
     SetValidationError("telefono", "telefonoValidationError");
     // SetValidationError("correo", "diasCoberturaValidationError");
-    SetValidationError("cargo", "cargoValidationError");
+    // SetValidationError("cargo", "cargoValidationError");
     // SetValidationError("banco", "horaEntradaValidationError");
     // SetValidationError("tipoDeCuenta", "horaSalidaValidationError");
     // SetValidationError("cuenta", "horaAlmuerzoValidationError");
@@ -286,25 +293,28 @@ function postApiData(){
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources';
     
+    console.log("TS3: " + formData.timestamp);
 
     let data = {
         
-        "timestamp": formData.timestamp,
+        "timestamp": formData.timestamp == "" ?  "" : Number(formData.timestamp),
+        "nombre": formData.nombre,
         "apellido": formData.apellido,
         "cedula": formData.cedula,
         "direccion": formData.direccion,
         "telefono": formData.telefono,
-        "email": formData.email,
+        "correo": formData.correo,
         "cargo": formData.cargo,
         "banco": formData.banco,
-        "tipoCuenta": formData.tipoCuenta,
-        "cuenta": formData.supervisor,
+        "tipoDeCuenta": formData.tipoDeCuenta,
+        "cuenta": formData.cuenta,
         "tipoDePago": formData.tipoDePago,
         "fechaDeInicio": formData.fechaDeInicio,
         "exequatur": formData.exequatur,
         "comentario": formData.comentario
        }
 
+       console.log(data);
 
     var request = new Request(url, {
         method: 'PUT',
