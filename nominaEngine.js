@@ -7,6 +7,7 @@ function onFormSubmit() {
     if (validate()) {
         formData = readFormData();
         postApiData();
+        //updateRecord(formData);
         fetchApiData();
         resetForm();
     }
@@ -22,7 +23,7 @@ function readFormData() {
     //console.log("formData[timestamp] -> " + formData["timestamp"])
     if (formData["timestamp"] == "") formData["timestamp"] = Date.now(); 
 
-    formData["nombreBkp"] = document.getElementById("ddNombreBkp").value;
+    formData["nombre"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;
     formData["concepto"] = document.getElementById("concepto").value;
     formData["localidad"] = document.getElementById("localidad").value;
@@ -57,6 +58,8 @@ function refreshNominaReport(element) {
 
         cell1.setAttribute("data-label", "Acción");
         
+        console.log(element.nombre)
+
         cell2 = newRow.insertCell(1);
         cell2.innerHTML = FixUndefined(element.nombre);
         cell2.setAttribute("data-label", "Nombre");
@@ -227,7 +230,10 @@ function onEdit(td) {
 function updateRecord(formData) {
 
     // [0] -> Acción
-    selectedRow.cells[1].innerHTML = formData.ddNombreBkp;
+    
+    console.log(formData.nombre)
+
+    selectedRow.cells[1].innerHTML = formData.nombre;
 
     selectedRow.cells[2].innerHTML = formData.cedula;
     selectedRow.cells[3].innerHTML = formData.concepto;
@@ -242,7 +248,7 @@ function updateRecord(formData) {
     selectedRow.cells[12].innerHTML = formData.otrosPagos;
     selectedRow.cells[13].innerHTML = formData.comentarios;
     selectedRow.cells[14].innerHTML = formData.evidencia;
-    selectedRow.cells[15].innerHTML = formData.Supervisor; 
+    selectedRow.cells[15].innerHTML = formData.supervisor; 
     selectedRow.cells[16].innerHTML = formData.timestamp;
 }
 
