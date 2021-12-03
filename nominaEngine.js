@@ -19,8 +19,6 @@ function readFormData() {
     
     // primary key
     formData["timestamp"] = Number(document.getElementById("timestamp").value);
-    console.log("TS: " + formData["timestamp"]);
-
 
     formData["nombre"] = document.getElementById("ddNombreBkp").value;
     formData["cedula"] = document.getElementById("cedula").value;
@@ -57,8 +55,6 @@ function refreshNominaReport(element) {
 
         cell1.setAttribute("data-label", "Acción");
         
-        console.log(element.nombre)
-
         cell2 = newRow.insertCell(1);
         cell2.innerHTML = FixUndefined(element.nombre);
         cell2.setAttribute("data-label", "Nombre");
@@ -230,8 +226,6 @@ function updateRecord(formData) {
 
     // [0] -> Acción
     
-    console.log(formData.nombre)
-
     selectedRow.cells[1].innerHTML = formData.nombre;
 
     selectedRow.cells[2].innerHTML = formData.cedula;

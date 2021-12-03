@@ -8,19 +8,27 @@ function onFormSubmit() {
         formData = readFormData();
         postApiData();
         resetForm();
-        // fetchApiData();
-        updateRecord(formData);
+        
+        if (formData.timestamp === 0) {
+
+            // TODO: why need to be called twice??
+            fetchApiData();
+            var node = document.getElementById("informe").getElementsByTagName('tbody')[0];
+            while (node.hasChildNodes()) {
+                node.removeChild(node.lastChild);
+            }
+            fetchApiData();
+        } else {
+            updateRecord(formData);
+        }
     }
 }
 function readFormData() {
 
     var formData = {};
 
-    console.log("TS1: " + document.getElementById("timestamp").value);
-    
     // primary key
     formData["timestamp"] = Number(document.getElementById("timestamp").value);
-    console.log("TS2: " + formData["timestamp"]);
 
     formData["nombre"] = document.getElementById("nombre").value;
     formData["apellido"] = document.getElementById("apellido").value;
@@ -30,8 +38,6 @@ function readFormData() {
     formData["correo"] = document.getElementById("correo").value;
     formData["cargo"] = document.getElementById("ddCargo").value;
     formData["banco"] = document.getElementById("banco").value;
-
-   
 
     if (document.getElementById("Corriente").checked == true) {
         formData["tipoDeCuenta"]  = "corriente"
@@ -284,7 +290,7 @@ function validate() {
 
 function SetValidationError(FieldName, ErrorlabelName) {
 
-    console.log(FieldName + " - " + document.getElementById(FieldName).value)
+    // console.log(FieldName + " - " + document.getElementById(FieldName).value)
 
     if (document.getElementById(FieldName).value == "") {
         isValid = false;
@@ -302,8 +308,6 @@ function postApiData(){
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources';
     
-    console.log("TS3: " + formData.timestamp);
-
     let data = {
         
         "timestamp": Number(formData.timestamp),
@@ -365,7 +369,7 @@ function fetchApiData(){
         })
     })
     .catch(function(error) {
-    console.log(error);
+        console.log(error);
     });
 }
 
