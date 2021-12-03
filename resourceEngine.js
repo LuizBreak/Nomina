@@ -8,7 +8,8 @@ function onFormSubmit() {
         formData = readFormData();
         postApiData();
         resetForm();
-        fetchApiData();
+        // fetchApiData();
+        updateRecord(formData);
     }
 }
 function readFormData() {
@@ -154,10 +155,18 @@ function resetForm() {
 
     document.getElementById("timestamp").value = "";
     
-    var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
-    table.innerHTML = "";
+    // TODO: Check with Bob, why for the firs fetch after the update, 
+    //       the API seems to return old value records.
 
-    selectedRow = null;
+    // var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
+    // table.innerHTML = "";
+
+    // var node = document.getElementById("informe").getElementsByTagName('tbody')[0];
+    //     while (node.hasChildNodes()) {
+    //     node.removeChild(node.lastChild);
+    // }
+
+    // selectedRow = null;
 }
 
 function onEdit(td) {
@@ -202,9 +211,10 @@ function updateRecord(formData) {
     selectedRow.cells[2].innerHTML = formData.apellido;
     selectedRow.cells[3].innerHTML = formData.cedula;
     selectedRow.cells[4].innerHTML = formData.direccion;
-    selectedRow.cells[5].innerHTML = formData.correo;
-    selectedRow.cells[6].innerHTML = formData.cargo;
-    selectedRow.cells[7].innerHTML = formData.mesCobertura;
+    selectedRow.cells[5].innerHTML = formData.telefono;
+    selectedRow.cells[6].innerHTML = formData.correo;
+    selectedRow.cells[7].innerHTML = formData.cargo;
+    // selectedRow.cells[8].innerHTML = formData.mesCobertura;
     selectedRow.cells[8].innerHTML = formData.banco;
     selectedRow.cells[9].innerHTML = formData.tipoDeCuenta;
     selectedRow.cells[10].innerHTML = formData.cuenta;
