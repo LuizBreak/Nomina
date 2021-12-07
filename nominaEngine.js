@@ -5,11 +5,17 @@ var formData = {};
 function onFormSubmit() {
 
     if (validate()) {
+
         formData = readFormData();
-        postApiData();
-        //updateRecord(formData);
-        fetchApiData();
-        resetForm();
+        
+        putApiData().then(()=>{
+            if (formData.timestamp === 0) {
+                fetchApiData();
+            } else {
+                updateResourceReportItem(formData);
+            }
+        });
+
     }
 }
 
@@ -222,7 +228,7 @@ function onEdit(td) {
     document.getElementById("timestamp").value = selectedRow.cells[16].innerHTML;
 }
 
-function updateRecord(formData) {
+function updateResourceReportItem(formData) {
 
     // [0] -> Acción
     
@@ -312,41 +318,50 @@ function SetValidationError(FieldName, ErrorlabelName) {
             document.getElementById(ErrorlabelName).classList.add("hide");
     }
 }
+function resetResourceReport(){
+    var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
+    while (table.hasChildNodes()) {
+        table.removeChild(table.lastChild);
+    }
+}
 
-function fetchApiData(){
+async function fetchApiData(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 
+    resetResourceReport();
+
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/nomina/all';
 
-    fetch(url)
-    .then((resp) => resp.json())
-    .then(function(data) {
-    let nominaItems = data.Items;
-    return nominaItems.map(function(item) {
+    try {
+        const resp = await fetch(url);
+        const data = await resp.json();
+        let nominaItems = data.Items;
+        nominaItems.map(function (item) {
 
-        refreshNominaReport(item);
+            refreshNominaReport(item);
 
-        })
-    })
-    .catch(function(error) {
-    console.log(error);
-    });
+        });
+        return resp;
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-function postApiData(){
+async function putApiData(){
 
     // Article Reference: https://stackabuse.com/using-fetch-to-send-http-requests-in-javascript/
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries';
     
-    // console.log("v1: " + formData.nombreCubierta);
+    console.log("v1: " + formData.timestamp);
     // console.log("v2: " + formData.diasCobertura);
 
     let data = {
         
         "timestamp": Number(formData.timestamp),
-        "nombre": formData.nombreBkp,
+        "nombre": formData.nombre,
         "localidad": formData.localidad,
         "personaCubierta": formData.nombreCubierta,
         "evidencia": formData.evidencia,
@@ -374,11 +389,10 @@ function postApiData(){
         }
     });
 
-    fetch(request)
-    .then(response => response.json())
-    .then(json => {
-        console.log(json);
-    });
+    const response = await fetch(request);
+    const json = await response.json();
+    console.log(json);
+    return response;
 }
     
 function setSelectedValue(selectObj, valueToSet) {

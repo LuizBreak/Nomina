@@ -5,22 +5,16 @@ var formData = {};
 function onFormSubmit() {
 
     if (validate()) {
-        formData = readFormData();
-        postApiData();
-        resetForm();
-        
-        if (formData.timestamp === 0) {
 
-            // TODO: why need to be called twice??
-            fetchApiData();
-            var node = document.getElementById("informe").getElementsByTagName('tbody')[0];
-            while (node.hasChildNodes()) {
-                node.removeChild(node.lastChild);
+        formData = readFormData();
+        
+        putApiData().then(()=>{
+            if (formData.timestamp === 0) {
+                fetchApiData();
+            } else {
+                updateResourceReportItem(formData);
             }
-            fetchApiData();
-        } else {
-            updateRecord(formData);
-        }
+        });
     }
 }
 function readFormData() {
@@ -54,13 +48,14 @@ function readFormData() {
     return formData;
 }
 
-function refresResourceReport(element) {
+function refreshResourceReportItem(element) {
     
     // Responsive Table (Browser and Mobile)
     // Article Reference: https://www.youtube.com/watch?v=ZtopjfXhUZI
 
     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
-    
+
+
     var newRow = table.insertRow(table.length);
 
     cell1 = newRow.insertCell(0);
@@ -210,7 +205,7 @@ function onEdit(td) {
     document.getElementById("nombre").focus();
 
 }
-function updateRecord(formData) {
+function updateResourceReportItem(formData) {
 
     // [0] -> Acción 
     selectedRow.cells[1].innerHTML = formData.nombre;
@@ -302,7 +297,7 @@ function SetValidationError(FieldName, ErrorlabelName) {
     }
 }
 
-function postApiData(){
+async function putApiData(){
 
     // Article Reference: https://stackabuse.com/using-fetch-to-send-http-requests-in-javascript/
 
@@ -337,11 +332,9 @@ function postApiData(){
         }
     });
 
-    fetch(request)
-    .then(response => response.json())
-    .then(json => {
-        console.log(json);
-    });
+    const response = await fetch(request);
+    const json = await response.json();
+    console.log(json);
 }
     
 function setSelectedValue(selectObj, valueToSet) {
@@ -352,9 +345,17 @@ function setSelectedValue(selectObj, valueToSet) {
         }
     }
 }
+function resetResourceReport(){
+    var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
+    while (table.hasChildNodes()) {
+        table.removeChild(table.lastChild);
+    }
+}
 function fetchApiData(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
+
+    resetResourceReport();
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/all';
 
@@ -364,7 +365,7 @@ function fetchApiData(){
     let resourceItems = data.Items;
     return resourceItems.map(function(item) {
 
-        refresResourceReport(item);
+        refreshResourceReportItem(item);
 
         })
     })
