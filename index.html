@@ -46,7 +46,7 @@
 
                     <div>
                         <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">(*)</label>
-                        <input list="ddSupervisor-List" type="text" onKeyUp="this.value = this.value.toUpperCase();"  name="ddSupervisor" id="ddSupervisor">
+                        <input list="ddSupervisor-List" type="text"  onKeyUp="this.value = this.value.toUpperCase();"  name="ddSupervisor" id="ddSupervisor">
                         <datalist id="ddSupervisor-List">
                         </datalist>
                     </div>
@@ -57,8 +57,7 @@
                         alt="(+)" 
                         style="width:20px;height:20px;"></a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
-                        <input list="ddNombreBkp-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" name="ddNombreBkp" id="ddNombreBkp">
-                       
+                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" onchange="extractCedula();" >
                         <datalist id="ddNombreBkp-List">
                         </datalist>
                     </div>

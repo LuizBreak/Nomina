@@ -134,14 +134,14 @@ function createForm(){
 
                 option = document.createElement('option');
                 option.setAttribute('value', resources.nombre);
-                option.appendChild(document.createTextNode(resources.nombre));
+                option.appendChild(document.createTextNode(resources.cedula));
                 selectSupervisor.appendChild(option);
         
             } else if (resources.cargo.includes("BKP")) {
                 // all personall backup
                 option = document.createElement('option');
-                option.setAttribute('value', resources.nombre);
-                option.appendChild(document.createTextNode(resources.nombre));
+                option.setAttribute('value', resources.nombre + "-" + resources.cedula);
+                option.appendChild(document.createTextNode(resources.cedula));
                 selectNombreBkp.appendChild(option); 
         
             } else {
@@ -149,7 +149,7 @@ function createForm(){
 
                 option = document.createElement('option');
                 option.setAttribute('value', resources.nombre);
-                option.appendChild(document.createTextNode(resources.nombre));
+                option.appendChild(document.createTextNode(resources.cedula));
                 selectCubierta.appendChild(option);
         
             }
@@ -416,4 +416,33 @@ function FixUndefined (item){
     } else {
         return item;
     }
+}
+function extractCedulaCopia(){
+
+    console.log("yuuuppiieee");
+
+    var ddNombreBkp = document.getElementById("ddNombreBkp");
+    // let nombreycedula = ddNombreBkp.value.split("-")
+    // let nombreycedula = ddNombreBkp.id;
+
+    let miClass = ddNombreBkp.class;
+    console.log(miClass);
+
+    var miCedula = document.getElementById("cedula");
+    // miCedula.value = nombreycedula[0]
+    miCedula.value = miClass
+
+}
+
+
+function extractCedula(){
+
+    console.log("yuuuppiieee");
+
+    var ddNombreBkp = document.getElementById("ddNombreBkp");
+    let nombreycedula = ddNombreBkp.value.split("-")
+
+    var miCedula = document.getElementById("cedula");
+    miCedula.value = nombreycedula[1]
+    
 }
