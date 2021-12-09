@@ -58,9 +58,25 @@ function refreshNominaReport(element) {
 
         var newRow = table.insertRow(table.length);
 
+        // let cell1 = newRow.insertCell(0);
+        // cell1.innerHTML = `<a onClick="onEdit(this)">Editar</a>
+        //                     <a onClick="onDelete(this)">Borrar</a>`;
+
+        // cell1.setAttribute("data-label", "Acción");
+
+
         let cell1 = newRow.insertCell(0);
-        cell1.innerHTML = `<a onClick="onEdit(this)">Editar</a>
-                            <a onClick="onDelete(this)">Borrar</a>`;
+        cell1.innerHTML = `<a onClick="callOnEdit(this)">
+                            <img src="assets/editar.png" 
+                                alt="Editar" 
+                                style="width:40px;height:40px;">
+                            </a>
+
+                            <a onClick="callOnDelete(this)">
+                            <img src="assets/borrar.png" 
+                                alt="Borrar" 
+                                style="width:40px;height:40px;">
+                            </a>`;
 
         cell1.setAttribute("data-label", "Acción");
         
@@ -270,7 +286,7 @@ function updateResourceReportItem(formData) {
 
 function onDelete(td) {
 
-    row = td.parentElement.parentElement;
+    let row = td.parentElement.parentElement;
     let timestamp = row.cells[16].innerHTML;
 
     if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
@@ -431,4 +447,4 @@ function helloWorld() {
     return " Yes, I was here."
 }
 
-export { createForm, helloWorld, extractCedula };
+export { createForm, helloWorld, extractCedula, onDelete };
