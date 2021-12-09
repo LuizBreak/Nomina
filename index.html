@@ -22,6 +22,9 @@
                 mod1.extractCedula();
             });
         }
+        function GenerateExcelData(){
+            alert("Ping");
+        }
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,24 +55,25 @@
     </table>
 
     <table style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
-        <form onsubmit="event.preventDefault();" autocomplete="on">
+        <form onsubmit="event.preventDefault();" autocomplete="off">
             <tr>
                 <td style="width:40%;">
 
                     <div>
                         <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">(*)</label>
-                        <input list="ddSupervisor-List" type="text"  onKeyUp="this.value = this.value.toUpperCase();"  name="ddSupervisor" id="ddSupervisor">
+                        <input list="ddSupervisor-List" type="text" autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();"  name="ddSupervisor" id="ddSupervisor">
                         <datalist id="ddSupervisor-List">
                         </datalist>
                     </div>
                     <div>
                         <label>Nombre del backup</label>
                         <a href="recursos.html">
-                        <img src="assets/add.png" 
-                        alt="(+)" 
-                        style="width:20px;height:20px;"></a>
+                            <img src="assets/add.png" 
+                                alt="(+)" 
+                                style="width:20px;height:20px;">
+                        </a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
-                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula2();" >
+                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text"  autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula2();" >
                         <datalist id="ddNombreBkp-List">
                         </datalist>
                     </div>
@@ -102,7 +106,7 @@
                     </div>
                     <div>
                         <label>Nombre de la persona cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">(*)</label>
-                        <input list="ddNombreCubierta-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" name="ddNombreCubierta" id="ddNombreCubierta">
+                        <input list="ddNombreCubierta-List" type="text" autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" name="ddNombreCubierta" id="ddNombreCubierta">
                         <datalist id="ddNombreCubierta-List">
                         </datalist>
                     </div>
@@ -133,11 +137,11 @@
                     
                     <div>
                         <label>Hora de entrada</label><label class="validation-error hide" id="horaEntradaValidationError">(*)</label>
-                        <input type="text" name="horaEntrada" id="horaEntrada">
+                        <input type="time" name="horaEntrada" id="horaEntrada">
                     </div>
                     <div>
                         <label>Hora de salida</label><label class="validation-error hide" id="horaSalidaValidationError">(*)</label>
-                        <input type="text" name="horaSalida" id="horaSalida">
+                        <input type="time" name="horaSalida" id="horaSalida">
                     </div>
                     <div>
                         <label>Mantener hora del almuerzo</label><label class="validation-error hide" id="horaAlmuerzoValidationError">(*)</label>
@@ -169,7 +173,7 @@
                     <div class="content">
 
                         <input type="submit" value="Submit" onclick="return onFormSubmit()">
-                        <input type="text" name="timestamp" id="timestamp" readonly="readonly">
+                        <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
             </tr>
@@ -180,9 +184,20 @@
 
     <table  style="width:30%;">
         <tr>
-            <td style="text-align: center; vertical-align: middle;">
+            <td style="text-align: center; vertical-align: middle;" colspan="2">
                 <label>Filtro</label>
+            </td>
+        <tr>
+
+        <tr>
+            <td>
                 <input id="myInput" type="text" placeholder="busqueda..">
+
+            </td>
+            <td align="center">
+                <a href="assets/data/NOMINA BACKUP-1 Q-NOV.F CAMPUSANO.xlsm" onclick="GenerateExcelData()">
+                    <img src="assets/ToExcel.png" alt="Download Nomina" style="width:30px;height:30px;">
+                </a>
             </td>
         </tr>
     </table>

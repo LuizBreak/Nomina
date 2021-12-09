@@ -35,3 +35,8 @@ export function resetReportTable(tableName){
         table.removeChild(table.lastChild);
     }
 }
+
+function ExportJsonToExcel(){
+    // Article Reference: https://betterprogramming.pub/convert-json-to-xlsx-file-in-javascript-e7611a975916
+
+}
