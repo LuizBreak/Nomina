@@ -14,6 +14,7 @@ function onFormSubmit() {
             } else {
                 updateResourceReportItem(formData);
             }
+            resetForm();
         });
 
     }
