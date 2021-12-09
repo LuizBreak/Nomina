@@ -15,7 +15,7 @@
     </script>
 
     <script>
-        //
+        
         function callExtractCedula(){   
             import("./nominaEngine.js").then(mod1 => {
                 // alert("Ping!")
@@ -25,6 +25,15 @@
         function GenerateExcelData(){
             alert("Ping");
         }
+        function callOnDelete(td){   
+
+            alert("Ping: " + this.toString());
+
+            import("./nominaEngine.js").then(mod1 => {
+                mod1.onDelete(td);
+            });
+        }
+
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -73,7 +82,7 @@
                                 style="width:20px;height:20px;">
                         </a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
-                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text"  autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula2();" >
+                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text"  autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula();" >
                         <datalist id="ddNombreBkp-List">
                         </datalist>
                     </div>
