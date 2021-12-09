@@ -1,3 +1,5 @@
+import * as utils from "./util.js";
+
 var selectedRow = null
 var isValid = true;
 var formData = {};
@@ -192,7 +194,7 @@ function onEdit(td) {
     }
         
     var objSelect = document.getElementById("ddCargo");
-    setSelectedValue(objSelect, selectedRow.cells[7].innerHTML);
+    utils.setSelectedValue(objSelect, selectedRow.cells[7].innerHTML);
     
     document.getElementById("cuenta").value = selectedRow.cells[10].innerHTML;
     document.getElementById("tipoDePago").value = selectedRow.cells[11].innerHTML;
@@ -205,6 +207,7 @@ function onEdit(td) {
     document.getElementById("nombre").focus();
 
 }
+
 function updateResourceReportItem(formData) {
 
     // [0] -> Acción 
@@ -264,37 +267,24 @@ function onDelete(td) {
         resetForm();
     }
 }
+
 function validate() {
 
     isValid = true;
 
-    SetValidationError("nombre", "nombreValidationError");
-    SetValidationError("apellido", "apellidoValidationError");
-    SetValidationError("cedula", "cedulaValidationError");
-    // SetValidationError("direccion", "localidadValidationError");
-    SetValidationError("telefono", "telefonoValidationError");
-    // SetValidationError("correo", "diasCoberturaValidationError");
-    // SetValidationError("cargo", "cargoValidationError");
-    // SetValidationError("banco", "horaEntradaValidationError");
-    // SetValidationError("tipoDeCuenta", "horaSalidaValidationError");
-    // SetValidationError("cuenta", "horaAlmuerzoValidationError");
-    SetValidationError("fechaDeInicio", "fechaDeInicioValidationError");
+    utils.SetValidationError("nombre", "nombreValidationError");
+    utils.SetValidationError("apellido", "apellidoValidationError");
+    utils.SetValidationError("cedula", "cedulaValidationError");
+    // utils.SetValidationError("direccion", "localidadValidationError");
+    utils.SetValidationError("telefono", "telefonoValidationError");
+    // utils.SetValidationError("correo", "diasCoberturaValidationError");
+    // utils.SetValidationError("cargo", "cargoValidationError");
+    // utils.SetValidationError("banco", "horaEntradaValidationError");
+    // utils.SetValidationError("tipoDeCuenta", "horaSalidaValidationError");
+    // utils.SetValidationError("cuenta", "horaAlmuerzoValidationError");
+    utils.SetValidationError("fechaDeInicio", "fechaDeInicioValidationError");
 
     return isValid;
-}
-
-function SetValidationError(FieldName, ErrorlabelName) {
-
-    // console.log(FieldName + " - " + document.getElementById(FieldName).value)
-
-    if (document.getElementById(FieldName).value == "") {
-        isValid = false;
-        document.getElementById(ErrorlabelName).classList.remove("hide");
-    } else {
-        isValid = true;
-        if (!document.getElementById(ErrorlabelName).classList.contains("hide"))
-            document.getElementById(ErrorlabelName).classList.add("hide");
-    }
 }
 
 async function putApiData(){
@@ -336,26 +326,12 @@ async function putApiData(){
     const json = await response.json();
     console.log(json);
 }
-    
-function setSelectedValue(selectObj, valueToSet) {
-    for (var i = 0; i < selectObj.options.length; i++) {
-        if (selectObj.options[i].text== valueToSet) {
-            selectObj.options[i].selected = true;
-            return;
-        }
-    }
-}
-function resetResourceReport(){
-    var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
-    while (table.hasChildNodes()) {
-        table.removeChild(table.lastChild);
-    }
-}
+
 function fetchApiData(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 
-    resetResourceReport();
+    utils.resetReportTable("informe");
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/all';
 
@@ -400,3 +376,4 @@ function fetchPuestoData(){
     });
 }
 
+export { createForm };

@@ -8,10 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="responsive.table.css">
-    <script src="nominaEngine.js"></script>
-    <script type="text/javascript">
-        window.onload = createForm;
+
+    <script type="module">
+        import * as mod from "./nominaEngine.js";
+        window.onload = mod.createForm();
     </script>
+
+    <script>
+        //
+        function callExtractCedula(){   
+            import("./nominaEngine.js").then(mod1 => {
+                // alert("Ping!")
+                mod1.extractCedula();
+            });
+        }
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
@@ -57,7 +69,7 @@
                         alt="(+)" 
                         style="width:20px;height:20px;"></a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
-                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" onchange="extractCedula();" >
+                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text" onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula2();" >
                         <datalist id="ddNombreBkp-List">
                         </datalist>
                     </div>

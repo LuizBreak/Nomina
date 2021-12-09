@@ -1,3 +1,5 @@
+import * as utils from "./util.js";
+
 var selectedRow = null
 var isValid = true;
 var formData = {};
@@ -55,67 +57,80 @@ function refreshNominaReport(element) {
 
         var newRow = table.insertRow(table.length);
 
-        cell1 = newRow.insertCell(0);
+        let cell1 = newRow.insertCell(0);
         cell1.innerHTML = `<a onClick="onEdit(this)">Editar</a>
                             <a onClick="onDelete(this)">Borrar</a>`;
 
         cell1.setAttribute("data-label", "Acción");
         
-        cell2 = newRow.insertCell(1);
-        cell2.innerHTML = FixUndefined(element.nombre);
+        let cell2 = newRow.insertCell(1);
+        cell2.innerHTML = utils.fixUndefinedValues(element.nombre);
         cell2.setAttribute("data-label", "Nombre");
 
-        cell3 = newRow.insertCell(2);
-        cell3.innerHTML = FixUndefined(element.cedula);
+        let cell3 = newRow.insertCell(2);
+        cell3.innerHTML = utils.fixUndefinedValues(element.cedula);
         cell3.setAttribute("data-label", "Cedula");
-        cell4 = newRow.insertCell(3);
-        cell4.innerHTML = FixUndefined (element.concepto);
+        
+        let cell4 = newRow.insertCell(3);
+        cell4.innerHTML = utils.fixUndefinedValues (element.concepto);
         cell4.setAttribute("data-label", "Concepto");
-        cell5 = newRow.insertCell(4);
-        cell5.innerHTML =  FixUndefined(element.localidad);
+        
+        let cell5 = newRow.insertCell(4);
+        cell5.innerHTML =  utils.fixUndefinedValues(element.localidad);
         cell5.setAttribute("data-label", "Localidad");
-        cell6 = newRow.insertCell(5);
-        cell6.innerHTML =  FixUndefined(element.personaCubierta);
+        
+        let cell6 = newRow.insertCell(5);
+        cell6.innerHTML =  utils.fixUndefinedValues(element.personaCubierta);
         cell6.setAttribute("data-label", "Persona Cubierta");
-        cell7 = newRow.insertCell(6);
-        cell7.innerHTML = FixUndefined(element.diasCobertura);
+        
+        let cell7 = newRow.insertCell(6);
+        cell7.innerHTML = utils.fixUndefinedValues(element.diasCobertura);
         cell7.setAttribute("data-label", "Dias de cobertura");
-        cell8 = newRow.insertCell(7);
-        cell8.innerHTML = FixUndefined(element.mesCobertura);
+        
+        let cell8 = newRow.insertCell(7);
+        cell8.innerHTML = utils.fixUndefinedValues(element.mesCobertura);
         cell8.setAttribute("data-label", "Mes de cobertura");
-        cell9 = newRow.insertCell(8);
-        cell9.innerHTML = FixUndefined(element.horaEntrada);
+        
+        let cell9 = newRow.insertCell(8);
+        cell9.innerHTML = utils.fixUndefinedValues(element.horaEntrada);
         cell9.setAttribute("data-label", "Hora de entrada");
-        cell10 = newRow.insertCell(9);
-        cell10.innerHTML = FixUndefined(element.horaSalida);
+        
+        let cell10 = newRow.insertCell(9);
+        cell10.innerHTML = utils.fixUndefinedValues(element.horaSalida);
         cell10.setAttribute("data-label", "Hora de salida");
-        cell11 = newRow.insertCell(10);
-        cell11.innerHTML = FixUndefined(element.horaAlmuerzo);
+        
+        let cell11 = newRow.insertCell(10);
+        cell11.innerHTML = utils.fixUndefinedValues(element.horaAlmuerzo);
         cell11.setAttribute("data-label", "Mantener hora de almuerzo");
-        cell12 = newRow.insertCell(11);
-        cell12.innerHTML = FixUndefined(element.montosNegociados);
+        
+        let cell12 = newRow.insertCell(11);
+        cell12.innerHTML = utils.fixUndefinedValues(element.montosNegociados);
         cell12.setAttribute("data-label", "Montos Negociados");
-        cell13 = newRow.insertCell(12);
-        cell13.innerHTML = FixUndefined(element.otrosPagos);
+        
+        let cell13 = newRow.insertCell(12);
+        cell13.innerHTML = utils.fixUndefinedValues(element.otrosPagos);
         cell13.setAttribute("data-label", "Otros Pagos");
-        cell14 = newRow.insertCell(13);
-        cell14.innerHTML = FixUndefined(element.comentarios);
+        
+        let cell14 = newRow.insertCell(13);
+        cell14.innerHTML = utils.fixUndefinedValues(element.comentarios);
         cell14.setAttribute("data-label", "Comentarios");
-        cell15 = newRow.insertCell(14);
-        cell15.innerHTML = FixUndefined(element.evidencia);
+        
+        let cell15 = newRow.insertCell(14);
+        cell15.innerHTML = utils.fixUndefinedValues(element.evidencia);
         cell15.setAttribute("data-label", "Evidencia");
-        cell16 = newRow.insertCell(15);
-        cell16.innerHTML = FixUndefined(element.supervisor);
+        
+        let cell16 = newRow.insertCell(15);
+        cell16.innerHTML = utils.fixUndefinedValues(element.supervisor);
         cell16.setAttribute("data-label", "Supervisor");
         
-        cell17 = newRow.insertCell(16);
-        cell17.innerHTML = FixUndefined(element.timestamp);
+        let cell17 = newRow.insertCell(16);
+        cell17.innerHTML = utils.fixUndefinedValues(element.timestamp);
         cell17.setAttribute("data-label", "Timestamp");
 }
 
 function createForm(){
     // populate the dropdowns with API data
-
+    var option;
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/all';
     
     var selectSupervisor = document.getElementById("ddSupervisor-List");
@@ -161,6 +176,7 @@ function createForm(){
 
     fetchApiData();
 }
+
 function resetForm() {
     document.getElementById("ddNombreBkp").value = "";
     document.getElementById("cedula").value = "";
@@ -198,7 +214,7 @@ function onEdit(td) {
     document.getElementById("cedula").value = selectedRow.cells[2].innerHTML;
 
     var objSelect = document.getElementById("concepto");
-    setSelectedValue(objSelect, selectedRow.cells[3].innerHTML);
+    utils.setSelectedValue(objSelect, selectedRow.cells[3].innerHTML);
 
     document.getElementById("localidad").value = selectedRow.cells[4].innerHTML;
 
@@ -287,22 +303,23 @@ function onDelete(td) {
         resetForm();
     }
 }
+
 function validate() {
 
     isValid = true;
 
-    SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
-    SetValidationError("cedula", "cedulaValidationError");
-    SetValidationError("concepto", "conceptoValidationError");
-    SetValidationError("localidad", "localidadValidationError");
-    SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
-    SetValidationError("diasCobertura", "diasCoberturaValidationError");
-    SetValidationError("mesCobertura", "mesCoberturaValidationError");
-    SetValidationError("horaEntrada", "horaEntradaValidationError");
-    SetValidationError("horaSalida", "horaSalidaValidationError");
-    SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
-    SetValidationError("montosNegociados", "montosNegociadosValidationError");
-    SetValidationError("ddSupervisor", "ddSupervisorValidationError");
+    utils.SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
+    utils.SetValidationError("cedula", "cedulaValidationError");
+    utils.SetValidationError("concepto", "conceptoValidationError");
+    utils.SetValidationError("localidad", "localidadValidationError");
+    utils.SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
+    utils.SetValidationError("diasCobertura", "diasCoberturaValidationError");
+    utils.SetValidationError("mesCobertura", "mesCoberturaValidationError");
+    utils.SetValidationError("horaEntrada", "horaEntradaValidationError");
+    utils.SetValidationError("horaSalida", "horaSalidaValidationError");
+    utils.SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
+    utils.SetValidationError("montosNegociados", "montosNegociadosValidationError");
+    utils.SetValidationError("ddSupervisor", "ddSupervisorValidationError");
 
     return isValid;
 }
@@ -318,18 +335,19 @@ function SetValidationError(FieldName, ErrorlabelName) {
             document.getElementById(ErrorlabelName).classList.add("hide");
     }
 }
-function resetResourceReport(){
-    var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
-    while (table.hasChildNodes()) {
-        table.removeChild(table.lastChild);
-    }
-}
+
+// function resetResourceReport(){
+//     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
+//     while (table.hasChildNodes()) {
+//         table.removeChild(table.lastChild);
+//     }
+// }
 
 async function fetchApiData(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
 
-    resetResourceReport();
+    utils.resetReportTable("informe");
 
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/nomina/all';
 
@@ -394,29 +412,6 @@ async function putApiData(){
     console.log(json);
     return response;
 }
-    
-function setSelectedValue(selectObj, valueToSet) {
-    for (var i = 0; i < selectObj.options.length; i++) {
-
-        // console.log( selectObj.options[i].value  + "-" + valueToSet)
-        // console.log("result: " + selectObj.options[i].value == valueToSet)
-        
-        if (selectObj.options[i].value.includes(valueToSet)) {
-            selectObj.options[i].selected = true;
-            // console.log("Found it ->: " + selectObj.options[i].value)
-            return selectObj.options[i].value;
-        }
-    }
-}
-
-function FixUndefined (item){
-
-    if ( typeof item  == 'undefined'){
-        return "";
-    } else {
-        return item;
-    }
-}
 
 function extractCedula(){
 
@@ -429,3 +424,10 @@ function extractCedula(){
     miNombre.value = nombreycedula[0]
     miCedula.value = nombreycedula[1]
 }
+
+function helloWorld() {
+
+    return " Yes, I was here."
+}
+
+export { createForm, helloWorld, extractCedula };
