@@ -112,7 +112,23 @@
                     </div>
                     <div>
                         <label>Mes de cobertura</label><label class="validation-error hide" id="mesCoberturaValidationError">(*)</label>
-                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="mesCobertura" id="mesCobertura">
+                        <select name="mesCobertura" id="mesCobertura">
+                            <option disabled selected value> -- Seleccionar una opcion -- </option>
+
+                            <option value="ENERO">ENER0</option>
+                            <option value="FEBRERO">FEBRERO</option>
+                            <option value="MARZO">MARZO</option>
+                            <option value="ABRIL">ABRIL</option>
+                            <option value="MAYO">MAYO</option>
+                            <option value="JUNIO">JUNIO</option>
+                            <option value="JULIO">JULIO</option>
+                            <option value="AGOSTO">AGOSTO</option>
+                            <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                            <option value="OCTUBRE">OCTUBRE</option>
+                            <option value="NOVIEMBRE">NOVIEMBRE</option>
+                            <option value="DICIEMBRE">DICIEMBRE</option>
+                        </select>
+
                     </div>
                     
                     <div>
@@ -137,10 +153,12 @@
                     </div>
                     <div>
                         <label>Comentarios</label>
-                        <textarea name="textarea" name="comentarios" id="comentarios" style="height:50px;"></textarea>
+                        <textarea name="textarea" name="comentarios" id="comentarios"  oninput="this.value = this.value.toUpperCase()" style="height:50fpx;"></textarea>
 
                     </div>
-                    <div>
+                    <!-- <label>Comentario</label>
+                        <textarea name="textarea" name="comentario" id="comentario" oninput="this.value = this.value.toUpperCase()" style="height:50px;"></textarea>
+                    <div> -->
                         <label>Evidencia</label>
                         <input type="text" name="evidencia" id="evidencia">
                     </div>
