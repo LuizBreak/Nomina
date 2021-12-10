@@ -69,7 +69,7 @@ function refreshNominaReport(element) {
         cell1.innerHTML = `<a onClick="callOnEdit(this)">
                             <img src="assets/editar.png" 
                                 alt="Editar" 
-                                style="width:40px;height:40px;">
+                                style="width:40px;height:35px;">
                             </a>
 
                             <a onClick="callOnDelete(this)">
@@ -447,4 +447,4 @@ function helloWorld() {
     return " Yes, I was here."
 }
 
-export { createForm, helloWorld, extractCedula, onDelete };
+export { createForm, helloWorld, extractCedula, onDelete, onEdit, onFormSubmit };

@@ -27,12 +27,20 @@
         }
         function callOnDelete(td){   
 
-            alert("Ping: " + this.toString());
+            // alert("Ping: " + this.toString());
 
             import("./nominaEngine.js").then(mod1 => {
                 mod1.onDelete(td);
             });
         }
+        function callOnEdit(td){   
+
+            alert("Ping: " + this.toString());
+
+            import("./nominaEngine.js").then(mod1 => {
+                mod1.onEdit(td);
+            });
+            }
 
     </script>
 
