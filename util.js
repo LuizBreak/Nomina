@@ -20,10 +20,10 @@ export function SetValidationError(FieldName, ErrorlabelName) {
     // console.log(FieldName + " - " + document.getElementById(FieldName).value)
 
     if (document.getElementById(FieldName).value == "") {
-        isValid = false;
+        return false;
         document.getElementById(ErrorlabelName).classList.remove("hide");
     } else {
-        isValid = true;
+        return true;
         if (!document.getElementById(ErrorlabelName).classList.contains("hide"))
             document.getElementById(ErrorlabelName).classList.add("hide");
     }

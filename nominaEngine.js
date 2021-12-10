@@ -4,13 +4,13 @@ var selectedRow = null
 var isValid = true;
 var formData = {};
 
-function onFormSubmit() {
+async function onFormSubmit() {
 
     if (validate()) {
 
         formData = readFormData();
         
-        putApiData().then(()=>{
+        return putApiData().then(()=>{
             if (formData.timestamp === 0) {
                 fetchApiData();
             } else {
@@ -67,15 +67,16 @@ function refreshNominaReport(element) {
 
         let cell1 = newRow.insertCell(0);
         cell1.innerHTML = `<a onClick="callOnEdit(this)">
-                            <img src="assets/editar.png" 
+                            <img src="assets/pencil.png" 
                                 alt="Editar" 
-                                style="width:40px;height:40px;">
+                                style="width:25px;height:25px;"
+                                title="Editar">
                             </a>
-
                             <a onClick="callOnDelete(this)">
-                            <img src="assets/borrar.png" 
+                            <img src="assets/remove.png" 
                                 alt="Borrar" 
-                                style="width:40px;height:40px;">
+                                style="width:25px;height:25px;"
+                                title="Borrar">
                             </a>`;
 
         cell1.setAttribute("data-label", "Acción");
@@ -323,20 +324,20 @@ function onDelete(td) {
 
 function validate() {
 
-    isValid = true;
+    let isValid = true;
 
-    utils.SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
-    utils.SetValidationError("cedula", "cedulaValidationError");
-    utils.SetValidationError("concepto", "conceptoValidationError");
-    utils.SetValidationError("localidad", "localidadValidationError");
-    utils.SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
-    utils.SetValidationError("diasCobertura", "diasCoberturaValidationError");
-    utils.SetValidationError("mesCobertura", "mesCoberturaValidationError");
-    utils.SetValidationError("horaEntrada", "horaEntradaValidationError");
-    utils.SetValidationError("horaSalida", "horaSalidaValidationError");
-    utils.SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
-    utils.SetValidationError("montosNegociados", "montosNegociadosValidationError");
-    utils.SetValidationError("ddSupervisor", "ddSupervisorValidationError");
+    isValid = utils.SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
+    isValid = utils.SetValidationError("cedula", "cedulaValidationError");
+    isValid = utils.SetValidationError("concepto", "conceptoValidationError");
+    isValid = utils.SetValidationError("localidad", "localidadValidationError");
+    isValid = utils.SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
+    isValid = utils.SetValidationError("diasCobertura", "diasCoberturaValidationError");
+    isValid = utils.SetValidationError("mesCobertura", "mesCoberturaValidationError");
+    isValid = utils.SetValidationError("horaEntrada", "horaEntradaValidationError");
+    isValid = utils.SetValidationError("horaSalida", "horaSalidaValidationError");
+    isValid = utils.SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
+    isValid = utils.SetValidationError("montosNegociados", "montosNegociadosValidationError");
+    isValid = utils.SetValidationError("ddSupervisor", "ddSupervisorValidationError");
 
     return isValid;
 }
@@ -447,4 +448,4 @@ function helloWorld() {
     return " Yes, I was here."
 }
 
-export { createForm, helloWorld, extractCedula, onDelete };
+export { createForm, helloWorld, extractCedula, onDelete, onEdit, onFormSubmit};

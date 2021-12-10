@@ -27,13 +27,24 @@
         }
         function callOnDelete(td){   
 
-            alert("Ping: " + this.toString());
+            // alert("Ping: " + this.toString());
 
             import("./nominaEngine.js").then(mod1 => {
                 mod1.onDelete(td);
             });
         }
-
+        function callOnEdit(td){   
+            // alert("Ping on Edit!");
+            import("./nominaEngine.js").then(mod1 => {
+                mod1.onEdit(td);
+            });
+        }
+        function callOnFormSubmit(){
+            // alert("Ping on FormSubmit!");
+            import("./nominaEngine.js").then(mod1 => {
+                mod1.onFormSubmit();
+            }); 
+        }
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -77,9 +88,10 @@
                     <div>
                         <label>Nombre del backup</label>
                         <a href="recursos.html">
-                            <img src="assets/add.png" 
+                            <img src="assets/add-user.png" 
                                 alt="(+)" 
-                                style="width:20px;height:20px;">
+                                style="width:30px;height:30px;"
+                                title="Anadir Backup">
                         </a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
                         <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text"  autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula();" >
@@ -181,7 +193,7 @@
                     </div>
                     <div class="content">
 
-                        <input type="submit" value="Submit" onclick="return onFormSubmit()">
+                        <input type="submit" value="Submit" onclick="return callOnFormSubmit()">
                         <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
@@ -205,7 +217,7 @@
             </td>
             <td align="center">
                 <a href="assets/data/NOMINA BACKUP-1 Q-NOV.F CAMPUSANO.xlsm" onclick="GenerateExcelData()">
-                    <img src="assets/ToExcel.png" alt="Download Nomina" style="width:30px;height:30px;">
+                    <img src="assets/ToExcel.png" alt="Download Nomina" style="width:30px;height:30px;" title="Barrar Archivo de Datos">
                 </a>
             </td>
         </tr>
