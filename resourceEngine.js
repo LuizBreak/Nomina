@@ -3,19 +3,29 @@ import * as utils from "./util.js";
 var selectedRow = null
 var isValid = true;
 var formData = {};
+var showModal = false;
 
-function onFormSubmit() {
+function onFormSubmit(MyCallback) {
+
+    // var modalMessage = document.getElementById("modalContent");
+    showModal = false;
 
     if (validate()) {
 
+        // showModal = true;
         formData = readFormData();
         
         putApiData().then(()=>{
             if (formData.timestamp === 0) {
                 fetchApiData();
+                // MyCallback(true, modalMessage.innerHTML = "Registro insertado con exito.");
+                MyCallback(true, "Registro insertado con exito.");
             } else {
                 updateResourceReportItem(formData);
+                // MyCallback(true, modalMessage.innerHTML = "Registro actualizado con exito.");
+                MyCallback(true, "Registro actualizado con exito.");
             }
+            // llamar el Modal Windows
         });
     }
 }
@@ -49,7 +59,6 @@ function readFormData() {
 
     return formData;
 }
-
 function refreshResourceReportItem(element) {
     
     // Responsive Table (Browser and Mobile)
@@ -60,82 +69,80 @@ function refreshResourceReportItem(element) {
 
     var newRow = table.insertRow(table.length);
 
-    cell1 = newRow.insertCell(0);
-    cell1.innerHTML = `<a onClick="onEdit(this)">Editar</a>
-                        <a onClick="onDelete(this)">Borrar</a>`;
+    let cell1 = newRow.insertCell(0);
+    cell1.innerHTML = `<a onClick="callOnEdit(this)">Editar</a>
+                        <a onClick="callOnDelete(this)">Borrar</a>`;
     cell1.setAttribute("data-label", "Acción");
 
-    cell2 = newRow.insertCell(1);
+    let cell2 = newRow.insertCell(1);
     cell2.innerHTML = element.nombre;
     cell2.setAttribute("data-label", "Nombre");
 
-    cell3 = newRow.insertCell(2);
+    let cell3 = newRow.insertCell(2);
     cell3.innerHTML = element.apellido;
     cell3.setAttribute("data-label", "Apellido");
 
-    cell4 = newRow.insertCell(3);
+    let cell4 = newRow.insertCell(3);
     cell4.innerHTML = element.cedula;
     cell4.setAttribute("data-label", "Cedula");
 
-    cell5 = newRow.insertCell(4);
+    let cell5 = newRow.insertCell(4);
     cell5.innerHTML = element.direccion;
     cell5.setAttribute("data-label", "Direccion");
 
-    cell6 = newRow.insertCell(5);
+    let cell6 = newRow.insertCell(5);
     cell6.innerHTML = element.telefono;
     cell6.setAttribute("data-label", "Telefono");
 
-    cell7 = newRow.insertCell(6);
+    let cell7 = newRow.insertCell(6);
     cell7.innerHTML = element.correo;
     cell7.setAttribute("data-label", "Correo");
 
-    cell8 = newRow.insertCell(7);
+    let cell8 = newRow.insertCell(7);
     cell8.innerHTML = element.cargo;
     cell8.setAttribute("data-label", "Cargo");
 
-    cell9 = newRow.insertCell(8);
+    let cell9 = newRow.insertCell(8);
     cell9.innerHTML = element.banco;
     cell9.setAttribute("data-label", "Banco");
 
-    cell10 = newRow.insertCell(9);
+    let cell10 = newRow.insertCell(9);
     cell10.innerHTML = element.tipoDeCuenta;
     cell10.setAttribute("data-label", "Tipo de Cuenta");
     
-    cell11 = newRow.insertCell(10);
+    let cell11 = newRow.insertCell(10);
     cell11.innerHTML = element.cuenta;
     cell11.setAttribute("data-label", "Numero de Cuenta");
 
-    cell12 = newRow.insertCell(11);
+    let cell12 = newRow.insertCell(11);
     cell12.innerHTML = element.tipoDePago;
     cell12.setAttribute("data-label", "tipo De Pago");
 
     // console.log("fecha de inicio:" + element.fechaDeInicio);
     
-    cell13 = newRow.insertCell(12);
+    let cell13 = newRow.insertCell(12);
     cell13.innerHTML = element.fechaDeInicio;
     cell13.setAttribute("data-label", "Fecha De Inicio");
 
-    cell14 = newRow.insertCell(13);
+    let cell14 = newRow.insertCell(13);
     cell14.innerHTML = element.exequatur;
     cell14.setAttribute("data-label", "Exequatur");
 
-    cell15 = newRow.insertCell(14);
+    let cell15 = newRow.insertCell(14);
     cell15.innerHTML = element.comentario;
     cell15.setAttribute("data-label", "Comentario");
 
     
-    cell16 = newRow.insertCell(15);
+    let cell16 = newRow.insertCell(15);
     cell16.innerHTML = element.timestamp;
     cell16.setAttribute("data-label", "Timestamp");
 
 }
-
 function createForm(){
 
     fetchApiData();
     fetchPuestoData();
 }
-
 function resetForm() {
 
     document.getElementById("nombre").value = "";
@@ -171,7 +178,6 @@ function resetForm() {
 
     // selectedRow = null;
 }
-
 function onEdit(td) {
 
     selectedRow = td.parentElement.parentElement;
@@ -207,7 +213,6 @@ function onEdit(td) {
     document.getElementById("nombre").focus();
 
 }
-
 function updateResourceReportItem(formData) {
 
     // [0] -> Acción 
@@ -230,16 +235,18 @@ function updateResourceReportItem(formData) {
      
     selectedRow.cells[15].innerHTML = formData.timestamp;
 }
+function onDelete(td, MyCallback) {
 
-function onDelete(td) {
-
-    row = td.parentElement.parentElement;
+    let row = td.parentElement.parentElement;
     let timestamp = row.cells[15].innerHTML;
 
     if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
 
         
-        if (timestamp=="") alert("Unable to delete this record.")
+        if (timestamp=="") {
+            MyCallback(true, "Unable to delete this record.");
+            return;
+        }
         
         const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/resources/' + timestamp;
             
@@ -261,13 +268,14 @@ function onDelete(td) {
         .then(response => response.json())
         .then(json => {
             console.log(json);
+            //modalMessage.innerHTML = "Record deleted successfully.";
+            MyCallback(true, "Record deleted successfully.");
         });
 
         document.getElementById("informe").deleteRow(row.rowIndex);
         resetForm();
     }
 }
-
 function validate() {
 
     isValid = true;
@@ -286,7 +294,6 @@ function validate() {
 
     return isValid;
 }
-
 async function putApiData(){
 
     // Article Reference: https://stackabuse.com/using-fetch-to-send-http-requests-in-javascript/
@@ -326,7 +333,6 @@ async function putApiData(){
     const json = await response.json();
     console.log(json);
 }
-
 function fetchApiData(){
     
     // Article Reference: https://www.digitalocean.com/community/tutorials/how-to-use-the-javascript-fetch-api-to-get-data
@@ -349,7 +355,6 @@ function fetchApiData(){
         console.log(error);
     });
 }
-
 function fetchPuestoData(){
     
     const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/puestos/all';
@@ -362,7 +367,7 @@ function fetchPuestoData(){
     let puestoItems = data.Items;
     return puestoItems.map(function(item) {
 
-        option = document.createElement('option');
+        let option = document.createElement('option');
         option.setAttribute('value', item.puesto);
         option.appendChild(document.createTextNode(item.puesto));
         ddCargos.appendChild(option);
@@ -375,5 +380,4 @@ function fetchPuestoData(){
     console.log(error);
     });
 }
-
-export { createForm };
+export { createForm, validate, onEdit, onDelete, onFormSubmit};

@@ -6,7 +6,6 @@ export function fixUndefinedValues (item){
         return item;
     }
 }
-
 export function setSelectedValue(selectObj, valueToSet) {
     for (var i = 0; i < selectObj.options.length; i++) {
         if (selectObj.options[i].text== valueToSet) {
@@ -29,14 +28,12 @@ export function SetValidationError(FieldName, ErrorlabelName) {
 
     }
 }
-
 export function resetReportTable(tableName){
     var table = document.getElementById(tableName).getElementsByTagName('tbody')[0];
     while (table.hasChildNodes()) {
         table.removeChild(table.lastChild);
     }
 }
-
 function ExportJsonToExcel(){
     // Article Reference: https://betterprogramming.pub/convert-json-to-xlsx-file-in-javascript-e7611a975916
 

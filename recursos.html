@@ -6,12 +6,59 @@
         Lider en Salud Ocupacional
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="responsive.table.css">
-    <script type="module" src="resourceEngine.js"></script>
-    <script type="text/javascript">
-        window.onload = createForm;
+    <!-- <script type="module" src="resourceEngine.js"></script> -->
+
+    <script type="module">
+        import * as mod from "./resourceEngine.js";
+        window.onload = mod.createForm();
+
+
     </script>
+
+    <script>
+        function callOnEdit(td){   
+            import("./resourceEngine.js").then(mod => {
+                mod.onEdit(td);
+            });
+        }
+        function callOnDelete(td){   
+            import("./resourceEngine.js").then(mod => {
+                mod.onDelete(td, triggerMsgBox);
+            });
+        }
+        function callOnFormSubmit(){
+            import("./resourceEngine.js").then(mod => {
+                mod.onFormSubmit(triggerMsgBox);
+            });
+        }
+        function triggerMsgBox(showIt, message){
+
+            // console.log("msgBox -> " + showIt + " - " + message)
+
+            $('#myModal').modal({
+                show: 'false'
+            }); 
+
+            var modalMessage = document.getElementById("modalContent");
+            modalMessage.innerHTML = message;
+
+            if(showIt){
+                $("#myModal").modal("show");
+            } else {
+                $("#myModal").modal("hide");
+            }
+        }
+            
+    </script>
+
 </head>
 
 <body>
@@ -29,7 +76,7 @@
     </table>
 
     <table style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
-        <form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="on">
+        <form onsubmit="event.preventDefault();" autocomplete="on">
             <tr>
                 <td style="width:40%;">
                     <div>
@@ -124,7 +171,7 @@
                         <br>
                     </div>
                     <div class="content">
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Submit" onclick="return callOnFormSubmit();">
                         <input type="text" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
@@ -161,7 +208,27 @@
 
         </tbody>
     </table>
-
+    <div class="container">      
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ser Salud - Nomina App</h4>
+              </div>
+              <div class="modal-body">
+                <p id="modalContent">message goes here</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> 
+    </div>
 
 </body>
 
