@@ -1,7 +1,6 @@
 import * as utils from "./util.js";
 
-var selectedRow = null
-var isValid = true;
+var selectedRow = null;
 var formData = {};
 var showModal = false;
 
@@ -20,7 +19,7 @@ async function onFormSubmit(MyCallback) {
             if (formData.timestamp === 0) {
                 fetchApiData();
                 // MyCallback(true, modalMessage.innerHTML = "Registro insertado con exito.");
-                MyCallback(true, "Registro insertado con exito.");
+                MyCallback(true, "Registro realizado con exito.");
             } else {
                 updateResourceReportItem(formData);
                 // MyCallback(true, modalMessage.innerHTML = "Registro actualizado con exito.");
@@ -306,12 +305,12 @@ function onDelete(td, MyCallback) {
     let row = td.parentElement.parentElement;
     let timestamp = row.cells[16].innerHTML;
 
-    if (confirm('Are you sure to delete this record?')) {
+    if (confirm('Estas seguro que quieres eliminar este registro?')) {
 
         //var modalMessage = document.getElementById("modalContent");
         
         if (timestamp=="") {
-            MyCallback(true, "Unable to delete this record.");
+            MyCallback(true, "No se pudo eliminar este registro.");
             return;
         }
         
@@ -336,7 +335,7 @@ function onDelete(td, MyCallback) {
         .then(json => {
             console.log(json);
             //modalMessage.innerHTML = "Record deleted successfully.";
-            MyCallback(true, "Record deleted successfully.");
+            MyCallback(true, "Registro eliminado con exito.");
         });
 
         document.getElementById("informe").deleteRow(row.rowIndex);
@@ -348,33 +347,33 @@ function validate() {
 
     let isValid = true;
 
-    isValid = utils.SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
-    isValid = utils.SetValidationError("cedula", "cedulaValidationError");
-    isValid = utils.SetValidationError("concepto", "conceptoValidationError");
-    isValid = utils.SetValidationError("localidad", "localidadValidationError");
-    isValid = utils.SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
-    isValid = utils.SetValidationError("diasCobertura", "diasCoberturaValidationError");
-    isValid = utils.SetValidationError("mesCobertura", "mesCoberturaValidationError");
-    isValid = utils.SetValidationError("horaEntrada", "horaEntradaValidationError");
-    isValid = utils.SetValidationError("horaSalida", "horaSalidaValidationError");
-    isValid = utils.SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
-    isValid = utils.SetValidationError("montosNegociados", "montosNegociadosValidationError");
-    isValid = utils.SetValidationError("ddSupervisor", "ddSupervisorValidationError");
+    isValid *= utils.SetValidationError("ddNombreBkp", "ddNombreBkpValidationError");
+    isValid *= utils.SetValidationError("cedula", "cedulaValidationError");
+    isValid *= utils.SetValidationError("concepto", "conceptoValidationError");
+    isValid *= utils.SetValidationError("localidad", "localidadValidationError");
+    isValid *= utils.SetValidationError("ddNombreCubierta", "ddNombreCubiertaValidationError");
+    isValid *= utils.SetValidationError("diasCobertura", "diasCoberturaValidationError");
+    isValid *= utils.SetValidationError("mesCobertura", "mesCoberturaValidationError");
+    isValid *= utils.SetValidationError("horaEntrada", "horaEntradaValidationError");
+    isValid *= utils.SetValidationError("horaSalida", "horaSalidaValidationError");
+    isValid *= utils.SetValidationError("horaAlmuerzo", "horaAlmuerzoValidationError");
+    isValid *= utils.SetValidationError("montosNegociados", "montosNegociadosValidationError");
+    isValid *= utils.SetValidationError("ddSupervisor", "ddSupervisorValidationError");
 
     return isValid;
 }
 
-function SetValidationError(FieldName, ErrorlabelName) {
+// function SetValidationError(FieldName, ErrorlabelName) {
 
-    if (document.getElementById(FieldName).value == "") {
-        isValid = false;
-        document.getElementById(ErrorlabelName).classList.remove("hide");
-    } else {
-        isValid = true;
-        if (!document.getElementById(ErrorlabelName).classList.contains("hide"))
-            document.getElementById(ErrorlabelName).classList.add("hide");
-    }
-}
+//     if (document.getElementById(FieldName).value == "") {
+//         isValid = false;
+//         document.getElementById(ErrorlabelName).classList.remove("hide");
+//     } else {
+//         isValid = true;
+//         if (!document.getElementById(ErrorlabelName).classList.contains("hide"))
+//             document.getElementById(ErrorlabelName).classList.add("hide");
+//     }
+// }
 
 // function resetResourceReport(){
 //     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];

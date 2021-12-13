@@ -1,7 +1,6 @@
 import * as utils from "./util.js";
 
-var selectedRow = null
-var isValid = true;
+var selectedRow = null;
 var formData = {};
 var showModal = false;
 
@@ -25,8 +24,10 @@ function onFormSubmit(MyCallback) {
                 // MyCallback(true, modalMessage.innerHTML = "Registro actualizado con exito.");
                 MyCallback(true, "Registro actualizado con exito.");
             }
+            resetForm();
             // llamar el Modal Windows
         });
+
     }
 }
 function readFormData() {
@@ -70,8 +71,20 @@ function refreshResourceReportItem(element) {
     var newRow = table.insertRow(table.length);
 
     let cell1 = newRow.insertCell(0);
-    cell1.innerHTML = `<a onClick="callOnEdit(this)">Editar</a>
-                        <a onClick="callOnDelete(this)">Borrar</a>`;
+    cell1.innerHTML = `<a onClick="callOnEdit(this)">
+                        <img src="assets/pencil.png" 
+                            class="linkActions" 
+                            alt="Editar" 
+                            style="width:25px;height:25px;"
+                            title="Editar">
+                        </a>
+                        <a onClick="callOnDelete(this)">
+                        <img src="assets/remove.png" 
+                            class="linkActions" 
+                            alt="Borrar" 
+                            style="width:25px;height:25px;"
+                            title="Borrar">
+                        </a>`;
     cell1.setAttribute("data-label", "Acción");
 
     let cell2 = newRow.insertCell(1);
@@ -240,11 +253,11 @@ function onDelete(td, MyCallback) {
     let row = td.parentElement.parentElement;
     let timestamp = row.cells[15].innerHTML;
 
-    if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
+    if (confirm('Estas seguro que quieres borrar este registro?')) {
 
         
         if (timestamp=="") {
-            MyCallback(true, "Unable to delete this record.");
+            MyCallback(true, "No se pudo borrar este registro.");
             return;
         }
         
@@ -269,7 +282,7 @@ function onDelete(td, MyCallback) {
         .then(json => {
             console.log(json);
             //modalMessage.innerHTML = "Record deleted successfully.";
-            MyCallback(true, "Record deleted successfully.");
+            MyCallback(true, "Registro borrado con exito.");
         });
 
         document.getElementById("informe").deleteRow(row.rowIndex);
@@ -278,19 +291,19 @@ function onDelete(td, MyCallback) {
 }
 function validate() {
 
-    isValid = true;
+    let isValid = true;
 
-    utils.SetValidationError("nombre", "nombreValidationError");
-    utils.SetValidationError("apellido", "apellidoValidationError");
-    utils.SetValidationError("cedula", "cedulaValidationError");
-    // utils.SetValidationError("direccion", "localidadValidationError");
-    utils.SetValidationError("telefono", "telefonoValidationError");
-    // utils.SetValidationError("correo", "diasCoberturaValidationError");
-    // utils.SetValidationError("cargo", "cargoValidationError");
-    // utils.SetValidationError("banco", "horaEntradaValidationError");
-    // utils.SetValidationError("tipoDeCuenta", "horaSalidaValidationError");
-    // utils.SetValidationError("cuenta", "horaAlmuerzoValidationError");
-    utils.SetValidationError("fechaDeInicio", "fechaDeInicioValidationError");
+    isValid *= utils.SetValidationError("nombre", "nombreValidationError")
+    isValid *= utils.SetValidationError("apellido", "apellidoValidationError")
+    isValid *= utils.SetValidationError("cedula", "cedulaValidationError")
+            // utils.SetValidationError("direccion", "localidadValidationError")
+    isValid *= utils.SetValidationError("telefono", "telefonoValidationError")
+            // utils.SetValidationError("correo", "diasCoberturaValidationError")
+            // utils.SetValidationError("cargo", "cargoValidationError")
+            // utils.SetValidationError("banco", "horaEntradaValidationError")
+            // utils.SetValidationError("tipoDeCuenta", "horaSalidaValidationError")
+            // utils.SetValidationError("cuenta", "horaAlmuerzoValidationError")
+    isValid *= utils.SetValidationError("fechaDeInicio", "fechaDeInicioValidationError");
 
     return isValid;
 }
