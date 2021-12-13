@@ -3,22 +3,36 @@ import * as utils from "./util.js";
 var selectedRow = null
 var isValid = true;
 var formData = {};
+var showModal = false;
 
-async function onFormSubmit() {
+
+async function onFormSubmit(MyCallback) {
+
+    // var modalMessage = document.getElementById("modalContent");
+    showModal = false;
 
     if (validate()) {
 
+        // showModal = true;
         formData = readFormData();
-        
+
         return putApiData().then(()=>{
             if (formData.timestamp === 0) {
                 fetchApiData();
+                // MyCallback(true, modalMessage.innerHTML = "Registro insertado con exito.");
+                MyCallback(true, "Registro insertado con exito.");
             } else {
                 updateResourceReportItem(formData);
+                // MyCallback(true, modalMessage.innerHTML = "Registro actualizado con exito.");
+                MyCallback(true, "Registro actualizado con exito.");
             }
             resetForm();
+
         });
 
+    } else {
+        // console.log(modalMessage.innerHTML);
+        //MyCallback(false, "Validation Failed");
     }
 }
 
@@ -68,12 +82,14 @@ function refreshNominaReport(element) {
         let cell1 = newRow.insertCell(0);
         cell1.innerHTML = `<a onClick="callOnEdit(this)">
                             <img src="assets/pencil.png" 
+                                class="linkActions" 
                                 alt="Editar" 
                                 style="width:25px;height:25px;"
                                 title="Editar">
                             </a>
                             <a onClick="callOnDelete(this)">
                             <img src="assets/remove.png" 
+                                class="linkActions" 
                                 alt="Borrar" 
                                 style="width:25px;height:25px;"
                                 title="Borrar">
@@ -285,21 +301,25 @@ function updateResourceReportItem(formData) {
     selectedRow.cells[16].innerHTML = formData.timestamp;
 }
 
-function onDelete(td) {
+function onDelete(td, MyCallback) {
 
     let row = td.parentElement.parentElement;
     let timestamp = row.cells[16].innerHTML;
 
-    if (confirm('Are you sure to delete this record ? -> ' + timestamp.toString())) {
+    if (confirm('Are you sure to delete this record?')) {
 
+        //var modalMessage = document.getElementById("modalContent");
         
-        if (timestamp=="") alert("Unable to delete this record.")
+        if (timestamp=="") {
+            MyCallback(true, "Unable to delete this record.");
+            return;
+        }
         
         const url = 'https://u3d98p841a.execute-api.us-east-1.amazonaws.com/entries/' + timestamp;
             
         let data = {
                 "pathParameters": {
-                    "timestamp": timestamp 
+                    "timestamp": Number(timestamp) 
                 }
             }
 
@@ -315,6 +335,8 @@ function onDelete(td) {
         .then(response => response.json())
         .then(json => {
             console.log(json);
+            //modalMessage.innerHTML = "Record deleted successfully.";
+            MyCallback(true, "Record deleted successfully.");
         });
 
         document.getElementById("informe").deleteRow(row.rowIndex);

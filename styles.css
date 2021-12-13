@@ -62,7 +62,9 @@ a{
     color: #0000ee;
     margin-right: 4px;
 }
-
+.linkActions{
+    margin-bottom: 5px;
+}
 label.validation-error{
     color:   red;
     margin-left: 5px;

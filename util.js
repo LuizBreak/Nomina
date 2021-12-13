@@ -20,12 +20,13 @@ export function SetValidationError(FieldName, ErrorlabelName) {
     // console.log(FieldName + " - " + document.getElementById(FieldName).value)
 
     if (document.getElementById(FieldName).value == "") {
-        return false;
         document.getElementById(ErrorlabelName).classList.remove("hide");
+        return false;
     } else {
-        return true;
         if (!document.getElementById(ErrorlabelName).classList.contains("hide"))
             document.getElementById(ErrorlabelName).classList.add("hide");
+        return true;
+
     }
 }
 
