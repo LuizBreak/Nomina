@@ -173,9 +173,19 @@
                         <label>Hora de salida</label><label class="validation-error hide" id="horaSalidaValidationError">(*)</label>
                         <input type="time" name="horaSalida" id="horaSalida">
                     </div>
-                    <div>
+                    <!-- <div>
                         <label>Mantener hora del almuerzo</label><label class="validation-error hide" id="horaAlmuerzoValidationError">(*)</label>
                         <input type="text" name="horaAlmuerzo" id="horaAlmuerzo">
+                    </div> -->
+                    <div>
+                        <label>Mantener hora del almuerzo</label><label class="validation-error hide" id="horaAlmuerzoValidationError">(*)</label>
+                        <select name="horaAlmuerzo" id="horaAlmuerzo">
+                            <option disabled selected value> -- Seleccionar una opcion -- </option>
+
+                            <option value="SI">SI</option>
+                            <option value="NO">NO</option>
+                        </select>
+
                     </div>
                     <div>
                         <label>Montos negociados</label><label class="validation-error hide" id="montosNegociadosValidationError">(*)</label>
@@ -199,7 +209,7 @@
                         <br>
                     </div>
                     <div class="content">
-                        <input type="submit" value="Submit" onclick="return callOnFormSubmit()">
+                        <input type="submit" value="Enviar" onclick="return callOnFormSubmit()">
                         <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
@@ -221,7 +231,7 @@
                 <input id="myInput" type="text" placeholder="busqueda..">
 
             </td>
-            <td align="center">
+            <td style="text-align: center; vertical-align: middle;">
                 <a href="assets/data/NOMINA BACKUP-1 Q-NOV.F CAMPUSANO.xlsm" onclick="GenerateExcelData()">
                     <img src="assets/ToExcel.png" alt="Download Nomina" style="width:30px;height:30px;" title="Barrar Archivo de Datos">
                 </a>
@@ -283,6 +293,13 @@
 
     <script>
         $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+
+            $("#informe tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
 
           $('#myModal').on('show.bs.modal', function() {
 
