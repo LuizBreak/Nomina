@@ -25,9 +25,13 @@ function onFormSubmit(MyCallback) {
                 MyCallback(true, "Registro actualizado con exito.");
             }
             resetForm();
+
             // llamar el Modal Windows
         });
 
+    } else {
+
+        MyCallback(true,"Llenar campo");
     }
 }
 function readFormData() {
