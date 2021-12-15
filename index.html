@@ -11,18 +11,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="responsive.table.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/responsive.table.css">
 
     <script type="module">
-        import * as mod from "./nominaEngine.js";
+        import * as mod from "./js/nominaEngine.js";
         window.onload = mod.createForm();
     </script>
 
     <script>    
         function callExtractCedula(){   
-            import("./nominaEngine.js").then(mod1 => {
-                // alert("Ping!")
+            import("./js/nominaEngine.js").then(mod1 => {
                 mod1.extractCedula();
             });
         }
@@ -30,28 +29,24 @@
             alert("Ping");
         }
         function callOnDelete(td){   
-
-            import("./nominaEngine.js").then(mod1 => {
+            import("./js/nominaEngine.js").then(mod1 => {
                 mod1.onDelete(td, triggerMsgBox);
             });
         }
         function callOnEdit(td){   
-            // alert("Ping on Edit!");
-            import("./nominaEngine.js").then(mod1 => {
+            import("./js/nominaEngine.js").then(mod1 => {
                 mod1.onEdit(td);
             });
         }
         function callOnFormSubmit(){
 
-            import("./nominaEngine.js").then(mod1 => {
+            import("./js/nominaEngine.js").then(mod1 => {
                 mod1.onFormSubmit(triggerMsgBox);
             });
-            
         }
         function triggerMsgBox(showIt, message){
 
             // console.log("msgBox -> " + showIt + " - " + message)
-            
             $('#myModal').modal({
                 show: 'false'
             }); 
@@ -73,7 +68,7 @@
     <table  style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
         <tr>
             <td style="text-align: center; vertical-align: middle;">
-                <img src="assets/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
+                <img src="./assets/img/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
                 alt="SER SALUD" 
                 style="width:100px;height:100px;">
             </td>
@@ -90,20 +85,20 @@
 
                     <div>
                         <label>Supervisor</label><label class="validation-error hide" id="ddSupervisorValidationError">(*)</label>
-                        <input list="ddSupervisor-List" type="text" autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();"  name="ddSupervisor" id="ddSupervisor">
+                        <input list="ddSupervisor-List" type="text" autocomplete=”off”  name="ddSupervisor" id="ddSupervisor">
                         <datalist id="ddSupervisor-List">
                         </datalist>
                     </div>
                     <div>
                         <label>Nombre del backup</label>
                         <a href="recursos.html">
-                            <img src="assets/add-user.png" 
+                            <img src="./assets/img/add-user.png" 
                                 alt="(+)" 
                                 style="width:30px;height:30px;"
                                 title="Anadir Backup">
                         </a>
                         <label class="validation-error hide" id="ddNombreBkpValidationError">(*)</label>
-                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text"  autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" onchange="callExtractCedula();" >
+                        <input name="ddNombreBkp" id="ddNombreBkp" list="ddNombreBkp-List" type="text"  autocomplete=”off” onchange="callExtractCedula();" >
                         <datalist id="ddNombreBkp-List">
                         </datalist>
                     </div>
@@ -132,11 +127,11 @@
                     </div>
                     <div>
                         <label>Localidad</label><label class="validation-error hide" id="localidadValidationError">(*)</label>
-                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="localidad" id="localidad">
+                        <input type="text" name="localidad" id="localidad">
                     </div>
                     <div>
                         <label>Nombre de la persona cubierta</label><label class="validation-error hide" id="ddNombreCubiertaValidationError">(*)</label>
-                        <input list="ddNombreCubierta-List" type="text" autocomplete=”off” onKeyUp="this.value = this.value.toUpperCase();" name="ddNombreCubierta" id="ddNombreCubierta">
+                        <input list="ddNombreCubierta-List" type="text" autocomplete=”off” name="ddNombreCubierta" id="ddNombreCubierta">
                         <datalist id="ddNombreCubierta-List">
                         </datalist>
                     </div>
@@ -181,7 +176,6 @@
                         <label>Mantener hora del almuerzo</label><label class="validation-error hide" id="horaAlmuerzoValidationError">(*)</label>
                         <select name="horaAlmuerzo" id="horaAlmuerzo">
                             <option disabled selected value> -- Seleccionar una opcion -- </option>
-
                             <option value="SI">SI</option>
                             <option value="NO">NO</option>
                         </select>
@@ -232,8 +226,8 @@
 
             </td>
             <td style="text-align: center; vertical-align: middle;">
-                <a href="assets/data/NOMINA BACKUP-1 Q-NOV.F CAMPUSANO.xlsm" onclick="GenerateExcelData()">
-                    <img src="assets/ToExcel.png" alt="Download Nomina" style="width:30px;height:30px;" title="Barrar Archivo de Datos">
+                <a href="./assets/img/data/NOMINA BACKUP-1 Q-NOV.F CAMPUSANO.xlsm" onclick="GenerateExcelData()">
+                    <img src="./assets/img/ToExcel.png" alt="Download Nomina" style="width:30px;height:30px;" title="Descargar Archivo de Datos">
                 </a>
             </td>
         </tr>
@@ -261,13 +255,14 @@
                 <th>Evidencia</th>
                 <th>Supervisor</th>
                 <th>Timestamp</th>
-
             </tr>
         </thead>
         <tbody id="informeData">
 
         </tbody>
     </table>
+
+    <!-- Article Reference: https://www.htmlgoodies.com/javascript/customizing-bootstrap-modals/ -->
 
     <div class="container">      
         <!-- Modal -->
@@ -278,13 +273,13 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Ser Salud - Nomina App</h4>
+                <h2 class="modal-title title" style="font-size: 20px;">Ser Salud - Nomina App</h4>
               </div>
               <div class="modal-body">
                 <p id="modalContent">message goes here</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close <span class="glyphicon glyphicon-remove"></span></button>
               </div>
             </div>
           </div>
@@ -294,27 +289,30 @@
     <script>
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
+                var value = $(this).val().toLowerCase();
 
-            $("#informe tr").filter(function() {
-              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                $("#informe tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
-          });
 
-          $('#myModal').on('show.bs.modal', function() {
+            $("input").focus(function(e){
+                e.target.style.background = "#EAFAF1"; // Verde Claro
+            }); 
 
-            // alert('The modal is about to be shown.');
-            // remove previous timeouts if it's opened more than once.
-            //clearTimeout(myModal.data('hideInteval'));
+            $("input").blur(function(e){
+                e.target.style.background = "white";
+                $(this).val($(this).val().toUpperCase());
+            });
 
-            // hide it after 3 seconds
-            myModalTimeout = setTimeout(function() {
-                $('#myModal').modal('hide');
-            }, 3000);
+            $('#myModal').on('show.bs.modal', function() {
+                // hide it after 3 seconds
+                myModalTimeout = setTimeout(function() {
+                    $('#myModal').modal('hide');
+                }, 4000);
             });  
 
         });
     </script>
 </body>
-
 </html>

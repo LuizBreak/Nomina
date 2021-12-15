@@ -71,23 +71,16 @@ function refreshNominaReport(element) {
 
         var newRow = table.insertRow(table.length);
 
-        // let cell1 = newRow.insertCell(0);
-        // cell1.innerHTML = `<a onClick="onEdit(this)">Editar</a>
-        //                     <a onClick="onDelete(this)">Borrar</a>`;
-
-        // cell1.setAttribute("data-label", "Acción");
-
-
         let cell1 = newRow.insertCell(0);
         cell1.innerHTML = `<a onClick="callOnEdit(this)">
-                            <img src="assets/pencil.png" 
+                            <img src="./assets/img/edit.png" 
                                 class="linkActions" 
                                 alt="Editar" 
-                                style="width:25px;height:25px;"
+                                style="width:30px;height:30px;"
                                 title="Editar">
                             </a>
                             <a onClick="callOnDelete(this)">
-                            <img src="assets/remove.png" 
+                            <img src="./assets/img/remove.png" 
                                 class="linkActions" 
                                 alt="Borrar" 
                                 style="width:25px;height:25px;"
@@ -362,25 +355,6 @@ function validate() {
 
     return isValid;
 }
-
-// function SetValidationError(FieldName, ErrorlabelName) {
-
-//     if (document.getElementById(FieldName).value == "") {
-//         isValid = false;
-//         document.getElementById(ErrorlabelName).classList.remove("hide");
-//     } else {
-//         isValid = true;
-//         if (!document.getElementById(ErrorlabelName).classList.contains("hide"))
-//             document.getElementById(ErrorlabelName).classList.add("hide");
-//     }
-// }
-
-// function resetResourceReport(){
-//     var table = document.getElementById("informe").getElementsByTagName('tbody')[0];
-//     while (table.hasChildNodes()) {
-//         table.removeChild(table.lastChild);
-//     }
-// }
 
 async function fetchApiData(){
     

@@ -11,31 +11,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="responsive.table.css">
-    <!-- <script type="module" src="resourceEngine.js"></script> -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/responsive.table.css">
 
     <script type="module">
-        import * as mod from "./resourceEngine.js";
+        import * as mod from "./js/resourceEngine.js";
         window.onload = mod.createForm();
-
-
     </script>
 
     <script>
         function callOnEdit(td){   
-            import("./resourceEngine.js").then(mod => {
+            import("./js/resourceEngine.js").then(mod => {
                 mod.onEdit(td);
             });
         }
         function callOnDelete(td){   
-            import("./resourceEngine.js").then(mod => {
+            import("./js/resourceEngine.js").then(mod => {
                 mod.onDelete(td, triggerMsgBox);
             });
         }
         function callOnFormSubmit(){
-            import("./resourceEngine.js").then(mod => {
+            import("./js/resourceEngine.js").then(mod => {
                 mod.onFormSubmit(triggerMsgBox);
             });
         }
@@ -56,7 +52,6 @@
                 $("#myModal").modal("hide");
             }
         }
-            
     </script>
 
 </head>
@@ -65,7 +60,7 @@
     <table  style="width:60%; border:1px solid black;margin-left:auto;margin-right:auto;">
         <tr>
             <td style="text-align: center; vertical-align: middle;">
-                <img src="assets/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
+                <img src="./assets/img/Logo+Ser+Salud+2016+-+versiones-02.jpg" 
                 alt="SER SALUD" 
                 style="width:100px;height:100px;">
             </td>
@@ -121,16 +116,16 @@
                     <div>
                         <label>Banco</label>
                         <!-- <label class="validation-error hide" id="bancoValidationError">Este campo es obligatorio.</label> -->
-                        <input type="text" onKeyUp="this.value = this.value.toUpperCase();" name="banco" id="banco">
+                        <input type="text" name="banco" id="banco">
                     </div>
                     <div>
                         <fieldset>
 
-                            <legend><label>Tipo de Cuenta</label></legend>
+                            <legend><label style="font-size: 20px; margin-left: 10px;">Tipo de Cuenta </label></legend>
 
                             <!-- <label class="validation-error hide" id="tipoCuentaValidationError">Este campo es obligatorio.</label> -->
                             
-                            <input type="radio" name="tipoDeCuenta" id="Corriente" value="Corriente">
+                            <input type="radio" name="tipoDeCuenta" id="Corriente" value="Corriente" checked>
                             <label for="Corriente">Corriente</label>
 
                             <input type="radio" name="tipoDeCuenta" id="Ahorro" value="Ahorro">
@@ -151,7 +146,6 @@
                             <option value="PINPESO">PinPeso</option>
                             <option value="CHEQUE">Cheque</option>
                         </select>
-                            
                     </div>
                     <div>
                         <label>Fecha de Inicio</label>
@@ -172,7 +166,7 @@
                     </div>
                     <div class="content">
                         <input type="submit" value="Enviar" onclick="return callOnFormSubmit();">
-                        <input type="text" name="timestamp" id="timestamp" readonly="readonly">
+                        <input type="hidden" name="timestamp" id="timestamp" readonly="readonly">
                     </div>
                 </td>
             </tr>
@@ -180,9 +174,25 @@
     </table>
     <br>
 
+    <table  style="width:20%;">
+        <tr>
+            <td style="text-align: center; vertical-align: middle;" colspan="2">
+                <img src="./assets/img/search.png" alt="Download Recursos" title="Decargar Archivo de Datos">
+                <label>Filtro</label>
+            </td>
+        <tr>
+
+        <tr>
+
+            <td>
+                <input id="myInput" type="text" placeholder="busqueda..">
+            </td>
+        </tr>
+    </table>
+
     <table  class="table" id="informe">
 
-        <caption>Listado de Recursos</caption>
+        <!-- <caption>Listado de Recursos</caption> -->
 
         <thead>
             <tr>
@@ -208,6 +218,10 @@
 
         </tbody>
     </table>
+
+
+    <!-- Article Reference: https://www.htmlgoodies.com/javascript/customizing-bootstrap-modals/ -->
+
     <div class="container">      
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -217,13 +231,13 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Ser Salud - Nomina App</h4>
+                <h2 class="modal-title title" style="font-size: 20px;">Ser Salud - Nomina App</h4>
               </div>
               <div class="modal-body">
                 <p id="modalContent">message goes here</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close <span class="glyphicon glyphicon-remove"></span></button>
               </div>
             </div>
           </div>
@@ -233,29 +247,31 @@
     <script>
         $(document).ready(function(){
 
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                $("#informe tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
             $("input").focus(function(e){
                 e.target.style.background = "#EAFAF1";      //Verde Claro//
             }); 
 
             $("input").blur(function(e){
                 e.target.style.background = "white";
+                $(this).val($(this).val().toUpperCase());
             });
            
-          $('#myModal').on('show.bs.modal', function() {
-
-            // alert('The modal is about to be shown.');
-            // remove previous timeouts if it's opened more than once.
-            //clearTimeout(myModal.data('hideInteval'));
-
-            // hide it after 3 seconds
-            myModalTimeout = setTimeout(function() {
-                $('#myModal').modal('hide');
-            }, 3000);
+            $('#myModal').on('show.bs.modal', function() {
+                // hide it after 3 seconds
+                myModalTimeout = setTimeout(function() {
+                    $('#myModal').modal('hide');
+                }, 4000);
             });  
-
         });
     </script>
 
 </body>
-
 </html>

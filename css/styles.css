@@ -27,9 +27,9 @@ input[type=date],input[type=text], input[type=email], input[type=number], input[
     border-radius: 4px;
     box-sizing: border-box;
 }
-input[type=text], select{
+/* input[type=text], select{
     text-transform: uppercase;
-}
+} */
 input[type=radio] {
      margin: 10px 10px;
 }
@@ -37,7 +37,7 @@ input[type=radio] {
 input[type=submit]{
     width: 30%;
     background-color: white;
-    color: #b5d8d8;
+    color: #04AA6D;
     border-color: #04AA6D;
     padding: 14px 20px;
     margin: 8px 0;
@@ -53,7 +53,6 @@ input[type=submit]:hover{
 }
 /* form div.form-action-buttons{
     text-align: left;
-
 } */
 
 a{
